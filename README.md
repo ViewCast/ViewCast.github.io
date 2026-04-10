@@ -1,2 +1,2 @@
 # ViewCast.github.io
-Church Presentation Softwear
+Church Presentation Software
