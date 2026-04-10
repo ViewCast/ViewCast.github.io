@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href=https://viewcast.github.io/images/logo.png>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ViewCast | BOH</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background: #1f2937;
+                color: white;
+                overflow: hidden;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .header {
+                background: #111827;
+                padding: 12px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 2px solid #374151;
+                flex-shrink: 0;
+            }
+            .header-left {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .header h1 {
+                font-size: 18px;
+                color: #60a5fa;
+            }
+            .song-title-display {
+                font-size: 13px;
+                color: #9ca3af;
+            }
+            .slide-counter-display {
+                font-size: 13px;
+                color: #6b7280;
+            }
+
+            .status-row {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .fade-indicator {
+                font-size: 11px;
+                padding: 4px 10px;
+                background: #1f2937;
+                border: 1px solid #374151;
+                border-radius: 20px;
+                color: #9ca3af;
+            }
+            .fade-indicator.active {
+                background: #1e3a5f;
+                border-color: #2563eb;
+                color: #60a5fa;
+            }
+
+            .status-indicator {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 4px 10px;
+                background: #065f46;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+            .status-dot {
+                width: 7px;
+                height: 7px;
+                background: #10b981;
+                border-radius: 50%;
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            .clock {
+                font-size: 22px;
+                font-weight: 700;
+                color: #10b981;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .main-display {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                overflow: hidden;
+                min-height: 0;
+            }
+
+            .current-slide {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #111827;
+                border-radius: 10px;
+                padding: 30px;
+                border: 2px solid #374151;
+                min-height: 0;
+                transition: border-color 0.3s;
+                overflow: hidden;
+            }
+            .current-slide.has-content {
+                border-color: #2563eb;
+            }
+
+            .current-text {
+                font-size: clamp(1.8rem, 5vw, 3.5rem);
+                line-height: 1.5;
+                text-align: center;
+                font-weight: 700;
+                white-space: pre-line;
+                max-width: 95%;
+            }
+
+            .waiting-text {
+                font-size: 1.5rem;
+                color: #4b5563;
+                text-align: center;
+            }
+
+            .sermon-image {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                border-radius: 4px;
+            }
+
+            .media-placeholder {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            .media-placeholder .media-icon {
+                font-size: 4rem;
+            }
+            .media-placeholder .media-label {
+                font-size: 1rem;
+                color: #9ca3af;
+                text-align: center;
+            }
+            .media-placeholder .media-type-badge {
+                font-size: 0.75rem;
+                font-weight: 700;
+                letter-spacing: 1px;
+                padding: 3px 10px;
+                border-radius: 20px;
+            }
+
+            .next-panel {
+                background: #111827;
+                border-radius: 10px;
+                padding: 14px 20px;
+                border: 2px solid #374151;
+                flex-shrink: 0;
+            }
+            .next-label {
+                font-size: 11px;
+                font-weight: 700;
+                color: #6b7280;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 6px;
+            }
+            .next-text {
+                font-size: 1.3rem;
+                color: #d1d5db;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .next-text.end-of-segment {
+                color: #ef4444;
+                font-style: italic;
+                font-size: 1rem;
+            }
+            .next-text.blank-state {
+                color: #4b5563;
+                font-style: italic;
+                font-size: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="header-left">
+                <h1>ViewCast | Back Of House</h1>
+                <div class="song-title-display" id="songTitleDisplay">No content selected</div>
+                <div class="slide-counter-display" id="slideCounterDisplay"></div>
+            </div>
+            <div class="status-row">
+                <div class="fade-indicator" id="fadeIndicator">Fade: off</div>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span>Connected</span>
+                </div>
+                <div class="clock" id="clock">00:00:00</div>
+            </div>
+        </div>
+
+        <div class="main-display">
+            <div class="current-slide" id="currentSlide">
+                <div class="waiting-text" id="currentContent">Waiting for content…</div>
+            </div>
+
+            <div class="next-panel">
+                <div class="next-label">▶ Next</div>
+                <div class="next-text blank-state" id="nextContent">No upcoming content</div>
+            </div>
+        </div>
+
+        <script>
+            function updateClock() {
+                const now = new Date();
+                document.getElementById("clock").textContent = [now.getHours(), now.getMinutes(), now.getSeconds()]
+                    .map((n) => String(n).padStart(2, "0"))
+                    .join(":");
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            let currentFadeMs = 500;
+            let currentFadeEnabled = true;
+
+            function updateFadeIndicator(ms, enabled) {
+                const el = document.getElementById("fadeIndicator");
+                if (!enabled) {
+                    el.textContent = "Fade: off";
+                    el.classList.remove("active");
+                } else {
+                    el.textContent = `Fade: ${ms}ms`;
+                    el.classList.add("active");
+                }
+            }
+
+            window.addEventListener("message", (event) => {
+                const data = event.data;
+                if (!data || !data.type) return;
+
+                if (data.type === "init") {
+                    currentFadeMs = data.fadeTime !== undefined ? data.fadeTime : currentFadeMs;
+                    currentFadeEnabled = data.enableSongFade !== undefined ? data.enableSongFade : currentFadeEnabled;
+                    updateFadeIndicator(currentFadeMs, currentFadeEnabled);
+                } else if (data.type === "display") {
+                    if (data.fadeTime !== undefined) currentFadeMs = data.fadeTime;
+                    if (data.enableSongFade !== undefined) currentFadeEnabled = data.enableSongFade;
+                    updateFadeIndicator(currentFadeMs, currentFadeEnabled);
+
+                    displayContent(data.content, data.next, data.currentIndex, data.totalSlides, data.songTitle);
+                }
+            });
+
+            function displayContent(content, next, currentIndex, totalSlides, songTitle) {
+                const currentSlide = document.getElementById("currentSlide");
+                const currentContentEl = document.getElementById("currentContent");
+                const nextContentEl = document.getElementById("nextContent");
+                const songTitleDisplay = document.getElementById("songTitleDisplay");
+                const slideCounterDisplay = document.getElementById("slideCounterDisplay");
+
+                if (songTitle) {
+                    songTitleDisplay.textContent = songTitle;
+                }
+
+                if (currentIndex && totalSlides) {
+                    slideCounterDisplay.textContent = `Slide ${currentIndex} of ${totalSlides}`;
+                } else {
+                    slideCounterDisplay.textContent = "";
+                }
+
+                if (content.type === "lyrics") {
+                    currentSlide.classList.add("has-content");
+                    currentContentEl.className = "current-text";
+                    currentContentEl.textContent = content.text;
+
+                    if (next && next.type === "lyrics") {
+                        nextContentEl.className = "next-text";
+                        nextContentEl.textContent =
+                            next.text.length > 80 ? next.text.substring(0, 80) + "…" : next.text;
+                    } else {
+                        nextContentEl.className = "next-text end-of-segment";
+                        nextContentEl.textContent = "— End of segment —";
+                    }
+                } else if (content.type === "sermon") {
+                    currentSlide.classList.add("has-content");
+                    const mediaType = content.mediaType || "image";
+
+                    if (mediaType === "image") {
+                        // Show thumbnail image
+                        currentContentEl.className = "";
+                        currentContentEl.innerHTML = `<img src="${content.url}" class="sermon-image" alt="Slide">`;
+                    } else if (mediaType === "video") {
+                        currentContentEl.className = "";
+                        currentContentEl.innerHTML = `
+                    <div class="media-placeholder">
+                        <div class="media-icon">🎬</div>
+                        <div class="media-type-badge" style="background:#1e3a5f;color:#60a5fa">VIDEO</div>
+                        <div class="media-label">${content.name || "Video clip"}</div>
+                    </div>`;
+                    } else if (mediaType === "pdf") {
+                        currentContentEl.className = "";
+                        currentContentEl.innerHTML = `
+                    <div class="media-placeholder">
+                        <div class="media-icon">📄</div>
+                        <div class="media-type-badge" style="background:#2d1515;color:#f87171">PDF</div>
+                        <div class="media-label">${content.name || "PDF document"}</div>
+                    </div>`;
+                    } else if (mediaType === "pptx") {
+                        currentContentEl.className = "";
+                        currentContentEl.innerHTML = `
+                    <div class="media-placeholder">
+                        <div class="media-icon">📊</div>
+                        <div class="media-type-badge" style="background:#0a1a0f;color:#4ade80">PPTX</div>
+                        <div class="media-label">${content.name || "Presentation"}</div>
+                    </div>`;
+                    } else {
+                        currentContentEl.className = "";
+                        currentContentEl.innerHTML = `<img src="${content.url}" class="sermon-image" alt="Slide">`;
+                    }
+
+                    // Next slide preview
+                    if (next && next.type === "sermon") {
+                        nextContentEl.className = "next-text";
+                        const nextType = next.mediaType || "image";
+                        const typeIcon =
+                            nextType === "video" ? "🎬" : nextType === "pdf" ? "📄" : nextType === "pptx" ? "📊" : "🖼";
+                        const nextLabel = next.name ? ` — ${next.name}` : "";
+                        nextContentEl.textContent = `${typeIcon} Slide ${(currentIndex || 1) + 1}${nextLabel}`;
+                    } else {
+                        nextContentEl.className = "next-text end-of-segment";
+                        nextContentEl.textContent = "— Last slide —";
+                    }
+                } else if (content.type === "blank") {
+                    currentSlide.classList.remove("has-content");
+                    currentContentEl.className = "waiting-text";
+                    currentContentEl.textContent = "Screen is blank";
+                    nextContentEl.className = "next-text blank-state";
+                    nextContentEl.textContent = "No upcoming content";
+                    songTitleDisplay.textContent = "No content selected";
+                    slideCounterDisplay.textContent = "";
+                }
+            }
+
+            if (window.opener) {
+                window.opener.postMessage({ type: "bohReady" }, "*");
+            }
+        </script>
+    </body>
+</html>
