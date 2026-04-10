@@ -1,673 +1,523 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ViewCast | Church Presentation Software</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ViewCast — Help Guide</title>
+<meta name="title" content="ViewCast">
+<meta name="description" content="A church presentation software that is 100% free. Add your own songs and CCLI license. ">
+<meta name="keywords" content="Presenter, Free, Church, Presentation, Sermon, Sermon Slides, Song display, CCLI">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+<meta name="revisit-after" content="1 days">
+<meta name="author" content="Kaidaz18">
 
-    :root {
-      --ink: #0b0c0f;
-      --page: #f5f3ee;
-      --muted: #9a9690;
-      --accent: #2a5cef;
-      --accent-dim: #1a3db0;
-      --rule: rgba(0,0,0,0.1);
-      --card-bg: #ffffff;
-      --dark-bg: #0d0f14;
-      --dark-card: #13161e;
-      --dark-rule: rgba(255,255,255,0.08);
-    }
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+        <style>
+            *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+            :root{
+                --ink:#0b0c0f;--page:#f5f3ee;--muted:#7a7872;--light:#a8a49e;
+                --rule:rgba(0,0,0,0.09);--accent:#2a5cef;--accent-bg:#eef2ff;
+                --success:#059669;--success-bg:#ecfdf5;--warn:#d97706;--warn-bg:#fffbeb;
+                --danger:#dc2626;--danger-bg:#fef2f2;--sidebar-w:260px;--code-bg:#f0ede8;
+            }
+            html{scroll-behavior:smooth}
+            body{font-family:"DM Sans",sans-serif;background:var(--page);color:var(--ink);display:flex;min-height:100vh;font-size:15px;line-height:1.7}
 
-    html { scroll-behavior: smooth; }
+            /* SIDEBAR */
+            .sidebar{width:var(--sidebar-w);background:#fff;border-right:1px solid var(--rule);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+            .sidebar-head{padding:28px 24px 16px;border-bottom:1px solid var(--rule)}
+            .sidebar-logo{font-family:"DM Serif Display",serif;font-size:20px;color:var(--ink);text-decoration:none;display:block;margin-bottom:4px}
+            .sidebar-sub{font-size:11px;color:var(--light);letter-spacing:0.2px}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--page);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
+            /* SEARCH */
+            .search-wrap{padding:12px 12px 0}
+            .search-inner{position:relative}
+            .search-inner input{width:100%;padding:8px 12px 8px 34px;border:1px solid var(--rule);border-radius:8px;font-size:13px;font-family:"DM Sans",sans-serif;background:#faf9f7;color:var(--ink);outline:none;transition:border-color 0.15s}
+            .search-inner input:focus{border-color:var(--accent);background:#fff}
+            .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--light);pointer-events:none;font-size:13px}
+            .search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--light);font-size:16px;line-height:1;display:none}
+            .search-clear.visible{display:block}
+            #searchResults{display:none;padding:8px 12px;border-bottom:1px solid var(--rule)}
+            .search-result-item{display:block;padding:7px 10px;border-radius:6px;font-size:12px;color:var(--muted);cursor:pointer;text-decoration:none;transition:all 0.1s;border-left:2px solid transparent}
+            .search-result-item:hover{background:var(--accent-bg);color:var(--accent);border-left-color:var(--accent)}
+            .search-result-item .sr-section{font-size:10px;color:var(--light);display:block;margin-top:1px}
+            .search-result-item mark{background:none;color:var(--accent);font-weight:500}
+            #searchNoResults{display:none;padding:10px 22px;font-size:12px;color:var(--light)}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(245,243,238,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--rule);
-    }
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: -0.3px;
-    }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a {
-      font-size: 14px; font-weight: 400; color: var(--muted);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      background: var(--ink) !important;
-      color: var(--page) !important;
-      padding: 8px 20px;
-      border-radius: 6px;
-      font-weight: 500 !important;
-      transition: opacity 0.2s !important;
-    }
-    .nav-cta:hover { opacity: 0.8; }
+            .sidebar-nav{padding:12px 12px;flex:1}
+            .nav-group{margin-bottom:28px}
+            .nav-group-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);padding:0 12px;margin-bottom:6px;display:block}
+            .nav-link{display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:6px;font-size:13px;font-weight:400;color:var(--muted);text-decoration:none;transition:all 0.15s;cursor:pointer}
+            .nav-link:hover{background:#f5f3ee;color:var(--ink)}
+            .nav-link.active{background:var(--accent-bg);color:var(--accent);font-weight:500}
+            .nav-link .dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+            .sidebar-foot{padding:16px 24px;border-top:1px solid var(--rule)}
+            .sidebar-foot a{font-size:12px;color:var(--light);text-decoration:none;display:block;margin-bottom:4px;transition:color 0.15s}
+            .sidebar-foot a:hover{color:var(--accent)}
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 120px 48px 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+            /* MAIN */
+            .main{margin-left:var(--sidebar-w);flex:1;min-width:0;max-width:820px;padding:72px 64px 120px}
+            .doc-section{margin-bottom:80px;scroll-margin-top:40px}
+            .doc-section h1{font-family:"DM Serif Display",serif;font-size:40px;letter-spacing:-1px;line-height:1.1;margin-bottom:12px}
+            .doc-section h1 em{font-style:italic;color:var(--accent)}
+            .lead{font-size:17px;color:var(--muted);font-weight:300;max-width:560px;margin-bottom:40px;line-height:1.7}
+            .doc-section h2{font-family:"DM Serif Display",serif;font-size:26px;letter-spacing:-0.5px;margin:48px 0 16px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+            .doc-section h3{font-size:15px;font-weight:600;margin:28px 0 8px;color:var(--ink)}
+            .doc-section p{margin-bottom:16px;color:#3d3c39;font-weight:300}
+            .doc-section ol,.doc-section ul{padding-left:20px;margin-bottom:20px}
+            .doc-section li{margin-bottom:8px;color:#3d3c39;font-weight:300}
+            .doc-section li strong{font-weight:500;color:var(--ink)}
+            .doc-rule{border:none;border-top:1px solid var(--rule);margin:48px 0}
+            .page-header{margin-bottom:64px;padding-bottom:40px;border-bottom:2px solid var(--ink)}
 
-    /* Subtle grid texture */
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(var(--rule) 1px, transparent 1px),
-        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
-      pointer-events: none;
-    }
+            /* CALLOUTS */
+            .callout{padding:16px 20px;border-radius:8px;margin:24px 0;display:flex;gap:14px;align-items:flex-start}
+            .callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+            .callout-body{flex:1;font-size:14px;font-weight:300;line-height:1.6}
+            .callout-body strong{font-weight:500}
+            .callout.info{background:var(--accent-bg);border-left:3px solid var(--accent)}.callout.info .callout-body{color:#1e40af}
+            .callout.success{background:var(--success-bg);border-left:3px solid var(--success)}.callout.success .callout-body{color:#065f46}
+            .callout.warn{background:var(--warn-bg);border-left:3px solid var(--warn)}.callout.warn .callout-body{color:#92400e}
+            .callout.danger{background:var(--danger-bg);border-left:3px solid var(--danger)}.callout.danger .callout-body{color:#991b1b}
 
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 500; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--muted);
-      border: 1px solid var(--rule);
-      padding: 6px 14px; border-radius: 20px;
-      margin-bottom: 36px;
-      opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
-    }
-    .hero-eyebrow span {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent); display: inline-block;
-      animation: blink 2s ease infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+            kbd{font-family:"DM Mono",monospace;font-size:11px;font-weight:500;background:#fff;color:var(--ink);border:1px solid #d1cec9;border-bottom:2px solid #c5c1bb;border-radius:4px;padding:1px 6px;display:inline-block;line-height:1.6}
 
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(52px, 7vw, 96px);
-      line-height: 1.0;
-      letter-spacing: -2px;
-      color: var(--ink);
-      max-width: 900px;
-      opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
+            /* SHORTCUT TABLE */
+            .shortcut-grid{display:grid;grid-template-columns:auto 1fr;gap:0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin:24px 0}
+            .shortcut-row:not(:last-child) .shortcut-key,.shortcut-row:not(:last-child) .shortcut-desc{border-bottom:1px solid var(--rule)}
+            .shortcut-key{padding:12px 20px;background:#fff;display:flex;align-items:center;gap:6px}
+            .shortcut-desc{padding:12px 20px;background:#faf9f7;font-size:14px;font-weight:300;color:var(--muted);display:flex;align-items:center}
 
-    .hero-sub {
-      font-size: 18px; font-weight: 300; color: var(--muted);
-      max-width: 520px; line-height: 1.7;
-      margin-top: 24px;
-      opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards;
-    }
+            /* STEPS */
+            .steps-list{margin:24px 0}
+            .step-item{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--rule)}
+            .step-item:first-child{border-top:1px solid var(--rule)}
+            .step-num-badge{width:28px;height:28px;flex-shrink:0;background:var(--ink);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;margin-top:2px}
+            .step-content h4{font-size:14px;font-weight:500;margin-bottom:4px}
+            .step-content p{font-size:13px;color:var(--muted);margin:0;font-weight:300}
 
-    .hero-actions {
-      display: flex; align-items: center; gap: 16px;
-      margin-top: 44px;
-      opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
-    }
-    .btn-primary {
-      background: var(--ink); color: var(--page);
-      padding: 14px 32px; border-radius: 8px;
-      font-size: 15px; font-weight: 500;
-      text-decoration: none; transition: transform 0.2s, opacity 0.2s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
-    .btn-ghost {
-      color: var(--ink);
-      padding: 14px 24px; border-radius: 8px;
-      font-size: 15px; font-weight: 400;
-      text-decoration: none; transition: background 0.2s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-ghost:hover { background: rgba(0,0,0,0.06); }
+            /* DEF LIST */
+            .def-list{margin:20px 0}
+            .def-item{padding:16px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:160px 1fr;gap:24px}
+            .def-item:first-child{border-top:1px solid var(--rule)}
+            .def-term{font-size:13px;font-weight:500;color:var(--ink);padding-top:1px}
+            .def-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.6}
+            code{font-family:"DM Mono",monospace;font-size:12px;background:var(--code-bg);padding:1px 6px;border-radius:4px;color:var(--ink)}
+            .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px}
+            .pill.live{background:#dcfce7;color:#166534}
+            .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
 
-    /* ── SCREEN MOCKUP ── */
-    .mockup-wrap {
-      width: 100%; max-width: 1100px;
-      margin-top: 72px;
-      position: relative;
-      opacity: 0; animation: fadeUp 1s ease 0.7s forwards;
-    }
+            /* SEARCH HIGHLIGHT */
+            .search-highlight{background:#fef08a;border-radius:2px}
 
-    .mockup-outer {
-      background: #1a1a1a;
-      border-radius: 16px;
-      padding: 12px;
-      box-shadow:
-        0 2px 0 rgba(255,255,255,0.08) inset,
-        0 60px 120px -20px rgba(0,0,0,0.35),
-        0 0 0 1px rgba(0,0,0,0.15);
-    }
-    .mockup-screen {
-      background: var(--dark-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      aspect-ratio: 16/9;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Fake app UI inside mockup */
-    .mock-topbar {
-      background: #1a1f2e;
-      padding: 10px 16px;
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      flex-shrink: 0;
-    }
-    .mock-live-pill {
-      display: flex; align-items: center; gap: 6px;
-      background: #0a2d1a; border: 1px solid #166534;
-      border-radius: 20px; padding: 4px 10px;
-      font-size: 10px; font-weight: 600; color: #86efac;
-    }
-    .mock-live-dot {
-      width: 5px; height: 5px; background: #22c55e;
-      border-radius: 50%; animation: blink 2s infinite;
-    }
-    .mock-btns { display: flex; gap: 6px; }
-    .mock-btn {
-      padding: 4px 10px; border-radius: 5px;
-      font-size: 10px; font-weight: 600;
-      border: 1px solid rgba(255,255,255,0.1); color: #94a3b8;
-      background: #1e293b;
-    }
-    .mock-btn.green { background: #059669; color: #fff; border-color: transparent; }
-    .mock-app-body { display: flex; flex: 1; min-height: 0; }
-    .mock-sidebar {
-      width: 22%; background: #1a1f2e;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      padding: 12px 10px; display: flex; flex-direction: column; gap: 6px;
-    }
-    .mock-section-label {
-      font-size: 7px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; color: #475569;
-      padding: 4px 2px; border-bottom: 1px solid rgba(255,255,255,0.04);
-      margin-bottom: 2px;
-    }
-    .mock-item {
-      padding: 5px 8px; border-radius: 5px;
-      background: #0f1117; border: 1px solid transparent;
-      font-size: 8px; color: #94a3b8;
-    }
-    .mock-item.active { background: #1e3a5f; border-color: #3b82f6; color: #bfdbfe; }
-    .mock-main { flex: 1; background: #0a0d14; padding: 10px; }
-    .mock-slides-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;
-    }
-    .mock-slide {
-      aspect-ratio: 16/9; border-radius: 4px;
-      background: #1a1f2e; border: 1px solid rgba(255,255,255,0.06);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 5px; color: rgba(255,255,255,0.4);
-      text-align: center; padding: 4px;
-      position: relative; overflow: hidden;
-    }
-    .mock-slide.sent { border-color: #22c55e; box-shadow: 0 0 0 1px rgba(34,197,94,0.3); }
-    .mock-slide.active { border-color: #3b82f6; }
-    .mock-slide-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #1e293b, #0f1117);
-    }
-    .mock-slide span { position: relative; z-index: 1; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── SECTION DIVIDER ── */
-    .divider {
-      height: 1px; background: var(--rule);
-      margin: 0 48px;
-    }
-
-    /* ── FEATURES ── */
-    .features {
-      padding: 120px 48px;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .section-label {
-      font-size: 11px; font-weight: 500; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(36px, 4vw, 54px);
-      line-height: 1.1; letter-spacing: -1px;
-      color: var(--ink); max-width: 640px;
-      margin-bottom: 72px;
-    }
-    .section-title em { font-style: italic; color: var(--accent); }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-    .feature-card {
-      background: var(--card-bg);
-      padding: 40px 36px;
-      border: 1px solid var(--rule);
-      transition: background 0.25s;
-    }
-    .feature-card:first-child { border-radius: 12px 0 0 12px; }
-    .feature-card:last-child  { border-radius: 0 12px 12px 0; }
-    .feature-card:hover { background: #fbf9f6; }
-
-    .feature-icon {
-      width: 44px; height: 44px;
-      background: #eef2ff; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 24px; font-size: 20px;
-    }
-    .feature-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px; letter-spacing: -0.3px;
-      margin-bottom: 12px; color: var(--ink);
-    }
-    .feature-card p {
-      font-size: 14px; line-height: 1.7;
-      color: var(--muted); font-weight: 300;
-    }
-
-    /* ── DARK SECTION ── */
-    .dark-section {
-      background: var(--dark-bg);
-      padding: 120px 48px;
-      position: relative; overflow: hidden;
-    }
-    .dark-section::before {
-      content: '';
-      position: absolute;
-      top: -200px; left: 50%;
-      transform: translateX(-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(42,92,239,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .dark-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
-    }
-    .dark-text .section-label { color: #475569; }
-    .dark-text .section-title { color: #e2e8f0; max-width: 480px; }
-    .dark-text .section-title em { color: #60a5fa; }
-
-    .key-list { list-style: none; margin-top: 40px; }
-    .key-list li {
-      display: flex; align-items: flex-start; gap: 14px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--dark-rule);
-      font-size: 14px; color: #94a3b8; font-weight: 300;
-    }
-    .key-list li:first-child { border-top: 1px solid var(--dark-rule); }
-    .key-badge {
-      font-family: monospace; font-size: 11px; font-weight: 700;
-      background: #1e293b; border: 1px solid #334155;
-      color: #60a5fa; padding: 2px 8px; border-radius: 4px;
-      flex-shrink: 0; margin-top: 1px;
-    }
-
-    /* Keyboard visual */
-    .kbd-visual {
-      background: var(--dark-card);
-      border: 1px solid var(--dark-rule);
-      border-radius: 16px; padding: 36px;
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-    .kbd-key {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-bottom: 3px solid #1a1f2e;
-      border-radius: 8px;
-      padding: 16px 12px;
-      text-align: center;
-      transition: transform 0.15s, border-bottom-width 0.15s;
-      cursor: default;
-    }
-    .kbd-key:hover {
-      transform: translateY(1px);
-      border-bottom-width: 2px;
-    }
-    .kbd-key .key-letter {
-      display: block;
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px; color: #e2e8f0;
-      line-height: 1;
-    }
-    .kbd-key .key-action {
-      display: block;
-      font-size: 9px; font-weight: 500; letter-spacing: 0.5px;
-      color: #475569; margin-top: 6px;
-      text-transform: uppercase;
-    }
-    .kbd-key.accent .key-letter { color: #60a5fa; }
-    .kbd-key.green  .key-letter { color: #4ade80; }
-    .kbd-key.amber  .key-letter { color: #fbbf24; }
-
-    /* ── HOW IT WORKS ── */
-    .how {
-      padding: 120px 48px;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 72px; }
-    .step-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 64px; color: rgba(0,0,0,0.06);
-      line-height: 1; margin-bottom: 20px;
-    }
-    .step h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px; letter-spacing: -0.3px;
-      margin-bottom: 12px;
-    }
-    .step p {
-      font-size: 14px; line-height: 1.7;
-      color: var(--muted); font-weight: 300;
-    }
-    .step-line {
-      width: 40px; height: 2px;
-      background: var(--accent); margin-bottom: 24px;
-    }
-
-    /* ── CTA ── */
-    .cta-section {
-      background: var(--ink);
-      padding: 100px 48px;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .cta-section::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-    .cta-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(36px, 5vw, 64px);
-      color: #fff; letter-spacing: -1.5px;
-      line-height: 1.1; margin-bottom: 16px;
-      position: relative;
-    }
-    .cta-section h2 em { font-style: italic; color: #60a5fa; }
-    .cta-section p {
-      font-size: 16px; color: #64748b; font-weight: 300;
-      margin-bottom: 40px; position: relative;
-    }
-    .cta-section .btn-primary {
-      background: #fff; color: var(--ink);
-      font-size: 16px; padding: 16px 40px;
-      position: relative;
-    }
-    .cta-section .btn-primary:hover { opacity: 0.9; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--ink);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 32px 48px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    footer .logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 18px; color: #4b5563;
-    }
-    footer p {
-      font-size: 12px; color: #374151;
-    }
-    footer a {
-      font-size: 12px; color: #374151;
-      text-decoration: none; transition: color 0.2s;
-    }
-    footer a:hover { color: #60a5fa; }
-    .footer-links { display: flex; gap: 24px; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      .hero { padding: 100px 24px 60px; }
-      .features, .how { padding: 80px 24px; }
-      .features-grid, .steps { grid-template-columns: 1fr; gap: 2px; }
-      .feature-card:first-child { border-radius: 12px 12px 0 0; }
-      .feature-card:last-child  { border-radius: 0 0 12px 12px; }
-      .dark-section { padding: 80px 24px; }
-      .dark-inner { grid-template-columns: 1fr; gap: 48px; }
-      .cta-section { padding: 80px 24px; }
-      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
-      .divider { margin: 0 24px; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">ViewCast</a>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="help.html">Help guide</a>
-      <a href="https://viewcast.github.io/app" class="nav-cta">Open App →</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-eyebrow"><span></span> Church Presentation Software</div>
-    <h1>Present with<br><em>confidence</em><br>every Sunday.</h1>
-    <p class="hero-sub">Lyrics, media, and sermon slides — all in one place. Built for church tech teams who need something that just works.</p>
-    <div class="hero-actions">
-      <a href="https://viewcast.github.io/app" class="btn-primary">Get started free →</a>
-      <a href="help.html" class="btn-ghost">Read the help guide</a>
-    </div>
-
-    <!-- MOCKUP -->
-    <div class="mockup-wrap">
-      <div class="mockup-outer">
-        <div class="mockup-screen">
-          <div class="mock-topbar">
-            <div class="mock-live-pill">
-              <span class="mock-live-dot"></span>
-              Live
+            @media(max-width:860px){.sidebar{display:none}.main{margin-left:0;padding:40px 24px 80px}}
+        </style>
+    </head>
+    <body>
+        <aside class="sidebar">
+            <div class="sidebar-head">
+                <a href="index.html" class="sidebar-logo">ViewCast</a>
+                <span class="sidebar-sub">Help Guide</span>
             </div>
-            <div class="mock-btns">
-              <span class="mock-btn">BG</span>
-              <span class="mock-btn">Logo</span>
-              <span class="mock-btn">Black</span>
-              <span class="mock-btn green">Stop</span>
+
+            <!-- SEARCH BAR -->
+            <div class="search-wrap">
+                <div class="search-inner">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" id="searchInput" placeholder="Search the docs…" autocomplete="off" oninput="handleSearch(this.value)" />
+                    <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Clear search">×</button>
+                </div>
             </div>
-          </div>
-          <div class="mock-app-body">
-            <div class="mock-sidebar">
-              <div class="mock-section-label">Playlists</div>
-              <div class="mock-item active">Morning Service</div>
-              <div class="mock-item">Evening Worship</div>
-              <div class="mock-section-label" style="margin-top:8px">Segments</div>
-              <div class="mock-item active">🎵 Amazing Grace</div>
-              <div class="mock-item">🎵 How Great</div>
-              <div class="mock-item">📽 Sermon</div>
+            <div id="searchResults"></div>
+            <div id="searchNoResults">No results found</div>
+
+            <nav class="sidebar-nav" id="sidebarNav">
+                <div class="nav-group">
+                    <span class="nav-group-label">Getting started</span>
+                    <a class="nav-link active" onclick="scrollToSection('intro')"><span class="dot"></span>Introduction</a>
+                    <a class="nav-link" onclick="scrollToSection('setup')"><span class="dot"></span>Account setup</a>
+                    <a class="nav-link" onclick="scrollToSection('firebase')"><span class="dot"></span>Firebase setup</a>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Your content</span>
+                    <a class="nav-link" onclick="scrollToSection('songs')"><span class="dot"></span>Songs</a>
+                    <a class="nav-link" onclick="scrollToSection('media')"><span class="dot"></span>Media &amp; sermons</a>
+                    <a class="nav-link" onclick="scrollToSection('playlists')"><span class="dot"></span>Playlists</a>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Running a service</span>
+                    <a class="nav-link" onclick="scrollToSection('golive')"><span class="dot"></span>Going live</a>
+                    <a class="nav-link" onclick="scrollToSection('screens')"><span class="dot"></span>FOH &amp; BOH screens</a>
+                    <a class="nav-link" onclick="scrollToSection('shortcuts')"><span class="dot"></span>Keyboard shortcuts</a>
+                    <a class="nav-link" onclick="scrollToSection('controls')"><span class="dot"></span>On-screen controls</a>
+                </div>
+                <div class="nav-group">
+                    <span class="nav-group-label">Reference</span>
+                    <a class="nav-link" onclick="scrollToSection('ccli')"><span class="dot"></span>CCLI licenses</a>
+                    <a class="nav-link" onclick="scrollToSection('troubleshoot')"><span class="dot"></span>Troubleshooting</a>
+                </div>
+            </nav>
+            <div class="sidebar-foot">
+                <a href="tutorial.html">🎓 Interactive Tutorial</a>
+                <a href="index.html">← Back to home</a>
+                <a href="https://viewcast.github.io/app">Open the app</a>
             </div>
-            <div class="mock-main">
-              <div class="mock-slides-grid">
-                <div class="mock-slide sent"><div class="mock-slide-bg"></div><span>Amazing grace<br/>how sweet<br/>the sound</span></div>
-                <div class="mock-slide active"><div class="mock-slide-bg"></div><span>That saved<br/>a wretch<br/>like me</span></div>
-                <div class="mock-slide"><div class="mock-slide-bg"></div><span>I once was<br/>lost but now<br/>am found</span></div>
-                <div class="mock-slide"><div class="mock-slide-bg"></div><span>Was blind<br/>but now<br/>I see</span></div>
-                <div class="mock-slide"><div class="mock-slide-bg"></div><span>Through many<br/>dangers toils<br/>and snares</span></div>
-                <div class="mock-slide"><div class="mock-slide-bg"></div><span>I have<br/>already<br/>come</span></div>
-                <div class="mock-slide"><div class="mock-slide-bg"></div><span>'Tis grace<br/>that brought<br/>me safe</span></div>
-                <div class="mock-slide"><div class="mock-slide-bg"></div><span>And grace<br/>will lead<br/>me home</span></div>
-              </div>
+        </aside>
+
+        <main class="main" id="mainContent">
+            <div class="doc-section" id="intro">
+                <div class="page-header">
+                    <h1>ViewCast<br /><em>Help Guide</em></h1>
+                    <p class="lead">Everything you need to know — from first login to running a full Sunday service with confidence.</p>
+                </div>
+                <h2>What is ViewCast?</h2>
+                <p>ViewCast is browser-based church presentation software. It lets your tech team control what appears on the front-of-house screen (what the congregation sees) from a separate operator screen, in real time, using only a keyboard.</p>
+                <p>It handles three types of content:</p>
+                <div class="def-list">
+                    <div class="def-item"><span class="def-term">Songs</span><span class="def-desc">Lyrics split into parts (Verse, Chorus, Bridge…) and individual slides. Searchable by title or author.</span></div>
+                    <div class="def-item"><span class="def-term">Media / Sermons</span><span class="def-desc">Images, videos, PDFs, and PowerPoint slides. Used for sermon content or announcements.</span></div>
+                    <div class="def-item"><span class="def-term">Playlists</span><span class="def-desc">A service order — an ordered list of song and media segments. You build one before each service.</span></div>
+                </div>
+                <div class="callout info">
+                    <span class="callout-icon">ℹ️</span>
+                    <div class="callout-body"><strong>No installation required.</strong> ViewCast runs entirely in your browser. It works on Windows, Mac, and Linux — any computer with Chrome or a modern browser.</div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <div class="divider"></div>
+            <hr class="doc-rule" />
 
-  <!-- FEATURES -->
-  <section class="features" id="features">
-    <div class="section-label">Built for Sunday mornings</div>
-    <h2 class="section-title">Everything your<br>tech team needs,<br><em>nothing extra.</em></h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🎵</div>
-        <h3>Song Library</h3>
-        <p>Store your full song library with multiple parts, slides, and CCLI license info. Search and add to playlists in seconds.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🖥</div>
-        <h3>Dual Screen Control</h3>
-        <p>Separate Front of House and Back of House windows. The operator sees what's coming next while the congregation only sees what's sent.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📽</div>
-        <h3>Media & Sermons</h3>
-        <p>Images, videos, PDFs, and PowerPoint slides — all in one media library. Add sermon slide decks to your playlist alongside songs.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">☁️</div>
-        <h3>Cloud Synced</h3>
-        <p>Your playlists and songs live in the cloud. Log in on any computer and your entire service is ready to go.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⌨️</div>
-        <h3>Keyboard Driven</h3>
-        <p>Navigate slides, toggle backgrounds, send blackouts, and control logos — all without touching the mouse during service.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>Instant Setup</h3>
-        <p>No installation. Open a browser, log in, connect your Firebase project once, and you're live. Works on any OS.</p>
-      </div>
-    </div>
-  </section>
+            <div class="doc-section" id="setup">
+                <h2>Account setup</h2>
+                <p>You need two things to use ViewCast: a ViewCast account (your login), and a Firebase project (where your data lives).</p>
+                <h3>Creating your account</h3>
+                <div class="steps-list">
+                    <div class="step-item"><div class="step-num-badge">1</div><div class="step-content"><h4>Go to the app</h4><p>Visit <a href="https://viewcast.github.io/app" style="color:var(--accent)">viewcast.github.io/app</a>. You'll see the login screen.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">2</div><div class="step-content"><h4>Click "Register"</h4><p>Enter your email and choose a password (minimum 6 characters). Click "Create Account".</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">3</div><div class="step-content"><h4>Enter your Firebase config</h4><p>After registering, you'll be prompted to add your Firebase project details. This only needs to be done once — it's saved to your account automatically.</p></div></div>
+                </div>
+                <div class="callout success">
+                    <span class="callout-icon">✅</span>
+                    <div class="callout-body"><strong>Your config is saved to your account.</strong> Once you enter it on one device, it syncs automatically — you won't need to enter it again on another computer.</div>
+                </div>
+            </div>
 
-  <div class="divider"></div>
+            <hr class="doc-rule" />
 
-  <!-- DARK SECTION — KEYBOARD SHORTCUTS -->
-  <section class="dark-section">
-    <div class="dark-inner">
-      <div class="dark-text">
-        <div class="section-label">Control at your fingertips</div>
-        <h2 class="section-title">Run the whole<br>service from<br><em>one keyboard.</em></h2>
-        <ul class="key-list">
-          <li><span class="key-badge">Space</span> Send the focused slide to screen</li>
-          <li><span class="key-badge">← →</span> Navigate between slides</li>
-          <li><span class="key-badge">T</span> Toggle background — show or restore last slide</li>
-          <li><span class="key-badge">B</span> Hard blackout — instantly cut to black</li>
-          <li><span class="key-badge">L</span> Toggle church logo overlay</li>
-        </ul>
-      </div>
-      <div class="kbd-visual">
-        <div class="kbd-key accent">
-          <span class="key-letter">←</span>
-          <span class="key-action">Prev slide</span>
-        </div>
-        <div class="kbd-key green">
-          <span class="key-letter">␣</span>
-          <span class="key-action">Send</span>
-        </div>
-        <div class="kbd-key accent">
-          <span class="key-letter">→</span>
-          <span class="key-action">Next slide</span>
-        </div>
-        <div class="kbd-key amber">
-          <span class="key-letter">T</span>
-          <span class="key-action">Background</span>
-        </div>
-        <div class="kbd-key" style="background:#1a0a0a;border-color:#2d1515;">
-          <span class="key-letter" style="color:#f87171;">B</span>
-          <span class="key-action">Blackout</span>
-        </div>
-        <div class="kbd-key">
-          <span class="key-letter">L</span>
-          <span class="key-action">Logo</span>
-        </div>
-      </div>
-    </div>
-  </section>
+            <div class="doc-section" id="firebase">
+                <h2>Firebase setup</h2>
+                <p>ViewCast uses your own Firebase project to store songs, playlists, and media. This means your data belongs to you and stays in your own Google account.</p>
+                <h3>Creating a Firebase project</h3>
+                <div class="steps-list">
+                    <div class="step-item"><div class="step-num-badge">1</div><div class="step-content"><h4>Go to the Firebase Console</h4><p>Visit <a href="https://console.firebase.google.com" target="_blank" style="color:var(--accent)">console.firebase.google.com</a> and sign in with a Google account.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">2</div><div class="step-content"><h4>Create a new project</h4><p>Click "Add project", give it a name (e.g. "My Church"), and follow the steps. You can disable Google Analytics if you like.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">3</div><div class="step-content"><h4>Add a web app</h4><p>In your project, click the web icon (&lt;/&gt;) to add a web app. Give it a nickname. You don't need Firebase Hosting.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">4</div><div class="step-content"><h4>Copy your config</h4><p>After registering the app, Firebase shows your config object. You'll need: <code>apiKey</code>, <code>authDomain</code>, <code>projectId</code>, <code>storageBucket</code>, <code>messagingSenderId</code>, <code>appId</code>.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">5</div><div class="step-content"><h4>Enable Realtime Database</h4><p>In your project sidebar, go to Build → Realtime Database → Create database. Choose a location and start in test mode. Copy the database URL.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">6</div><div class="step-content"><h4>Enable Firestore</h4><p>In the sidebar, go to Build → Firestore Database → Create database. Start in test mode. This is where songs and media are stored.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">7</div><div class="step-content"><h4>Paste your config into ViewCast</h4><p>Back in the ViewCast app, enter each field from your Firebase config. Include the Realtime Database URL at the bottom. Click "Save &amp; Connect".</p></div></div>
+                </div>
+                <div class="callout warn">
+                    <span class="callout-icon">⚠️</span>
+                    <div class="callout-body"><strong>Test mode expires after 30 days.</strong> After that, update your Firestore and Realtime Database rules to allow reads/writes for authenticated users.</div>
+                </div>
+            </div>
 
-  <div class="divider"></div>
+            <hr class="doc-rule" />
 
-  <!-- HOW IT WORKS -->
-  <section class="how" id="how">
-    <div class="section-label">Getting started</div>
-    <h2 class="section-title">Up and running<br>in <em>three steps.</em></h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-line"></div>
-        <h3>Create your account</h3>
-        <p>Sign up with an email and password. Then connect your own Firebase project — your data stays in your project, not ours.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-line"></div>
-        <h3>Build your library</h3>
-        <p>Add songs with lyrics split into parts and slides. Upload media items for sermon content. Everything is searchable and reusable week to week.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-line"></div>
-        <h3>Go live on Sunday</h3>
-        <p>Build your service playlist, open the FOH and BOH screens, click Go Live, and use your keyboard to control what the congregation sees in real time.</p>
-      </div>
-    </div>
-  </section>
+            <div class="doc-section" id="songs">
+                <h2>Songs</h2>
+                <p>Songs are the core of ViewCast. Each song is made up of <strong>parts</strong> (Verse 1, Chorus, Bridge, etc.), and each part contains one or more <strong>slides</strong> of lyrics.</p>
+                <h3>Adding songs</h3>
+                <p>Songs are managed in the Admin Area. Click <strong>Admin Area</strong> in the sidebar of the main app, then navigate to the Songs section.</p>
+                <p>For each song, you'll set:</p>
+                <ul>
+                    <li><strong>Title &amp; Author</strong> — used for searching</li>
+                    <li><strong>CCLI Number</strong> — displayed briefly on screen when the song is first shown</li>
+                    <li><strong>Parts</strong> — add as many as needed (Verse 1, Chorus, Bridge, Outro…)</li>
+                    <li><strong>Slides per part</strong> — split long sections into multiple slides so text is readable on screen</li>
+                </ul>
+                <h3>Searching for songs</h3>
+                <p>When adding a segment to a playlist, click the <strong>+</strong> next to "Segments" and search by title or author. Results are ranked by match quality — exact title matches appear first.</p>
+                <div class="callout info">
+                    <span class="callout-icon">💡</span>
+                    <div class="callout-body"><strong>Tip:</strong> Keep each slide to 2–4 lines of lyrics maximum. Text that fits comfortably in the preview card will be readable from the back row.</div>
+                </div>
+            </div>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <h2>Ready for<br><em>this Sunday?</em></h2>
-    <p>Free to use. No installation. Works in any browser.</p>
-    <a href="https://viewcast.github.io/app" class="btn-primary">Open ViewCast →</a>
-  </section>
+            <hr class="doc-rule" />
 
-  <!-- FOOTER -->
-  <footer>
-    <span class="logo">ViewCast</span>
-    <div class="footer-links">
-      <a href="https://viewcast.github.io/help">Help guide</a>
-      <a href="https://viewcast.github.io/app/admin">Admin</a>
-      <a href="https://viewcast.github.io/app">App</a>
-    </div>
-    <p>Built for churches.</p>
-  </footer>
+            <div class="doc-section" id="media">
+                <h2>Media &amp; Sermons</h2>
+                <p>Media items (called "Sermons" in the database) are collections of slides for non-lyric content. Each item can mix different file types in one deck.</p>
+                <h3>Supported types</h3>
+                <div class="def-list">
+                    <div class="def-item"><span class="def-term">🖼 Image</span><span class="def-desc">JPG, PNG, WebP, GIF. Displayed full-screen on the FOH. Good for sermon point slides, announcements, scripture.</span></div>
+                    <div class="def-item"><span class="def-term">🎬 Video</span><span class="def-desc">MP4, WebM. Plays with controls on the FOH. BOH shows an icon placeholder.</span></div>
+                    <div class="def-item"><span class="def-term">📄 PDF</span><span class="def-desc">Displayed via iframe on the FOH. Best for single-page slides.</span></div>
+                    <div class="def-item"><span class="def-term">📊 PPTX</span><span class="def-desc">Displayed using Google Docs viewer. Requires the file to be publicly accessible via URL.</span></div>
+                </div>
+                <h3>Adding media</h3>
+                <p>In the Admin Area, go to the Media section. Create a new item with a title, then add slides one by one — each slide is a URL pointing to your hosted file. You can use Cloudinary, Google Drive (direct link), or any public URL.</p>
+                <div class="callout info">
+                    <span class="callout-icon">💡</span>
+                    <div class="callout-body"><strong>Cloudinary tip:</strong> ViewCast integrates with Cloudinary for easy uploads. Configure your Cloudinary credentials in Admin → Settings to get an upload button directly in the media editor.</div>
+                </div>
+            </div>
 
-</body>
+            <hr class="doc-rule" />
+
+            <div class="doc-section" id="playlists">
+                <h2>Playlists</h2>
+                <p>A playlist is your service order for the day — an ordered list of songs and media items you'll present in sequence.</p>
+                <h3>Creating a playlist</h3>
+                <p>Click the <strong>+</strong> button next to "Playlists" in the sidebar. Give it a name (e.g. "Sunday 15 June — Morning"). Click "Add Playlist".</p>
+                <h3>Adding segments</h3>
+                <p>With a playlist selected, click the <strong>+</strong> next to "Segments". Choose a type:</p>
+                <ul>
+                    <li><strong>Song</strong> — search your song library and select one</li>
+                    <li><strong>Media</strong> — choose from your media/sermon items</li>
+                </ul>
+                <p>The segment appears in the sidebar. Click it to load the slides into the main panel.</p>
+                <h3>Reordering and removing</h3>
+                <p>Click the <strong>×</strong> on any segment to remove it. To reorder, remove and re-add in the desired order.</p>
+                <div class="callout success">
+                    <span class="callout-icon">✅</span>
+                    <div class="callout-body"><strong>Playlists save automatically.</strong> Changes sync to the cloud in real time — no Save button needed.</div>
+                </div>
+            </div>
+
+            <hr class="doc-rule" />
+
+            <div class="doc-section" id="golive">
+                <h2>Going live</h2>
+                <p>When you're ready to start presenting, click <strong>Go Live</strong> in the top bar.</p>
+                <h3>First time setup</h3>
+                <div class="steps-list">
+                    <div class="step-item"><div class="step-num-badge">1</div><div class="step-content"><h4>Open the FOH screen</h4><p>Click "Open FOH Screen" in the Go Live modal. A new window opens — drag it to your projector or second display and press F11 to fullscreen it.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">2</div><div class="step-content"><h4>Optionally open the BOH screen</h4><p>Click "Open BOH Screen". This is the monitor the presenter or worship leader uses — it shows current slide, what's coming next, and the clock.</p></div></div>
+                    <div class="step-item"><div class="step-num-badge">3</div><div class="step-content"><h4>Click "Complete Setup &amp; Go Live"</h4><p>The status indicator turns green and shows <span class="pill live"><span class="pill-dot"></span>Live</span>. The control buttons (BG, Logo, Black) appear in the top bar.</p></div></div>
+                </div>
+                <h3>Already open windows</h3>
+                <p>If your FOH and BOH windows are already open from a previous session, clicking <strong>Go Live</strong> will skip the modal and immediately go live — no need to re-open the windows.</p>
+                <h3>Stopping the presentation</h3>
+                <p>Click <strong>Stop</strong> in the top bar. This closes the FOH and BOH windows and returns you to offline mode.</p>
+                <div class="callout warn">
+                    <span class="callout-icon">⚠️</span>
+                    <div class="callout-body"><strong>Keep the control window focused.</strong> Keyboard shortcuts only work when the operator window (or the slides panel) has keyboard focus. Click anywhere in the main slide area to restore focus if shortcuts stop working.</div>
+                </div>
+            </div>
+
+            <hr class="doc-rule" />
+
+            <div class="doc-section" id="screens">
+                <h2>FOH &amp; BOH screens</h2>
+                <h3>Front of House (FOH)</h3>
+                <p>The FOH screen is what the congregation sees projected on screen. It displays lyric slides, media slides, the church logo overlay, and starts blank — nothing appears until you explicitly send a slide.</p>
+                <h3>Back of House (BOH)</h3>
+                <p>The BOH screen is the operator/presenter confidence monitor. It shows the current slide content, the next slide preview, the current song title and slide number, a live clock, and the current fade setting.</p>
+                <div class="callout info">
+                    <span class="callout-icon">💡</span>
+                    <div class="callout-body"><strong>BOH is optional.</strong> You can run ViewCast with only the FOH window open. The BOH is most useful when you have a worship leader or pastor who needs to see what's coming next.</div>
+                </div>
+            </div>
+
+            <hr class="doc-rule" />
+
+            <div class="doc-section" id="shortcuts">
+                <h2>Keyboard shortcuts</h2>
+                <p>All shortcuts work when the slides panel has focus. Click anywhere in the main slide area to make sure it's focused.</p>
+                <div class="shortcut-grid">
+                    <div class="shortcut-row"><div class="shortcut-key"><kbd>Space</kbd> or <kbd>Enter</kbd></div><div class="shortcut-desc">Send the focused (highlighted) slide to the FOH screen</div></div>
+                    <div class="shortcut-row"><div class="shortcut-key"><kbd>→</kbd> or <kbd>↓</kbd></div><div class="shortcut-desc">Move focus to the next slide</div></div>
+                    <div class="shortcut-row"><div class="shortcut-key"><kbd>←</kbd> or <kbd>↑</kbd></div><div class="shortcut-desc">Move focus to the previous slide</div></div>
+                    <div class="shortcut-row"><div class="shortcut-key"><kbd>T</kbd></div><div class="shortcut-desc">Toggle background — first press shows background only (hides lyrics), second press restores the last sent slide</div></div>
+                    <div class="shortcut-row"><div class="shortcut-key"><kbd>B</kbd></div><div class="shortcut-desc">Blackout — cuts the FOH to pure black. Press again to lift the blackout</div></div>
+                    <div class="shortcut-row"><div class="shortcut-key"><kbd>L</kbd></div><div class="shortcut-desc">Toggle the church logo overlay on/off</div></div>
+                </div>
+                <div class="callout info">
+                    <span class="callout-icon">💡</span>
+                    <div class="callout-body"><strong>The difference between T and B:</strong> <kbd>T</kbd> (background) shows your configured background image — useful for worship moments between songs. <kbd>B</kbd> (blackout) cuts to hard black — useful for service transitions or technical pauses. Only <kbd>B</kbd> is truly invisible.</div>
+                </div>
+            </div>
+
+            <hr class="doc-rule" />
+
+            <div class="doc-section" id="controls">
+                <h2>On-screen controls</h2>
+                <p>When live, the top bar shows additional controls alongside the keyboard shortcuts.</p>
+                <div class="def-list">
+                    <div class="def-item"><span class="def-term">BG button</span><span class="def-desc">Same as <kbd>T</kbd> — toggles between background-only view and the last sent slide.</span></div>
+                    <div class="def-item"><span class="def-term">Logo button</span><span class="def-desc">Same as <kbd>L</kbd> — toggles the logo overlay. The logo is configured in Admin → Settings.</span></div>
+                    <div class="def-item"><span class="def-term">Black button</span><span class="def-desc">Same as <kbd>B</kbd> — hard blackout toggle.</span></div>
+                    <div class="def-item"><span class="def-term">Fade (ms)</span><span class="def-desc">Controls the crossfade duration in milliseconds when transitioning between slides. 0 = instant cut. 500 = half-second fade.</span></div>
+                    <div class="def-item"><span class="def-term">Song Fade checkbox</span><span class="def-desc">When checked, the fade time applies to lyric slides. Uncheck for instant cuts during songs while keeping fade for media transitions.</span></div>
+                </div>
+            </div>
+
+            <hr class="doc-rule" />
+
+            <div class="doc-section" id="ccli">
+                <h2>CCLI licenses</h2>
+                <p>If your songs have a CCLI license number stored, ViewCast will display it briefly on screen the first time each song is shown in a service.</p>
+                <h3>How it works</h3>
+                <ul>
+                    <li>The license text appears in the bottom-right corner of the FOH screen</li>
+                    <li>It fades in when the first slide of a song is sent</li>
+                    <li>It automatically fades out after <strong>6 seconds</strong>, regardless of whether you change slides</li>
+                    <li>It only appears once per song per session — navigating to a different slide in the same song will not re-trigger it</li>
+                    <li>It is a global overlay — it does not "belong" to any specific slide</li>
+                </ul>
+                <h3>Adding CCLI info to songs</h3>
+                <p>In the Admin Area → Songs, edit any song and add the license field. Typically this is your church's CCLI license number plus the song's CCLI song number, e.g.: <code>CCLI Licence #123456 | Song #7654321</code></p>
+            </div>
+
+            <hr class="doc-rule" />
+
+            <div class="doc-section" id="troubleshoot">
+                <h2>Troubleshooting</h2>
+                <h3>Keyboard shortcuts aren't working</h3>
+                <p>The slides panel needs keyboard focus. Click anywhere in the main slide area (the dark grid). Shortcuts won't work if an input field, dropdown, or modal has focus.</p>
+                <h3>The FOH screen shows nothing</h3>
+                <p>The FOH starts blank by default — nothing shows until you send a slide. Make sure you've clicked Go Live and the status indicator shows <span class="pill live"><span class="pill-dot"></span>Live</span>. Then click a slide card or press <kbd>Space</kbd>.</p>
+                <h3>Slides look different on the FOH than in the preview</h3>
+                <p>The preview cards in the control window are small scaled-down versions. Typography settings (font size, weight, colour) are only applied correctly on the FOH. Check your typography settings in Admin → Settings.</p>
+                <h3>The background doesn't appear on the FOH</h3>
+                <p>Make sure a background image URL is set in Admin → Settings (or under your user profile). The background is applied when the app initialises — if you set it after going live, try stopping and restarting.</p>
+                <h3>"Song not found" error</h3>
+                <p>The song ID stored in the segment no longer matches a song in the database. This can happen if the song was deleted. Remove the segment and re-add it by searching for the song again.</p>
+                <h3>Media item shows "no slides" error</h3>
+                <p>The media item exists in the database but has no slides added to it. Go to Admin → Media, find the item, and add at least one slide URL.</p>
+                <h3>Firebase permission errors on login</h3>
+                <p>Your Firebase test mode rules have likely expired (they last 30 days). Go to the Firebase Console → Firestore/Realtime Database → Rules and update the rules to allow authenticated access:</p>
+                <p>For Firestore: <code>allow read, write: if request.auth != null;</code></p>
+                <p>For Realtime Database: <code>"rules": { ".read": "auth != null", ".write": "auth != null" }</code></p>
+                <div class="callout danger">
+                    <span class="callout-icon">🔒</span>
+                    <div class="callout-body"><strong>Security note:</strong> The rules above allow any authenticated user to read and write. For a production setup, restrict rules to only your church's users. Consult the Firebase security rules documentation for more.</div>
+                </div>
+                <h3>The FOH window didn't go fullscreen automatically</h3>
+                <p>Browsers require a user interaction before allowing fullscreen. If the auto-fullscreen didn't trigger, click inside the FOH window and press <kbd>F11</kbd> (Windows/Linux) or use View → Enter Full Screen on Mac.</p>
+                <h3>Stop button didn't close the display windows</h3>
+                <p>Some browsers block popup window management. If the windows don't close automatically when you click Stop, close them manually by pressing <kbd>F11</kbd> to exit fullscreen first, then close the tab/window.</p>
+            </div>
+        </main>
+
+        <script>
+        const searchIndex = [
+            {id:"intro",section:"Introduction",title:"What is ViewCast?",text:"browser-based church presentation software tech team control front-of-house screen congregation operator screen keyboard songs media playlists no installation chrome"},
+            {id:"setup",section:"Account setup",title:"Creating your account",text:"register email password login viewcast account firebase config sync devices create account"},
+            {id:"firebase",section:"Firebase setup",title:"Setting up Firebase",text:"firebase project firestore realtime database apiKey authDomain projectId storageBucket google console web app config test mode rules 30 days"},
+            {id:"songs",section:"Songs",title:"Adding and managing songs",text:"songs parts verse chorus bridge slides lyrics admin area title author ccli number search 2 4 lines readable"},
+            {id:"media",section:"Media & Sermons",title:"Media types and uploading",text:"media sermons images jpg png video mp4 pdf pptx powerpoint cloudinary upload public url full screen"},
+            {id:"playlists",section:"Playlists",title:"Building a playlist",text:"playlist service order segments song media add remove reorder automatic save cloud sync morning service"},
+            {id:"golive",section:"Going live",title:"Starting a presentation",text:"go live foh boh screen open modal complete setup status live indicator stop presentation projector second display fullscreen f11"},
+            {id:"screens",section:"FOH & BOH screens",title:"FOH and BOH explained",text:"front of house congregation projector lyric slides media blank back of house confidence monitor current slide next slide clock fade"},
+            {id:"shortcuts",section:"Keyboard shortcuts",title:"Keyboard shortcuts reference",text:"space enter send slide arrow navigate right left up down T background toggle B blackout L logo keyboard focus"},
+            {id:"controls",section:"On-screen controls",title:"Control buttons and fade",text:"bg button logo black button fade ms milliseconds crossfade song fade checkbox toggle background blackout"},
+            {id:"ccli",section:"CCLI licenses",title:"CCLI license display",text:"ccli license number song bottom right fades 6 seconds once per song per session global overlay admin songs edit"},
+            {id:"troubleshoot",section:"Troubleshooting",title:"Common issues and fixes",text:"keyboard shortcuts not working foh screen nothing firebase permission error background not appearing song not found no slides stop button fullscreen f11"},
+        ];
+
+        function handleSearch(val) {
+            const q = val.trim().toLowerCase();
+            const clear = document.getElementById("searchClear");
+            const results = document.getElementById("searchResults");
+            const noRes = document.getElementById("searchNoResults");
+            const nav = document.getElementById("sidebarNav");
+            clear.classList.toggle("visible", q.length > 0);
+            if (!q) {
+                results.style.display = "none";
+                noRes.style.display = "none";
+                nav.style.display = "block";
+                clearHighlights();
+                return;
+            }
+            nav.style.display = "none";
+            const matches = searchIndex.filter(item =>
+                item.title.toLowerCase().includes(q) ||
+                item.text.toLowerCase().includes(q) ||
+                item.section.toLowerCase().includes(q)
+            );
+            if (!matches.length) {
+                results.style.display = "none";
+                noRes.style.display = "block";
+                return;
+            }
+            noRes.style.display = "none";
+            results.style.display = "block";
+            results.innerHTML = matches.map(m => {
+                const hi = m.title.replace(new RegExp(`(${escRe(q)})`, "gi"), "<mark>$1</mark>");
+                return `<a class="search-result-item" onclick="goToResult('${m.id}','${q}')">${hi}<span class="sr-section">${m.section}</span></a>`;
+            }).join("");
+        }
+
+        function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+        function goToResult(id, q) {
+            clearSearch();
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+                updateActiveNav(id);
+                setTimeout(() => highlightText(el, q), 400);
+            }
+        }
+
+        function highlightText(section, q) {
+            clearHighlights();
+            const walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT, null, false);
+            const re = new RegExp(`(${escRe(q)})`, "gi");
+            const nodes = [];
+            let node;
+            while (node = walker.nextNode()) { if (re.test(node.nodeValue)) nodes.push(node); }
+            nodes.forEach(n => {
+                const span = document.createElement("span");
+                span.innerHTML = n.nodeValue.replace(re, '<mark class="search-highlight">$1</mark>');
+                n.parentNode.replaceChild(span, n);
+            });
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll("mark.search-highlight").forEach(m => {
+                const t = document.createTextNode(m.textContent);
+                m.parentNode.replaceChild(t, m);
+            });
+            document.querySelectorAll("span").forEach(s => {
+                if (s.childNodes.length === 1 && s.firstChild.nodeType === 3 && !s.className) {
+                    s.parentNode.replaceChild(s.firstChild, s);
+                }
+            });
+        }
+
+        function clearSearch() {
+            const input = document.getElementById("searchInput");
+            input.value = "";
+            handleSearch("");
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+            updateActiveNav(id);
+        }
+
+        function updateActiveNav(id) {
+            document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+            document.querySelectorAll(".nav-link").forEach(l => {
+                if (l.getAttribute("onclick")?.includes(`'${id}'`)) l.classList.add("active");
+            });
+        }
+
+        const sections = document.querySelectorAll(".doc-section");
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) updateActiveNav(entry.target.id);
+            });
+        }, { rootMargin: "-20% 0px -70% 0px" });
+        sections.forEach(s => observer.observe(s));
+        </script>
+    </body>
 </html>
