@@ -1,975 +1,1972 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Primary Meta Tags -->
-<title>ViewCast | Presentation Software</title>
-<meta name="title" content="ViewCast | Presentation Software" />
-<meta name="description" content="A 100% free solution to current apps like presenter and PowerPoint. This website allows you to add songs, sermons and more!" />
+  <head>
+    <meta charset="UTF-8" />
+   <link rel="icon" href=https://viewcast.github.io/images/logo.png>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ViewCast | Screen Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f3ee;
+        color: #0b0c0f;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .login-screen {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        min-height: 100vh;
+        background: #f5f3ee;
+        overflow-y: auto;
+        padding: 40px 20px;
+      }
+      .login-box {
+        background: #ffffff;
+        padding: 44px 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        max-width: 440px;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        margin: auto;
+      }
+      .login-box h1 {
+        font-family: 'DM Serif Display', serif;
+        color: #2a5cef;
+        margin-bottom: 6px;
+        font-size: 30px;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+      }
+      .login-box p {
+        color: #6b7280;
+        margin-bottom: 28px;
+        font-size: 14px;
+        font-weight: 300;
+      }
+      .form-group {
+        margin-bottom: 18px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: 500;
+        font-size: 13px;
+        color: #374151;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #ffffff;
+        color: #0b0c0f;
+        transition: border-color 0.2s;
+        font-family: "DM Sans", sans-serif;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #2a5cef;
+      }
+      .error-message {
+        background: #fef2f2;
+        border: 1px solid #fca5a5;
+        color: #dc2626;
+        padding: 11px 14px;
+        border-radius: 8px;
+        margin-bottom: 14px;
+        font-size: 13px;
+      }
+      .success-message {
+        background: #f0fdf4;
+        border: 1px solid #86efac;
+        color: #059669;
+        padding: 11px 14px;
+        border-radius: 8px;
+        margin-bottom: 14px;
+        font-size: 13px;
+      }
+      .info-box {
+        background: #eff6ff;
+        border: 1px solid #93c5fd;
+        color: #1d4ed8;
+        padding: 13px 15px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .info-box code {
+        background: #dbeafe;
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+        font-size: 14px;
+        font-family: "DM Sans", sans-serif;
+      }
+      .btn-primary {
+        background: #2a5cef;
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #1d4ed8;
+      }
+      .btn-secondary {
+        background: #f3f4f6;
+        color: #374151;
+        border: 1px solid #d1d5db;
+      }
+      .btn-secondary:hover {
+        background: #e5e7eb;
+      }
+      .btn-danger {
+        background: #dc2626;
+        color: #fff;
+      }
+      .btn-danger:hover {
+        background: #b91c1c;
+      }
+      .btn-success {
+        background: #059669;
+        color: #fff;
+      }
+      .btn-success:hover {
+        background: #047857;
+      }
+      .btn-warning {
+        background: #d97706;
+        color: #fff;
+      }
+      .btn-warning:hover {
+        background: #b45309;
+      }
+      .setup-wizard {
+        background: #eff6ff;
+        border: 1px solid #93c5fd;
+        padding: 18px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .setup-wizard h3 {
+        font-size: 14px;
+        color: #1d4ed8;
+        margin-bottom: 13px;
+        font-weight: 600;
+      }
+      .setup-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: #2563eb;
+        line-height: 1.5;
+      }
+      .setup-step-num {
+        background: #2a5cef;
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .loading-screen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        background: #f5f3ee;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .loading-spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid #e5e7eb;
+        border-top-color: #2a5cef;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .sidebar {
+        width: 272px;
+        background: #ffffff;
+        border-right: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar-header {
+        padding: 18px 16px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .sidebar-header h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 22px;
+        color: #2a5cef;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+      }
+      .user-info {
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .sidebar-section {
+        padding: 12px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .sidebar-section.grow {
+        flex: 1;
+        overflow-y: auto;
+      }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .section-title {
+        font-weight: 700;
+        font-size: 10px;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+      .add-btn {
+        background: #2a5cef;
+        color: #fff;
+        border: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .add-btn:hover {
+        background: #1d4ed8;
+      }
+      .playlist-item,
+      .segment-item {
+        padding: 9px 10px;
+        margin: 4px 0;
+        background: #f9fafb;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.15s;
+        border: 2px solid transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+      }
+      .playlist-item:hover,
+      .segment-item:hover {
+        background: #eff6ff;
+        border-color: #60a5fa;
+      }
+      .playlist-item.active,
+      .segment-item.active {
+        background: #dbeafe;
+        border-color: #2a5cef;
+      }
+      .playlist-item-info,
+      .segment-item-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .item-name {
+        font-weight: 500;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #0b0c0f;
+      }
+      .item-count {
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 1px;
+      }
+      .item-remove-btn {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 0 3px;
+        border-radius: 4px;
+        line-height: 1;
+        flex-shrink: 0;
+        transition: all 0.15s;
+      }
+      .item-remove-btn:hover {
+        background: #fef2f2;
+        color: #dc2626;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .top-bar {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 12px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .control-buttons {
+        display: flex;
+        gap: 8px;
+      }
+      .content-area {
+        flex: 1;
+        display: flex;
+        overflow: hidden;
+      }
+      .slides-panel {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        background: #fafaf9;
+      }
+      .slides-panel-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #9ca3af;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .slides-panel-empty h3 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 18px;
+        color: #6b7280;
+        font-weight: 400;
+      }
+      .part-section {
+        margin-bottom: 26px;
+      }
+      .part-section-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #6b7280;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .part-section-label::before {
+        content: "";
+        display: inline-block;
+        width: 3px;
+        height: 12px;
+        background: #2a5cef;
+        border-radius: 2px;
+      }
+      .slides-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px;
+      }
+      .slide-card {
+        border-radius: 8px;
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 2px solid #e5e7eb;
+        transition: all 0.15s;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      }
+      .slide-card:hover {
+        border-color: #60a5fa;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(42, 92, 239, 0.15);
+      }
+      .slide-card.active {
+        border-color: #2a5cef;
+        box-shadow: 0 0 0 3px rgba(42, 92, 239, 0.1);
+      }
+      .slide-card.sent {
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      }
+      .slide-text {
+        color: #0b0c0f;
+        font-size: 10px;
+        padding: 6px;
+        text-align: center;
+        line-height: 1.4;
+        pointer-events: none;
+        white-space: pre-line;
+        font-weight: 600;
+      }
+      .slide-index {
+        position: absolute;
+        bottom: 4px;
+        right: 6px;
+        font-size: 9px;
+        color: #9ca3af;
+        font-weight: 600;
+      }
+      .media-card-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        font-size: 9px;
+        color: #6b7280;
+        text-align: center;
+        padding: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+        border-top: 1px solid #e5e7eb;
+      }
+      .bottom-controls {
+        background: #ffffff;
+        border-top: 1px solid #e5e7eb;
+        padding: 10px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .fade-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .fade-controls label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #374151;
+      }
+      .fade-controls input[type="number"] {
+        width: 75px;
+        padding: 5px 9px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 13px;
+        background: #ffffff;
+        color: #0b0c0f;
+      }
+      .checkbox-control {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 13px;
+        color: #374151;
+      }
+      .current-slide-info {
+        font-size: 12px;
+        color: #6b7280;
+      }
+      .live-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 14px;
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 13px;
+        color: #6b7280;
+      }
+      .live-indicator.active {
+        background: #ecfdf5;
+        border-color: #86efac;
+        color: #059669;
+      }
+      .live-dot {
+        width: 7px;
+        height: 7px;
+        background: #ef4444;
+        border-radius: 50%;
+      }
+      .live-indicator.active .live-dot {
+        background: #10b981;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .kbd-hint {
+        font-size: 11px;
+        color: #6b7280;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      .kbd {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 3px;
+        padding: 1px 5px;
+        font-family: monospace;
+        font-size: 10px;
+        color: #374151;
+        font-weight: 600;
+      }
+      .blank-btn {
+        background: #f3f4f6;
+        color: #374151;
+        border: 1px solid #d1d5db;
+      }
+      .blank-btn:hover {
+        background: #e5e7eb;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal.active {
+        display: flex;
+      }
+      .modal-content {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 28px;
+        max-width: 520px;
+        width: 90%;
+        max-height: 88vh;
+        overflow-y: auto;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      }
+      .modal-header {
+        margin-bottom: 18px;
+      }
+      .modal-header h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 22px;
+        margin-bottom: 6px;
+        color: #0b0c0f;
+        font-weight: 400;
+      }
+      .modal-header p {
+        color: #6b7280;
+        font-size: 13px;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      .search-box {
+        margin-bottom: 14px;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 10px 14px;
+        border: 2px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #ffffff;
+        color: #0b0c0f;
+      }
+      .search-box input:focus {
+        outline: none;
+        border-color: #2a5cef;
+      }
+      .song-result {
+        padding: 11px 14px;
+        background: #f9fafb;
+        margin: 6px 0;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.15s;
+      }
+      .song-result:hover {
+        background: #eff6ff;
+        border-color: #60a5fa;
+      }
+      .song-result.selected {
+        background: #dbeafe;
+        border-color: #2a5cef;
+      }
+      .song-result-title {
+        font-weight: 600;
+        margin-bottom: 3px;
+        font-size: 14px;
+        color: #0b0c0f;
+      }
+      .song-result-meta {
+        font-size: 11px;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-spinner"></div>
+      <div style="color: #6b7280; font-size: 13px" id="loadingMsg">Signing in…</div>
+    </div>
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://metatags.io/" />
-<meta property="og:title" content="ViewCast | Presentation Software" />
-<meta property="og:description" content="A 100% free solution to current apps like presenter and PowerPoint. This website allows you to add songs, sermons and more!" />
-<meta property="og:image" content="https://viewcast.github.io/images/banner.jpg" />
-
-<!-- X (Twitter) -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://metatags.io/" />
-<meta property="twitter:title" content="ViewCast | Presentation Software" />
-<meta property="twitter:description" content="A 100% free solution to current apps like presenter and PowerPoint. This website allows you to add songs, sermons and more!" />
-<meta property="twitter:image" content="https://viewcast.github.io/images/banner.jpg" />
-
-<!-- Meta Tags Generated with https://metatags.io -->
-        <link rel="icon" href="https://viewcast.github.io/images/logo.png">
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
-            rel="stylesheet" />
-        <style>
-            *,
-            *::before,
-            *::after {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            :root {
-                --ink: #0b0c0f;
-                --page: #f5f3ee;
-                --muted: #9a9690;
-                --accent: #2a5cef;
-                --accent-dim: #1a3db0;
-                --rule: rgba(0, 0, 0, 0.1);
-                --card-bg: #ffffff;
-                --dark-bg: #0d0f14;
-                --dark-card: #13161e;
-                --dark-rule: rgba(255, 255, 255, 0.08);
-            }
-
-            html {
-                scroll-behavior: smooth;
-            }
-
-            body {
-                font-family: "DM Sans", sans-serif;
-                background: var(--page);
-                color: var(--ink);
-                overflow-x: hidden;
-            }
-
-            /* ── NAV ── */
-            nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 100;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 18px 48px;
-                background: rgba(245, 243, 238, 0.85);
-                backdrop-filter: blur(12px);
-                border-bottom: 1px solid var(--rule);
-            }
-            .nav-logo {
-                font-family: "DM Serif Display", serif;
-                font-size: 22px;
-                color: var(--ink);
-                text-decoration: none;
-                letter-spacing: -0.3px;
-            }
-            .nav-links {
-                display: flex;
-                align-items: center;
-                gap: 32px;
-            }
-            .nav-links a {
-                font-size: 14px;
-                font-weight: 400;
-                color: var(--muted);
-                text-decoration: none;
-                transition: color 0.2s;
-            }
-            .nav-links a:hover {
-                color: var(--ink);
-            }
-            .nav-cta {
-                background: var(--ink) !important;
-                color: var(--page) !important;
-                padding: 8px 20px;
-                border-radius: 6px;
-                font-weight: 500 !important;
-                transition: opacity 0.2s !important;
-            }
-            .nav-cta:hover {
-                opacity: 0.8;
-            }
-
-            /* ── HERO ── */
-            .hero {
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 120px 48px 80px;
-                text-align: center;
-                position: relative;
-                overflow: hidden;
-            }
-
-            /* Subtle grid texture */
-            .hero::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background-image: linear-gradient(var(--rule) 1px, transparent 1px),
-                    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-                background-size: 48px 48px;
-                mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
-                pointer-events: none;
-            }
-
-            .hero-eyebrow {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                font-size: 11px;
-                font-weight: 500;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                color: var(--muted);
-                border: 1px solid var(--rule);
-                padding: 6px 14px;
-                border-radius: 20px;
-                margin-bottom: 36px;
-                opacity: 0;
-                animation: fadeUp 0.7s ease 0.1s forwards;
-            }
-            .hero-eyebrow span {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: var(--accent);
-                display: inline-block;
-                animation: blink 2s ease infinite;
-            }
-            @keyframes blink {
-                0%,
-                100% {
-                    opacity: 1;
-                }
-                50% {
-                    opacity: 0.3;
-                }
-            }
-
-            .hero h1 {
-                font-family: "DM Serif Display", serif;
-                font-size: clamp(52px, 7vw, 96px);
-                line-height: 1;
-                letter-spacing: -2px;
-                color: var(--ink);
-                max-width: 900px;
-                opacity: 0;
-                animation: fadeUp 0.8s ease 0.2s forwards;
-            }
-            .hero h1 em {
-                font-style: italic;
-                color: var(--accent);
-            }
-
-            .hero-sub {
-                font-size: 18px;
-                font-weight: 300;
-                color: var(--muted);
-                max-width: 520px;
-                line-height: 1.7;
-                margin-top: 24px;
-                opacity: 0;
-                animation: fadeUp 0.8s ease 0.35s forwards;
-            }
-
-            .hero-actions {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-                margin-top: 44px;
-                opacity: 0;
-                animation: fadeUp 0.8s ease 0.5s forwards;
-            }
-            .btn-primary {
-                background: var(--ink);
-                color: var(--page);
-                padding: 14px 32px;
-                border-radius: 8px;
-                font-size: 15px;
-                font-weight: 500;
-                text-decoration: none;
-                transition:
-                    transform 0.2s,
-                    opacity 0.2s;
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-            }
-            .btn-primary:hover {
-                opacity: 0.85;
-                transform: translateY(-1px);
-            }
-            .btn-ghost {
-                color: var(--ink);
-                padding: 14px 24px;
-                border-radius: 8px;
-                font-size: 15px;
-                font-weight: 400;
-                text-decoration: none;
-                transition: background 0.2s;
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-            }
-            .btn-ghost:hover {
-                background: rgba(0, 0, 0, 0.06);
-            }
-
-            /* ── SCREEN MOCKUP ── */
-            .mockup-wrap {
-                width: 100%;
-                max-width: 1100px;
-                margin-top: 72px;
-                position: relative;
-                opacity: 0;
-                animation: fadeUp 1s ease 0.7s forwards;
-            }
-
-            .mockup-outer {
-                background: #1a1a1a;
-                border-radius: 16px;
-                padding: 12px;
-                box-shadow:
-                    0 2px 0 rgba(255, 255, 255, 0.08) inset,
-                    0 60px 120px -20px rgba(0, 0, 0, 0.35),
-                    0 0 0 1px rgba(0, 0, 0, 0.15);
-            }
-            .mockup-screen {
-                background: var(--dark-bg);
-                border-radius: 8px;
-                overflow: hidden;
-                aspect-ratio: 16/9;
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* Fake app UI inside mockup */
-            .mock-topbar {
-                background: #1a1f2e;
-                padding: 10px 16px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-                flex-shrink: 0;
-            }
-            .mock-live-pill {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                background: #0a2d1a;
-                border: 1px solid #166534;
-                border-radius: 20px;
-                padding: 4px 10px;
-                font-size: 10px;
-                font-weight: 600;
-                color: #86efac;
-            }
-            .mock-live-dot {
-                width: 5px;
-                height: 5px;
-                background: #22c55e;
-                border-radius: 50%;
-                animation: blink 2s infinite;
-            }
-            .mock-btns {
-                display: flex;
-                gap: 6px;
-            }
-            .mock-btn {
-                padding: 4px 10px;
-                border-radius: 5px;
-                font-size: 10px;
-                font-weight: 600;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                color: #94a3b8;
-                background: #1e293b;
-            }
-            .mock-btn.green {
-                background: #059669;
-                color: #fff;
-                border-color: transparent;
-            }
-            .mock-app-body {
-                display: flex;
-                flex: 1;
-                min-height: 0;
-            }
-            .mock-sidebar {
-                width: 22%;
-                background: #1a1f2e;
-                border-right: 1px solid rgba(255, 255, 255, 0.06);
-                padding: 12px 10px;
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-            }
-            .mock-section-label {
-                font-size: 7px;
-                font-weight: 700;
-                letter-spacing: 1.5px;
-                text-transform: uppercase;
-                color: #475569;
-                padding: 4px 2px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-                margin-bottom: 2px;
-            }
-            .mock-item {
-                padding: 5px 8px;
-                border-radius: 5px;
-                background: #0f1117;
-                border: 1px solid transparent;
-                font-size: 8px;
-                color: #94a3b8;
-            }
-            .mock-item.active {
-                background: #1e3a5f;
-                border-color: #3b82f6;
-                color: #bfdbfe;
-            }
-            .mock-main {
-                flex: 1;
-                background: #0a0d14;
-                padding: 10px;
-            }
-            .mock-slides-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
-            }
-            .mock-slide {
-                aspect-ratio: 16/9;
-                border-radius: 4px;
-                background: #1a1f2e;
-                border: 1px solid rgba(255, 255, 255, 0.06);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 5px;
-                color: rgba(255, 255, 255, 0.4);
-                text-align: center;
-                padding: 4px;
-                position: relative;
-                overflow: hidden;
-            }
-            .mock-slide.sent {
-                border-color: #22c55e;
-                box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
-            }
-            .mock-slide.active {
-                border-color: #3b82f6;
-            }
-            .mock-slide-bg {
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(135deg, #1e293b, #0f1117);
-            }
-            .mock-slide span {
-                position: relative;
-                z-index: 1;
-            }
-
-            @keyframes fadeUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            /* ── SECTION DIVIDER ── */
-            .divider {
-                height: 1px;
-                background: var(--rule);
-                margin: 0 48px;
-            }
-
-            /* ── FEATURES ── */
-            .features {
-                padding: 120px 48px;
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-            .section-label {
-                font-size: 11px;
-                font-weight: 500;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                color: var(--muted);
-                margin-bottom: 16px;
-            }
-            .section-title {
-                font-family: "DM Serif Display", serif;
-                font-size: clamp(36px, 4vw, 54px);
-                line-height: 1.1;
-                letter-spacing: -1px;
-                color: var(--ink);
-                max-width: 640px;
-                margin-bottom: 72px;
-            }
-            .section-title em {
-                font-style: italic;
-                color: var(--accent);
-            }
-
-            .features-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 2px;
-            }
-            .feature-card {
-                background: var(--card-bg);
-                padding: 40px 36px;
-                border: 1px solid var(--rule);
-                transition: background 0.25s;
-            }
-            .feature-card:first-child {
-                border-radius: 12px 0 0 12px;
-            }
-            .feature-card:last-child {
-                border-radius: 0 12px 12px 0;
-            }
-            .feature-card:hover {
-                background: #fbf9f6;
-            }
-
-            .feature-icon {
-                width: 44px;
-                height: 44px;
-                background: #eef2ff;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 24px;
-                font-size: 20px;
-            }
-            .feature-card h3 {
-                font-family: "DM Serif Display", serif;
-                font-size: 22px;
-                letter-spacing: -0.3px;
-                margin-bottom: 12px;
-                color: var(--ink);
-            }
-            .feature-card p {
-                font-size: 14px;
-                line-height: 1.7;
-                color: var(--muted);
-                font-weight: 300;
-            }
-
-            /* ── DARK SECTION ── */
-            .dark-section {
-                background: var(--dark-bg);
-                padding: 120px 48px;
-                position: relative;
-                overflow: hidden;
-            }
-            .dark-section::before {
-                content: "";
-                position: absolute;
-                top: -200px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 600px;
-                height: 600px;
-                background: radial-gradient(circle, rgba(42, 92, 239, 0.12) 0%, transparent 70%);
-                pointer-events: none;
-            }
-            .dark-inner {
-                max-width: 1200px;
-                margin: 0 auto;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 80px;
-                align-items: center;
-            }
-            .dark-text .section-label {
-                color: #475569;
-            }
-            .dark-text .section-title {
-                color: #e2e8f0;
-                max-width: 480px;
-            }
-            .dark-text .section-title em {
-                color: #60a5fa;
-            }
-
-            .key-list {
-                list-style: none;
-                margin-top: 40px;
-            }
-            .key-list li {
-                display: flex;
-                align-items: flex-start;
-                gap: 14px;
-                padding: 16px 0;
-                border-bottom: 1px solid var(--dark-rule);
-                font-size: 14px;
-                color: #94a3b8;
-                font-weight: 300;
-            }
-            .key-list li:first-child {
-                border-top: 1px solid var(--dark-rule);
-            }
-            .key-badge {
-                font-family: monospace;
-                font-size: 11px;
-                font-weight: 700;
-                background: #1e293b;
-                border: 1px solid #334155;
-                color: #60a5fa;
-                padding: 2px 8px;
-                border-radius: 4px;
-                flex-shrink: 0;
-                margin-top: 1px;
-            }
-
-            /* Keyboard visual */
-            .kbd-visual {
-                background: var(--dark-card);
-                border: 1px solid var(--dark-rule);
-                border-radius: 16px;
-                padding: 36px;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-            .kbd-key {
-                background: #1e293b;
-                border: 1px solid #334155;
-                border-bottom: 3px solid #1a1f2e;
-                border-radius: 8px;
-                padding: 16px 12px;
-                text-align: center;
-                transition:
-                    transform 0.15s,
-                    border-bottom-width 0.15s;
-                cursor: default;
-            }
-            .kbd-key:hover {
-                transform: translateY(1px);
-                border-bottom-width: 2px;
-            }
-            .kbd-key .key-letter {
-                display: block;
-                font-family: "DM Serif Display", serif;
-                font-size: 28px;
-                color: #e2e8f0;
-                line-height: 1;
-            }
-            .kbd-key .key-action {
-                display: block;
-                font-size: 9px;
-                font-weight: 500;
-                letter-spacing: 0.5px;
-                color: #475569;
-                margin-top: 6px;
-                text-transform: uppercase;
-            }
-            .kbd-key.accent .key-letter {
-                color: #60a5fa;
-            }
-            .kbd-key.green .key-letter {
-                color: #4ade80;
-            }
-            .kbd-key.amber .key-letter {
-                color: #fbbf24;
-            }
-
-            /* ── HOW IT WORKS ── */
-            .how {
-                padding: 120px 48px;
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-            .steps {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 48px;
-                margin-top: 72px;
-            }
-            .step-num {
-                font-family: "DM Serif Display", serif;
-                font-size: 64px;
-                color: rgba(0, 0, 0, 0.06);
-                line-height: 1;
-                margin-bottom: 20px;
-            }
-            .step h3 {
-                font-family: "DM Serif Display", serif;
-                font-size: 22px;
-                letter-spacing: -0.3px;
-                margin-bottom: 12px;
-            }
-            .step p {
-                font-size: 14px;
-                line-height: 1.7;
-                color: var(--muted);
-                font-weight: 300;
-            }
-            .step-line {
-                width: 40px;
-                height: 2px;
-                background: var(--accent);
-                margin-bottom: 24px;
-            }
-
-            /* ── CTA ── */
-            .cta-section {
-                background: var(--ink);
-                padding: 100px 48px;
-                text-align: center;
-                position: relative;
-                overflow: hidden;
-            }
-            .cta-section::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-                background-size: 48px 48px;
-            }
-            .cta-section h2 {
-                font-family: "DM Serif Display", serif;
-                font-size: clamp(36px, 5vw, 64px);
-                color: #fff;
-                letter-spacing: -1.5px;
-                line-height: 1.1;
-                margin-bottom: 16px;
-                position: relative;
-            }
-            .cta-section h2 em {
-                font-style: italic;
-                color: #60a5fa;
-            }
-            .cta-section p {
-                font-size: 16px;
-                color: #64748b;
-                font-weight: 300;
-                margin-bottom: 40px;
-                position: relative;
-            }
-            .cta-section .btn-primary {
-                background: #fff;
-                color: var(--ink);
-                font-size: 16px;
-                padding: 16px 40px;
-                position: relative;
-            }
-            .cta-section .btn-primary:hover {
-                opacity: 0.9;
-            }
-
-            /* ── FOOTER ── */
-            footer {
-                background: var(--ink);
-                border-top: 1px solid rgba(255, 255, 255, 0.06);
-                padding: 32px 48px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            footer .logo {
-                font-family: "DM Serif Display", serif;
-                font-size: 18px;
-                color: #4b5563;
-            }
-            footer p {
-                font-size: 12px;
-                color: #374151;
-            }
-            footer a {
-                font-size: 12px;
-                color: #374151;
-                text-decoration: none;
-                transition: color 0.2s;
-            }
-            footer a:hover {
-                color: #60a5fa;
-            }
-            .footer-links {
-                display: flex;
-                gap: 24px;
-            }
-
-            /* ── RESPONSIVE ── */
-            @media (max-width: 900px) {
-                nav {
-                    padding: 16px 24px;
-                }
-                .nav-links {
-                    display: none;
-                }
-                .hero {
-                    padding: 100px 24px 60px;
-                }
-                .features,
-                .how {
-                    padding: 80px 24px;
-                }
-                .features-grid,
-                .steps {
-                    grid-template-columns: 1fr;
-                    gap: 2px;
-                }
-                .feature-card:first-child {
-                    border-radius: 12px 12px 0 0;
-                }
-                .feature-card:last-child {
-                    border-radius: 0 0 12px 12px;
-                }
-                .dark-section {
-                    padding: 80px 24px;
-                }
-                .dark-inner {
-                    grid-template-columns: 1fr;
-                    gap: 48px;
-                }
-                .cta-section {
-                    padding: 80px 24px;
-                }
-                footer {
-                    padding: 24px;
-                    flex-direction: column;
-                    gap: 12px;
-                    text-align: center;
-                }
-                .divider {
-                    margin: 0 24px;
-                }
-            }
-
-.image-container {
-  width: 95%;       /* Or a specific size like 500px */
-  height: 400px;     /* Required for object-fit to work */
-  overflow: hidden;
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Fills space and crops edges */
-}
-
-        </style>
-    </head>
-    <body>
-        <!-- NAV -->
-        <nav>
-            <a href="https://viewcast.github.io/" class="nav-logo">ViewCast</a>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#how">How it works</a>
-                <a href="https://viewcast.github.io/guide">Help guide</a>
-                <a href="https://viewcast.github.io/app" class="nav-cta">Open App →</a>
+    <div id="loginScreen" class="login-screen" style="display: none">
+      <div class="login-box">
+        <h1>ViewCast</h1>
+        <p>Church Presentation Software</p>
+        <div id="loginError" class="error-message" style="display: none"></div>
+        <div id="loginSuccess" class="success-message" style="display: none"></div>
+        <div id="loginForm">
+          <div class="form-group">
+            <label>Email</label><input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label>Password</label
+            ><input
+              type="password"
+              id="loginPassword"
+              placeholder="Password"
+              autocomplete="current-password"
+              onkeydown="if(event.key==='Enter')loginUser()" />
+          </div>
+          <button class="btn btn-primary" style="width: 100%" onclick="loginUser()">Login</button>
+          <p style="text-align: center; margin-top: 14px; font-size: 13px; color: #6b7280">
+            No account? <a href="#" onclick="showRegister();return false;" style="color: #2a5cef; text-decoration: none;">Register</a>
+          </p>
+        </div>
+        <div id="registerForm" style="display: none">
+          <div class="setup-wizard">
+            <h3>🚀 Getting Started</h3>
+            <div class="setup-step">
+              <div class="setup-step-num">1</div>
+              <div>Create your account — used for login across all devices.</div>
             </div>
-        </nav>
-
-        <!-- HERO -->
-        <section class="hero">
-            <div class="hero-eyebrow"><span></span> Church Presentation Software</div>
-            <h1>Present with<br /><em>confidence</em><br />every Sunday.</h1>
-            <p class="hero-sub">
-                Lyrics, media, and sermon slides — all in one place. Built for church tech teams who need something that
-                just works.
-            </p>
-            <div class="hero-actions">
-                <a href="https://viewcast.github.io/setup" class="btn-primary">Get started free →</a>
-                <a href="https://viewcast.github.io/guide" class="btn-ghost">Read the help guide</a>
+            <div class="setup-step">
+              <div class="setup-step-num">2</div>
+              <div>
+                Enter your Firebase config once. It's saved to your account and synced automatically on future logins.
+              </div>
             </div>
-
-
-            <!-- MOCKUP -->
-            <div class="mockup-wrap">
-<div class="image-container">
-  <img src="images/preview.png" alt="Preview">
-</div>
-                
+            <div class="setup-step">
+              <div class="setup-step-num">3</div>
+              <div>Optionally configure Cloudinary for image/video uploads in Admin → Settings. Look at our <a href="https://viewcast.github.io" target="_blank" rel="noopener noreferrer">
+  Setup Guide
+</a>
+ For more info</div>
             </div>
-        </section>
+          </div>
+          <div class="form-group">
+            <label>Email</label
+            ><input type="email" id="registerEmail" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label>Password (min 6 chars)</label
+            ><input type="password" id="registerPassword" placeholder="Choose a password" autocomplete="new-password" />
+          </div>
+          <button class="btn btn-primary" style="width: 100%" onclick="registerUser()">Create Account</button>
+          <p style="text-align: center; margin-top: 14px; font-size: 13px; color: #6b7280">
+            Have an account? <a href="#" onclick="showLoginForm();return false;" style="color: #2a5cef; text-decoration: none;">Login</a>
+          </p>
+        </div>
+        <div id="firebaseConfigForm" style="display: none">
+          <div class="info-box">
+            ✅ Logged in! Enter your Firebase config once — it will be saved to your account and auto-loaded on any
+            device.<br /><br />
+            <a href="https://console.firebase.google.com" target="_blank" style="color: #1d4ed8; text-decoration: none;">Firebase Console</a> →
+            your project → ⚙️ <strong>Project Settings</strong> → <strong>Your apps</strong> → web app → SDK config.
+          </div>
+          <div class="form-group">
+            <label>API Key</label
+            ><input type="text" id="fb_apiKey" placeholder="AIzaSy..." autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label>Auth Domain</label
+            ><input
+              type="text"
+              id="fb_authDomain"
+              placeholder="your-app.firebaseapp.com"
+              autocomplete="off"
+              spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label>Project ID</label
+            ><input type="text" id="fb_projectId" placeholder="your-app-id" autocomplete="off" spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label>Storage Bucket</label
+            ><input
+              type="text"
+              id="fb_storageBucket"
+              placeholder="your-app.firebasestorage.app"
+              autocomplete="off"
+              spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label>Messaging Sender ID</label
+            ><input
+              type="text"
+              id="fb_messagingSenderId"
+              placeholder="123456789000"
+              autocomplete="off"
+              spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label>App ID</label
+            ><input
+              type="text"
+              id="fb_appId"
+              placeholder="1:123456789000:web:abc123..."
+              autocomplete="off"
+              spellcheck="false" />
+          </div>
+          <div class="form-group">
+            <label>Database URL <span style="font-weight: 400; color: #6b7280">(needed for playlists)</span></label
+            ><input
+              type="text"
+              id="fb_databaseURL"
+              placeholder="https://your-app-default-rtdb.firebaseio.com"
+              autocomplete="off"
+              spellcheck="false" />
+          </div>
+          <div id="configError" class="error-message" style="display: none"></div>
+          <button class="btn btn-primary" style="width: 100%" onclick="saveUserFirebaseConfig()">
+            Save & Connect →
+          </button>
+          <p style="margin-top: 10px; font-size: 12px; color: #6b7280; text-align: center">
+            Saved to your account — no need to re-enter on other devices.
+          </p>
+        </div>
+      </div>
+    </div>
 
-        <div class="divider"></div>
-
-        <!-- FEATURES -->
-        <section class="features" id="features">
-            <div class="section-label">Built for Sunday mornings</div>
-            <h2 class="section-title">Everything your<br />tech team needs,<br /><em>nothing extra.</em></h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎵</div>
-                    <h3>Song Library</h3>
-                    <p>
-                        Store your full song library with multiple parts, slides, and CCLI license info. Search and add
-                        to playlists in seconds.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📺</div>
-                    <h3>Dual Screen Control</h3>
-                    <p>
-                        Separate Front of House and Back of House windows. The operator sees what's coming next while
-                        the congregation only sees what's sent.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎥</div>
-                    <h3>Media & Sermons</h3>
-                    <p>
-                        Images, videos, PDFs, and PowerPoint slides — all in one media library. Add sermon slide decks
-                        to your playlist alongside songs.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">☁️</div>
-                    <h3>Cloud Synced</h3>
-                    <p>
-                        Your playlists and songs live in the cloud. Log in on any computer and your entire service is
-                        ready to go.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💵</div>
-                    <h3>100% Free</h3>
-                    <p>
-                        This program was created for churhes to experince a premium experince without paying a cent.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Instant Setup</h3>
-                    <p>
-                        No installation. Open a browser, log in, connect your Firebase project once, and you're live.
-                        Works on any OS.
-                    </p>
-                </div>
+    <div id="mainApp" style="display: none; width: 100%">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <h1>ViewCast</h1>
+          <div class="user-info" id="userEmail">Loading…</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="section-header">
+            <span class="section-title">Playlists</span
+            ><button class="add-btn" onclick="showAddPlaylistModal()">+</button>
+          </div>
+          <div id="playlistsList"></div>
+        </div>
+        <div class="sidebar-section grow">
+          <div class="section-header">
+            <span class="section-title">Segments</span
+            ><button class="add-btn" onclick="showAddSegmentModal()">+</button>
+          </div>
+          <div id="segmentsList"></div>
+        </div>
+        <div class="sidebar-section">
+          <button
+            class="btn btn-secondary"
+            style="width: 100%; margin-bottom: 8px"
+            onclick="window.location.href='https://viewcast.github.io/app/admin'">
+            Admin Area
+          </button>
+          <button class="btn btn-secondary" style="width: 100%" onclick="logout()">Logout</button>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="top-bar">
+          <div class="live-indicator" id="liveIndicator"><span class="live-dot"></span><span>Offline</span></div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <div class="kbd-hint">
+              <span class="kbd">←</span><span class="kbd">→</span> navigate &nbsp;<span class="kbd">Space</span> send
+              &nbsp;<span class="kbd">T</span> bg &nbsp;<span class="kbd">L</span> logo &nbsp;<span class="kbd">B</span>
+              black
             </div>
-        </section>
-
-        <div class="divider"></div>
-
-        <!-- DARK SECTION — KEYBOARD SHORTCUTS -->
-        <section class="dark-section">
-            <div class="dark-inner">
-                <div class="dark-text">
-                    <div class="section-label">Control at your fingertips</div>
-                    <h2 class="section-title">Run the whole<br />service from<br /><em>one keyboard.</em></h2>
-                    <ul class="key-list">
-                        <li><span class="key-badge">Space</span> Send the focused slide to screen</li>
-                        <li><span class="key-badge">← →</span> Navigate between slides</li>
-                        <li><span class="key-badge">T</span> Toggle background — show or restore last slide</li>
-                        <li><span class="key-badge">B</span> Hard blackout — instantly cut to black</li>
-                        <li><span class="key-badge">L</span> Toggle church logo overlay</li>
-                    </ul>
-                </div>
-                <div class="kbd-visual">
-                    <div class="kbd-key accent">
-                        <span class="key-letter">←</span>
-                        <span class="key-action">Prev slide</span>
-                    </div>
-                    <div class="kbd-key green">
-                        <span class="key-letter">␣</span>
-                        <span class="key-action">Send</span>
-                    </div>
-                    <div class="kbd-key accent">
-                        <span class="key-letter">→</span>
-                        <span class="key-action">Next slide</span>
-                    </div>
-                    <div class="kbd-key amber">
-                        <span class="key-letter">T</span>
-                        <span class="key-action">Background</span>
-                    </div>
-                    <div class="kbd-key" style="background: #1a0a0a; border-color: #2d1515">
-                        <span class="key-letter" style="color: #f87171">B</span>
-                        <span class="key-action">Blackout</span>
-                    </div>
-                    <div class="kbd-key">
-                        <span class="key-letter">L</span>
-                        <span class="key-action">Logo</span>
-                    </div>
-                </div>
+            <div class="control-buttons" id="fohControls" style="display: none; gap: 6px">
+              <button class="btn blank-btn" onclick="fohCommand('toggleBackground')" title="Toggle FOH background (T)">
+                BG
+              </button>
+              <button class="btn blank-btn" onclick="fohCommand('toggleLogo')" title="Toggle FOH logo (L)">Logo</button>
+              <button class="btn blank-btn" onclick="sendBlackout()" id="blankBtn" title="Blackout FOH screen (B)">
+                Black
+              </button>
             </div>
-        </section>
-
-        <div class="divider"></div>
-
-        <!-- HOW IT WORKS -->
-        <section class="how" id="how">
-            <div class="section-label">Getting started</div>
-            <h2 class="section-title">Up and running<br />in <em>three steps.</em></h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-num">01</div>
-                    <div class="step-line"></div>
-                    <h3>Create your account</h3>
-                    <p>
-                        Sign up with an email and password. Then connect your own Firebase project — your data stays in
-                        your project, not ours.
-                    </p>
-                </div>
-                <div class="step">
-                    <div class="step-num">02</div>
-                    <div class="step-line"></div>
-                    <h3>Build your library</h3>
-                    <p>
-                        Add songs with lyrics split into parts and slides. Upload media items for sermon content.
-                        Everything is searchable and reusable week to week.
-                    </p>
-                </div>
-                <div class="step">
-                    <div class="step-num">03</div>
-                    <div class="step-line"></div>
-                    <h3>Go live on Sunday</h3>
-                    <p>
-                        Build your service playlist, open the FOH and BOH screens, click Go Live, and watch the premium experince come to life for free!
-                    </p>
-                </div>
+            <div class="control-buttons">
+              <button class="btn btn-success" onclick="goLive()">Go Live</button>
+              <button class="btn btn-danger" onclick="stopPresentation()" id="stopBtn" style="display: none">
+                Stop
+              </button>
             </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta-section">
-            <h2>Ready for<br /><em>this Sunday?</em></h2>
-            <p>Free to use. No installation. Works in any browser.</p>
-            <a href="https://viewcast.github.io/app" class="btn-primary">Open ViewCast →</a>
-        </section>
-
-        <!-- FOOTER -->
-        <footer>
-            <span class="logo">ViewCast</span>
-            <div class="footer-links">
-                <a href="https://viewcast.github.io/help">Help guide</a>
-                <a href="https://viewcast.github.io/app/admin">Admin</a>
-                <a href="https://viewcast.github.io/app">App</a>
+          </div>
+        </div>
+        <div class="content-area" id="contentArea">
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #fafaf9">
+            <div class="slides-panel-empty">
+              <h3>Welcome to ViewCast</h3>
+              <p style="color: #9ca3af">Select a playlist and segment to get started</p>
             </div>
-            <p>Built for churches.</p>
-        </footer>
-    </body>
+          </div>
+        </div>
+        <div class="bottom-controls">
+          <div class="fade-controls">
+            <label for="fadeTime">Fade (ms):</label>
+            <input type="number" id="fadeTime" value="500" min="0" max="5000" step="100" />
+            <div class="checkbox-control">
+              <input type="checkbox" id="enableSongFade" checked /><label for="enableSongFade">Song Fade</label>
+            </div>
+          </div>
+          <div class="current-slide-info" id="currentSlideInfo"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD PLAYLIST MODAL -->
+    <div id="addPlaylistModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header"><h2>Add Playlist</h2></div>
+        <div class="form-group">
+          <label>Playlist Name</label><input type="text" id="playlistName" placeholder="e.g., Morning Service" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeModal('addPlaylistModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="addPlaylist()">Add Playlist</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD SEGMENT MODAL -->
+    <div id="addSegmentModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header"><h2>Add Segment</h2></div>
+        <div class="form-group">
+          <label>Segment Type</label>
+          <select id="segmentType" onchange="onSegmentTypeChange()">
+            <option value="song">Song</option>
+            <option value="sermon">Media</option>
+          </select>
+        </div>
+        <div id="songSegmentForm">
+          <div class="search-box">
+            <input type="text" id="songSearch" placeholder="Search songs…" oninput="searchSongs()" />
+          </div>
+          <div id="songResults"><p style="color: #6b7280; font-size: 13px">Start typing to search…</p></div>
+        </div>
+        <div id="sermonSegmentForm" style="display: none">
+          <div class="form-group">
+            <label>Select Media Segment</label>
+            <select id="sermonSelect">
+              <option value="">Loading…</option>
+            </select>
+          </div>
+          <div
+            id="sermonSelectMsg"
+            style="font-size: 12px; color: #6b7280; margin-top: -10px; margin-bottom: 10px"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeModal('addSegmentModal')">Cancel</button>
+          <button class="btn btn-primary" onclick="addSegment()">Add to Playlist</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GO LIVE MODAL -->
+    <div id="goLiveModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Setup Presentation</h2>
+          <p style="color: #6b7280; font-size: 13px">Open at least the FOH screen before going live</p>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" style="width: 100%" onclick="openFOH()">
+            Open FOH Screen (Front of House)
+          </button>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-secondary" style="width: 100%" onclick="openBOH()">
+            Open BOH Screen (Back of House)
+          </button>
+        </div>
+        <div id="screenStatus" style="margin: 16px 0; padding: 14px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb">
+          <div style="margin-bottom: 6px">
+            <strong>FOH:</strong> <span id="fohStatus" style="color: #dc2626">Not opened</span>
+          </div>
+          <div><strong>BOH:</strong> <span id="bohStatus" style="color: #6b7280">Not opened</span></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeModal('goLiveModal')">Cancel</button>
+          <button class="btn btn-success" onclick="completeSetup()" id="completeSetupBtn" disabled>
+            Complete Setup & Go Live
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
+        signOut
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+        getDoc,
+        collection,
+        getDocs,
+        addDoc,
+        updateDoc,
+        deleteDoc
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        onValue,
+        remove
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+      const sharedConfig = {
+        apiKey: "AIzaSyCga_ur-qA08HV2otci3ivw3PkWm-Uh-OM",
+        authDomain: "notey-4455f.firebaseapp.com",
+        databaseURL: "https://notey-4455f-default-rtdb.firebaseio.com",
+        projectId: "notey-4455f",
+        storageBucket: "notey-4455f.firebasestorage.app",
+        messagingSenderId: "554664934050",
+        appId: "1:554664934050:web:5c1f5f673bb32301fa35fb"
+      };
+      const sharedApp = initializeApp(sharedConfig, "shared");
+      const sharedAuth = getAuth(sharedApp);
+      const sharedDb = getFirestore(sharedApp);
+
+      window.currentUser = null;
+      window.userDb = null;
+      window.userRtdb = null;
+      window.currentPlaylist = null;
+      window.fohWindow = null;
+      window.bohWindow = null;
+      window.isLive = false;
+      window.selectedSong = null;
+
+      // Track whether FOH is in bg-only mode (for T toggle)
+      window._fohBgMode = false;
+
+      window.presentationState = {
+        mode: null,
+        song: null,
+        parts: [],
+        flatIndex: 0,
+        sentIndex: -1,
+        sermon: null,
+        sermonSlides: [],
+        sermonIndex: 0,
+        typography: {},
+        backgroundUrl: null
+      };
+
+      function setLoading(msg) {
+        document.getElementById("loadingScreen").style.display = "flex";
+        document.getElementById("loadingMsg").textContent = msg || "Loading…";
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainApp").style.display = "none";
+      }
+      function showLogin() {
+        document.getElementById("loadingScreen").style.display = "none";
+        document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("mainApp").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("firebaseConfigForm").style.display = "none";
+      }
+      function showApp() {
+        document.getElementById("loadingScreen").style.display = "none";
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainApp").style.display = "flex";
+        document.getElementById("userEmail").textContent = window.currentUser.email;
+      }
+      function showFirebaseForm() {
+        document.getElementById("loadingScreen").style.display = "none";
+        document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("mainApp").style.display = "none";
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("firebaseConfigForm").style.display = "block";
+      }
+
+      async function persistUserFirebaseConfig(cfg) {
+        localStorage.setItem("viewcast_user_firebase", JSON.stringify(cfg));
+        if (window.currentUser) {
+          try {
+            await setDoc(
+              doc(sharedDb, "user_configs", window.currentUser.uid),
+              { firebaseConfig: cfg, updatedAt: new Date().toISOString() },
+              { merge: true }
+            );
+          } catch (e) {
+            console.warn("Could not sync config to cloud:", e);
+          }
+        }
+      }
+
+      async function resolveUserFirebaseConfig() {
+        const local = localStorage.getItem("viewcast_user_firebase");
+        if (local) {
+          try {
+            return JSON.parse(local);
+          } catch (e) {}
+        }
+        if (!window.currentUser) return null;
+        try {
+          const snap = await getDoc(doc(sharedDb, "user_configs", window.currentUser.uid));
+          if (snap.exists() && snap.data().firebaseConfig) {
+            const cfg = snap.data().firebaseConfig;
+            localStorage.setItem("viewcast_user_firebase", JSON.stringify(cfg));
+            return cfg;
+          }
+        } catch (e) {
+          console.warn("Could not fetch config from cloud:", e);
+        }
+        return null;
+      }
+
+      function getUserFirebaseApp(cfg) {
+        const existing = getApps().find((a) => a.name === "userapp");
+        if (existing) return existing;
+        if (!cfg) return null;
+        try {
+          return initializeApp(cfg, "userapp");
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function initUserFirebase(cfg) {
+        try {
+          const app = getUserFirebaseApp(cfg);
+          if (!app) throw new Error("Could not init Firebase app");
+          window.userDb = getFirestore(app);
+          window.userRtdb = getDatabase(app);
+          showApp();
+          loadUserData();
+        } catch (e) {
+          const errDiv = document.getElementById("loginError");
+          errDiv.textContent = "Firebase error: " + e.message;
+          errDiv.style.display = "block";
+          showFirebaseForm();
+        }
+      }
+
+      onAuthStateChanged(sharedAuth, async (user) => {
+        if (user) {
+          window.currentUser = user;
+          setLoading("Fetching your config…");
+          const cfg = await resolveUserFirebaseConfig();
+          if (cfg) initUserFirebase(cfg);
+          else showFirebaseForm();
+        } else {
+          window.currentUser = null;
+          showLogin();
+        }
+      });
+
+      window.saveUserFirebaseConfig = async function () {
+        const errDiv = document.getElementById("configError");
+        errDiv.style.display = "none";
+        const cfg = {
+          apiKey: document.getElementById("fb_apiKey").value.trim(),
+          authDomain: document.getElementById("fb_authDomain").value.trim(),
+          projectId: document.getElementById("fb_projectId").value.trim(),
+          storageBucket: document.getElementById("fb_storageBucket").value.trim(),
+          messagingSenderId: document.getElementById("fb_messagingSenderId").value.trim(),
+          appId: document.getElementById("fb_appId").value.trim(),
+          databaseURL: document.getElementById("fb_databaseURL").value.trim()
+        };
+        if (!cfg.apiKey) {
+          errDiv.textContent = "API Key is required.";
+          errDiv.style.display = "block";
+          return;
+        }
+        if (!cfg.projectId) {
+          errDiv.textContent = "Project ID is required.";
+          errDiv.style.display = "block";
+          return;
+        }
+        Object.keys(cfg).forEach((k) => {
+          if (!cfg[k]) delete cfg[k];
+        });
+        setLoading("Saving config…");
+        await persistUserFirebaseConfig(cfg);
+        initUserFirebase(cfg);
+      };
+
+      window.registerUser = async function () {
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
+        const err = document.getElementById("loginError");
+        const ok = document.getElementById("loginSuccess");
+        err.style.display = "none";
+        ok.style.display = "none";
+        if (!email || !password) {
+          err.textContent = "Fill in all fields";
+          err.style.display = "block";
+          return;
+        }
+        try {
+          await createUserWithEmailAndPassword(sharedAuth, email, password);
+          ok.textContent = "Account created!";
+          ok.style.display = "block";
+        } catch (e) {
+          err.textContent = e.message;
+          err.style.display = "block";
+        }
+      };
+
+      window.loginUser = async function () {
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+        const err = document.getElementById("loginError");
+        err.style.display = "none";
+        setLoading("Signing in…");
+        try {
+          await signInWithEmailAndPassword(sharedAuth, email, password);
+        } catch (e) {
+          err.style.display = "block";
+          err.textContent = e.message;
+          showLogin();
+        }
+      };
+
+      window.logout = async function () {
+        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.close();
+        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.close();
+        await signOut(sharedAuth);
+      };
+
+      window.showRegister = () => {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("registerForm").style.display = "block";
+      };
+      window.showLoginForm = () => {
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+      };
+
+      // ── LOAD USER DATA ──
+      window.loadUserData = async function () {
+        const db = window.userDb;
+        const userId = window.currentUser.uid;
+        try {
+          const userSnap = await getDoc(doc(db, "users", userId));
+          if (userSnap.exists()) {
+            const d = userSnap.data();
+            if (d.typography) window.presentationState.typography = d.typography;
+            if (d.activeBackground) window.presentationState.backgroundUrl = d.activeBackground;
+            else if (d.backgrounds && d.backgrounds.length > 0)
+              window.presentationState.backgroundUrl = d.backgrounds[0];
+          }
+        } catch (e) {
+          console.warn("Could not load user doc", e);
+        }
+        const playlistsRef = ref(window.userRtdb, `users/${userId}/playlists`);
+        onValue(playlistsRef, (snap) => {
+          renderPlaylists(snap.val() || {});
+        });
+      };
+
+      window.renderPlaylists = function (playlists) {
+        const list = document.getElementById("playlistsList");
+        list.innerHTML = "";
+        const arr = Object.entries(playlists).map(([id, data]) => ({ id, ...data }));
+        if (!arr.length) {
+          list.innerHTML = '<div style="padding:8px;color:#6b7280;font-size:12px">No playlists yet</div>';
+          return;
+        }
+        arr.forEach((pl) => {
+          const div = document.createElement("div");
+          div.className = "playlist-item";
+          const info = document.createElement("div");
+          info.className = "playlist-item-info";
+          info.innerHTML = `<div class="item-name">${pl.name}</div><div class="item-count">${(pl.segments || []).length} segments</div>`;
+          info.onclick = () => selectPlaylist(pl.id, pl, div);
+          const rm = document.createElement("button");
+          rm.className = "item-remove-btn";
+          rm.textContent = "×";
+          rm.title = "Delete playlist";
+          rm.onclick = (e) => {
+            e.stopPropagation();
+            removePlaylist(pl.id, pl.name);
+          };
+          div.appendChild(info);
+          div.appendChild(rm);
+          list.appendChild(div);
+        });
+      };
+
+      window.removePlaylist = async function (id, name) {
+        if (!confirm(`Delete playlist "${name}"?`)) return;
+        await remove(ref(window.userRtdb, `users/${window.currentUser.uid}/playlists/${id}`));
+        if (window.currentPlaylist?.id === id) {
+          window.currentPlaylist = null;
+          document.getElementById("segmentsList").innerHTML = "";
+          document.getElementById("contentArea").innerHTML =
+            '<div style="flex:1;display:flex;align-items:center;justify-content:center;background:#fafaf9"><div class="slides-panel-empty"><h3>Select a playlist</h3></div></div>';
+        }
+      };
+
+      window.selectPlaylist = function (id, data, el) {
+        window.currentPlaylist = { id, ...data };
+        document.querySelectorAll(".playlist-item").forEach((i) => i.classList.remove("active"));
+        if (el) el.classList.add("active");
+        renderSegments(data.segments || []);
+      };
+
+      window.renderSegments = function (segments) {
+        const list = document.getElementById("segmentsList");
+        list.innerHTML = "";
+        if (!segments.length) {
+          list.innerHTML = '<div style="padding:8px;color:#6b7280;font-size:12px">No segments yet</div>';
+          return;
+        }
+        segments.forEach((seg, i) => {
+          const div = document.createElement("div");
+          div.className = "segment-item";
+          div.dataset.index = i;
+          const info = document.createElement("div");
+          info.className = "segment-item-info";
+          const typeLabel = seg.type === "sermon" ? "📽 Media" : "🎵 Song";
+          info.innerHTML = `<div class="item-name">${seg.name || seg.type}</div><div class="item-count">${typeLabel}</div>`;
+          info.onclick = () => selectSegment(seg, i, div);
+          const rm = document.createElement("button");
+          rm.className = "item-remove-btn";
+          rm.textContent = "×";
+          rm.onclick = (e) => {
+            e.stopPropagation();
+            removeSegment(i);
+          };
+          div.appendChild(info);
+          div.appendChild(rm);
+          list.appendChild(div);
+        });
+      };
+
+      window.removeSegment = async function (index) {
+        if (!window.currentPlaylist) return;
+        const seg = window.currentPlaylist.segments[index];
+        if (!confirm(`Remove "${seg.name || "this segment"}" from playlist?`)) return;
+        const segs = [...(window.currentPlaylist.segments || [])];
+        segs.splice(index, 1);
+        await set(
+          ref(window.userRtdb, `users/${window.currentUser.uid}/playlists/${window.currentPlaylist.id}/segments`),
+          segs
+        );
+        window.currentPlaylist.segments = segs;
+        renderSegments(segs);
+      };
+
+      window.selectSegment = function (seg, index, el) {
+        document.querySelectorAll(".segment-item").forEach((i) => i.classList.remove("active"));
+        if (el) el.classList.add("active");
+        displaySegmentContent(seg);
+      };
+
+      // ── DISPLAY SEGMENT CONTENT ──
+      window.displaySegmentContent = async function (seg) {
+        if (seg.type === "song") {
+          try {
+            const snap = await getDoc(doc(window.userDb, "songs", seg.songId));
+            if (snap.exists()) renderSongInterface(snap.data(), window.presentationState.typography);
+            else showContentError("Song not found.");
+          } catch (e) {
+            showContentError("Error: " + e.message);
+          }
+        } else if (seg.type === "sermon") {
+          if (!seg.sermonId) {
+            showContentError("Media item has no ID — try re-adding the segment.");
+            return;
+          }
+          try {
+            const snap = await getDoc(doc(window.userDb, "sermons", seg.sermonId));
+            if (snap.exists()) renderSermonInterface(snap.data());
+            else showContentError("Media item not found in database.");
+          } catch (e) {
+            showContentError("Error loading media: " + e.message);
+          }
+        }
+      };
+
+      function showContentError(msg) {
+        document.getElementById("contentArea").innerHTML =
+          `<div style="flex:1;display:flex;align-items:center;justify-content:center;background:#fafaf9"><div class="slides-panel-empty"><h3 style="color:#dc2626">Error</h3><p style="color:#9ca3af">${msg}</p></div></div>`;
+      }
+
+      // ── SONG INTERFACE ──
+      window.renderSongInterface = function (song, typography) {
+        const ps = window.presentationState;
+        ps.mode = "song";
+        ps.song = song;
+        ps.flatIndex = 0;
+        ps.sentIndex = -1;
+        ps.parts = [];
+        ps.sermon = null;
+        ps.sermonSlides = [];
+        ps.sermonIndex = 0;
+        song.parts.forEach((part, pi) =>
+          part.slides.forEach((slide, si) =>
+            ps.parts.push({ partIndex: pi, slideIndex: si, text: slide, partLabel: part.label })
+          )
+        );
+        document.getElementById("contentArea").innerHTML =
+          `<div class="slides-panel" id="slidesPanel" tabindex="0"></div>`;
+        renderSlideGrid(song, typography);
+        focusSlide(0, false);
+        // Focus the panel so it receives keyboard events, but do NOT attach onkeydown here.
+        // All keyboard navigation is handled by the single document-level listener below.
+        const panel = document.getElementById("slidesPanel");
+        panel.focus();
+      };
+
+      window.renderSlideGrid = function (song, typography) {
+        const panel = document.getElementById("slidesPanel");
+        if (!panel) return;
+        panel.innerHTML = "";
+        const ps = window.presentationState;
+        const bgUrl = ps.backgroundUrl;
+        const textStyle = buildTextStyle(typography, true);
+        song.parts.forEach((part, pi) => {
+          const section = document.createElement("div");
+          section.className = "part-section";
+          section.dataset.partIndex = pi;
+          const label = document.createElement("div");
+          label.className = "part-section-label";
+          label.textContent = part.label;
+          section.appendChild(label);
+          const grid = document.createElement("div");
+          grid.className = "slides-grid";
+          ps.parts.forEach((item, fi) => {
+            if (item.partIndex !== pi) return;
+            const card = document.createElement("div");
+            card.className = "slide-card";
+            card.dataset.fi = fi;
+            card.tabIndex = -1;
+            if (bgUrl) card.style.backgroundImage = `url('${bgUrl}')`;
+            card.innerHTML = `<div class="slide-text" style="${textStyle}">${item.text}</div><div class="slide-index">${item.slideIndex + 1}</div>`;
+            card.onclick = () => {
+              focusSlide(fi, false);
+              sendSlide(fi);
+            };
+            grid.appendChild(card);
+          });
+          section.appendChild(grid);
+          panel.appendChild(section);
+        });
+      };
+
+      function buildTextStyle(t, mini) {
+        const fs = mini ? Math.max(9, Math.round((t.fontSize || 64) * 0.14)) : t.fontSize || 64;
+        return `font-family:${t.fontFamily || "inherit"};font-weight:${t.fontWeight || 700};font-size:${fs}px;color:${t.textColor || "#0b0c0f"};text-align:${t.textAlign || "center"};line-height:${(t.lineHeight || 140) / 100}`;
+      }
+
+      // focusSlide: moves the highlight/selection to a slide and optionally sends BOH preview
+      window.focusSlide = function (fi, scroll = true) {
+        const ps = window.presentationState;
+        if (fi < 0 || fi >= ps.parts.length) return;
+        ps.flatIndex = fi;
+        document.querySelectorAll(".slide-card").forEach((c) => c.classList.remove("active"));
+        const card = document.querySelector(`.slide-card[data-fi="${fi}"]`);
+        if (card) {
+          card.classList.add("active");
+          if (scroll) card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        }
+        const item = ps.parts[fi];
+        document.querySelectorAll(".part-section-label").forEach((l) => (l.style.color = "#6b7280"));
+        const sl = document.querySelector(`.part-section[data-part-index="${item.partIndex}"] .part-section-label`);
+        if (sl) sl.style.color = "#2a5cef";
+        document.getElementById("currentSlideInfo").textContent =
+          `${item.partLabel} — ${item.slideIndex + 1}/${ps.song.parts[item.partIndex].slides.length}  (${fi + 1}/${ps.parts.length} total)`;
+
+        // Send BOH "next up" preview whenever the focused slide changes
+        sendBOHPreview();
+      };
+
+      // sendBOHPreview: tells BOH which slide is currently focused (queued up next)
+      function sendBOHPreview() {
+        if (!window.isLive || !window.bohWindow || window.bohWindow.closed) return;
+        const ps = window.presentationState;
+        if (ps.mode === "song" && ps.parts.length) {
+          const focusedItem = ps.parts[ps.flatIndex];
+          // The sent slide stays as "current" on BOH; focused slide is shown as "next"
+          const bohMsg = {
+            type: "preview",
+            next: { type: "lyrics", text: focusedItem.text },
+            currentIndex: ps.flatIndex + 1,
+            totalSlides: ps.parts.length,
+            songTitle: ps.song ? ps.song.title : ""
+          };
+          window.bohWindow.postMessage(bohMsg, "*");
+        } else if (ps.mode === "sermon" && ps.sermonSlides.length) {
+          const focusedSlide = ps.sermonSlides[ps.sermonIndex];
+          const bohMsg = {
+            type: "preview",
+            next: { type: "sermon", url: focusedSlide.url, mediaType: focusedSlide.type, name: focusedSlide.name },
+            currentIndex: ps.sermonIndex + 1,
+            totalSlides: ps.sermonSlides.length,
+            songTitle: ps.sermon ? ps.sermon.title : ""
+          };
+          window.bohWindow.postMessage(bohMsg, "*");
+        }
+      }
+
+      window.sendSlide = function (fi) {
+        const ps = window.presentationState;
+        if (fi < 0 || fi >= ps.parts.length) return;
+        ps.sentIndex = fi;
+        document.querySelectorAll(".slide-card").forEach((c) => c.classList.remove("sent"));
+        const card = document.querySelector(`.slide-card[data-fi="${fi}"]`);
+        if (card) card.classList.add("sent");
+        // Sending a real slide clears bg-mode state
+        window._fohBgMode = false;
+        if (!window.isLive) return;
+        const item = ps.parts[fi];
+        const fadeTime = parseInt(document.getElementById("fadeTime").value) || 0;
+        const enableSongFade = document.getElementById("enableSongFade").checked;
+        const fohMsg = {
+          type: "display",
+          content: { type: "lyrics", text: item.text, license: ps.song.license || null },
+          typography: ps.typography || {},
+          fadeTime,
+          enableSongFade,
+          backgroundUrl: ps.backgroundUrl || null
+        };
+        // BOH "current" = what's on screen now; "next" = what's focused/queued
+        const focusedItem = ps.parts[ps.flatIndex];
+        const bohMsg = {
+          type: "display",
+          content: { type: "lyrics", text: item.text },
+          next: { type: "lyrics", text: focusedItem.text },
+          currentIndex: fi + 1,
+          totalSlides: ps.parts.length,
+          songTitle: ps.song.title
+        };
+        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.postMessage(fohMsg, "*");
+        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(bohMsg, "*");
+      };
+
+      // ── SERMON / MEDIA INTERFACE ──
+      window.renderSermonInterface = function (sermon) {
+        const ps = window.presentationState;
+        ps.mode = "sermon";
+        ps.sermon = sermon;
+        ps.sermonIndex = 0;
+        ps.song = null;
+        ps.parts = [];
+        ps.sentIndex = -1;
+
+        const slides = sermon.slides || [];
+        const types = sermon.slideTypes || slides.map(() => "image");
+        const names = sermon.slideNames || slides.map(() => "");
+        ps.sermonSlides = slides.map((url, i) => ({ url, type: types[i] || "image", name: names[i] || "" }));
+
+        if (!ps.sermonSlides.length) {
+          showContentError("This media segment has no slides. Add slides in Admin → Media.");
+          return;
+        }
+
+        document.getElementById("contentArea").innerHTML =
+          `<div class="slides-panel" id="slidesPanel" tabindex="0"></div>`;
+        const panel = document.getElementById("slidesPanel");
+
+        const section = document.createElement("div");
+        section.className = "part-section";
+        const labelEl = document.createElement("div");
+        labelEl.className = "part-section-label";
+        labelEl.textContent = sermon.title;
+        section.appendChild(labelEl);
+
+        const grid = document.createElement("div");
+        grid.className = "slides-grid";
+
+        ps.sermonSlides.forEach((slide, i) => {
+          const card = document.createElement("div");
+          card.className = "slide-card";
+          card.dataset.si = i;
+
+          if (slide.type === "image") {
+            card.style.backgroundImage = `url('${slide.url}')`;
+            card.style.backgroundSize = "cover";
+            card.style.backgroundPosition = "center";
+            card.innerHTML = `<div class="slide-index">${i + 1}</div>`;
+          } else if (slide.type === "video") {
+            card.style.background = "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)";
+            card.innerHTML = `<div style="font-size:32px;text-align:center">🎬</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label">${slide.name}</div>` : ""}`;
+          } else if (slide.type === "pdf") {
+            card.style.background = "linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)";
+            card.innerHTML = `<div style="font-size:32px;text-align:center;color:#dc2626">📄</div><div style="font-size:9px;color:#dc2626;text-align:center;padding:2px 4px">PDF</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label" style="color:#dc2626">${slide.name}</div>` : ""}`;
+          } else if (slide.type === "pptx") {
+            card.style.background = "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)";
+            card.innerHTML = `<div style="font-size:32px;text-align:center;color:#059669">📊</div><div style="font-size:9px;color:#059669;text-align:center;padding:2px 4px">PPTX</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label" style="color:#059669">${slide.name}</div>` : ""}`;
+          } else {
+            card.style.background = "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)";
+            card.innerHTML = `<div style="font-size:32px;text-align:center">🎬</div><div class="slide-index">${i + 1}</div>`;
+          }
+
+          card.onclick = () => {
+            focusSermonSlide(i, false);
+            sendSermonSlide(i);
+          };
+          grid.appendChild(card);
+        });
+
+        section.appendChild(grid);
+        panel.appendChild(section);
+        focusSermonSlide(0, false);
+        // Focus panel but do NOT attach onkeydown — handled by document listener
+        panel.focus();
+      };
+
+      window.focusSermonSlide = function (i, scroll = true) {
+        const ps = window.presentationState;
+        if (i < 0 || i >= ps.sermonSlides.length) return;
+        ps.sermonIndex = i;
+        document.querySelectorAll(".slide-card").forEach((c) => c.classList.remove("active"));
+        const card = document.querySelector(`.slide-card[data-si="${i}"]`);
+        if (card) {
+          card.classList.add("active");
+          if (scroll) card.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        }
+        const slide = ps.sermonSlides[i];
+        document.getElementById("currentSlideInfo").textContent =
+          `${ps.sermon.title} · Slide ${i + 1} of ${ps.sermonSlides.length}${slide.name ? " — " + slide.name : ""}`;
+
+        // Send BOH "next up" preview whenever the focused slide changes
+        sendBOHPreview();
+      };
+
+      window.sendSermonSlide = function (i) {
+        const ps = window.presentationState;
+        if (i < 0 || i >= ps.sermonSlides.length) return;
+        ps.sermonIndex = i;
+        document.querySelectorAll(".slide-card").forEach((c) => c.classList.remove("sent"));
+        const card = document.querySelector(`.slide-card[data-si="${i}"]`);
+        if (card) card.classList.add("sent");
+        // Sending a real slide clears bg-mode state
+        window._fohBgMode = false;
+        if (!window.isLive) return;
+        const slide = ps.sermonSlides[i];
+        const fadeTime = parseInt(document.getElementById("fadeTime").value) || 0;
+
+        const fohMsg = {
+          type: "display",
+          content: { type: "sermon", url: slide.url, mediaType: slide.type },
+          fadeTime,
+          backgroundUrl: ps.backgroundUrl || null
+        };
+        // BOH "current" = sent slide; "next" = currently focused slide
+        const focusedSlide = ps.sermonSlides[ps.sermonIndex];
+        const bohMsg = {
+          type: "display",
+          content: { type: "sermon", url: slide.url, mediaType: slide.type, name: slide.name },
+          next: { type: "sermon", url: focusedSlide.url, mediaType: focusedSlide.type, name: focusedSlide.name },
+          currentIndex: i + 1,
+          totalSlides: ps.sermonSlides.length,
+          songTitle: ps.sermon.title
+        };
+        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.postMessage(fohMsg, "*");
+        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(bohMsg, "*");
+      };
+
+      // ── SINGLE UNIFIED KEYBOARD HANDLER ──
+      // One document-level listener handles ALL keyboard navigation.
+      // The slidesPanel does NOT have its own onkeydown — that was causing double-firing.
+      document.addEventListener("keydown", (e) => {
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
+
+        // Global hotkeys (always active)
+        if (e.key.toLowerCase() === "t") {
+          fohCommand("toggleBackground");
+          return;
+        }
+        if (e.key.toLowerCase() === "l") {
+          fohCommand("toggleLogo");
+          return;
+        }
+        if (e.key.toLowerCase() === "b") {
+          sendBlackout();
+          return;
+        }
+
+        const ps = window.presentationState;
+
+        if (ps.mode === "song" && ps.parts.length) {
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            focusSlide(ps.flatIndex + 1, true);
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            focusSlide(ps.flatIndex - 1, true);
+          } else if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            sendSlide(ps.flatIndex);
+          }
+        } else if (ps.mode === "sermon" && ps.sermonSlides.length) {
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            focusSermonSlide(ps.sermonIndex + 1, true);
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            focusSermonSlide(ps.sermonIndex - 1, true);
+          } else if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            sendSermonSlide(ps.sermonIndex);
+          }
+        }
+      });
+
+      // T key: toggle between background-only and last sent slide
+      window.fohCommand = function (command) {
+        if (!window.fohWindow || window.fohWindow.closed) return;
+        if (command === "toggleBackground") {
+          if (window._fohBgMode) {
+            // Currently showing bg-only → restore last slide
+            window._fohBgMode = false;
+            const ps = window.presentationState;
+            if (ps.mode === "song" && ps.sentIndex >= 0) {
+              sendSlide(ps.sentIndex);
+            } else if (ps.mode === "sermon") {
+              sendSermonSlide(ps.sermonIndex);
+            } else {
+              window.fohWindow.postMessage({ type: "display", content: { type: "blank" } }, "*");
+            }
+          } else {
+            // Show background only
+            window._fohBgMode = true;
+            window.fohWindow.postMessage({ type: "fohCommand", command: "showBackgroundOnly" }, "*");
+          }
+        } else {
+          window.fohWindow.postMessage({ type: "fohCommand", command }, "*");
+        }
+      };
+
+      // B key: hard blackout toggle
+      window.sendBlackout = function () {
+        if (!window.isLive) return;
+        window.fohWindow && !window.fohWindow.closed && window.fohWindow.postMessage({ type: "fohCommand", command: "toggleBlack" }, "*");
+      };
+
+      // ── SONG SEARCH ──
+      window.searchSongs = async function () {
+        const term = document.getElementById("songSearch").value.trim().toLowerCase();
+        const resultsDiv = document.getElementById("songResults");
+        if (!term) {
+          resultsDiv.innerHTML = '<p style="color:#6b7280;font-size:13px">Start typing to search…</p>';
+          return;
+        }
+        resultsDiv.innerHTML = '<p style="color:#6b7280;font-size:13px">Searching…</p>';
+        try {
+          const snap = await getDocs(collection(window.userDb, "songs"));
+          const scored = [];
+          snap.forEach((d) => {
+            const s = d.data();
+            const title = (s.title || "").toLowerCase();
+            const author = (s.author || "").toLowerCase();
+            let score = 0;
+            if (title === term) score = 100;
+            else if (title.startsWith(term)) score = 80;
+            else if (title.includes(term)) score = 60;
+            else if (author.includes(term)) score = 30;
+            else return;
+            scored.push({ id: d.id, score, ...s });
+          });
+          scored.sort((a, b) => b.score - a.score);
+          if (!scored.length) {
+            resultsDiv.innerHTML = '<p style="color:#6b7280;font-size:13px">No songs found</p>';
+            return;
+          }
+          resultsDiv.innerHTML = scored
+            .map(
+              (s) =>
+                `<div class="song-result" onclick="selectSong('${s.id}','${(s.title || "").replace(/'/g, "\\'")}',this)"><div class="song-result-title">${s.title}</div><div class="song-result-meta">${s.author || "Unknown"} • ${s.parts ? s.parts.length : 0} parts</div></div>`
+            )
+            .join("");
+        } catch (e) {
+          resultsDiv.innerHTML = `<p style="color:#dc2626;font-size:13px">Error: ${e.message}</p>`;
+        }
+      };
+
+      window.selectSong = function (id, title, el) {
+        window.selectedSong = { id, title };
+        document.querySelectorAll(".song-result").forEach((e) => e.classList.remove("selected"));
+        el.classList.add("selected");
+      };
+
+      // ── LOAD SERMONS INTO DROPDOWN ──
+      window.loadSermonsIntoSelect = async function () {
+        const select = document.getElementById("sermonSelect");
+        const msg = document.getElementById("sermonSelectMsg");
+        select.innerHTML = '<option value="">Loading…</option>';
+        msg.textContent = "";
+        try {
+          const snap = await getDocs(collection(window.userDb, "sermons"));
+          if (snap.empty) {
+            select.innerHTML = '<option value="">No media yet — add some in Admin → Media</option>';
+            msg.textContent = "Go to Admin → Media to add media segments with images, PDFs, videos, or PowerPoints.";
+            return;
+          }
+          select.innerHTML = '<option value="">Choose a media segment…</option>';
+          snap.forEach((d) => {
+            const opt = document.createElement("option");
+            opt.value = d.id;
+            const s = d.data();
+            const count = s.slides ? s.slides.length : 0;
+            opt.textContent = `${s.title} (${count} item${count !== 1 ? "s" : ""})`;
+            select.appendChild(opt);
+          });
+        } catch (e) {
+          select.innerHTML = '<option value="">Error loading media</option>';
+          msg.textContent = "Error: " + e.message;
+        }
+      };
+
+      // ── MODALS ──
+      window.showAddPlaylistModal = () => document.getElementById("addPlaylistModal").classList.add("active");
+
+      window.showAddSegmentModal = () => {
+        if (!window.currentPlaylist) {
+          alert("Select a playlist first");
+          return;
+        }
+        document.getElementById("addSegmentModal").classList.add("active");
+        document.getElementById("songSearch").value = "";
+        document.getElementById("songResults").innerHTML =
+          '<p style="color:#6b7280;font-size:13px">Start typing to search…</p>';
+        window.selectedSong = null;
+        document.getElementById("segmentType").value = "song";
+        document.getElementById("songSegmentForm").style.display = "block";
+        document.getElementById("sermonSegmentForm").style.display = "none";
+      };
+
+      window.onSegmentTypeChange = () => {
+        const t = document.getElementById("segmentType").value;
+        document.getElementById("songSegmentForm").style.display = t === "song" ? "block" : "none";
+        document.getElementById("sermonSegmentForm").style.display = t === "sermon" ? "block" : "none";
+        if (t === "sermon") loadSermonsIntoSelect();
+      };
+
+      window.closeModal = (id) => document.getElementById(id).classList.remove("active");
+
+      window.addPlaylist = async function () {
+        const name = document.getElementById("playlistName").value.trim();
+        if (!name) {
+          alert("Enter a name");
+          return;
+        }
+        const id = Date.now().toString();
+        await set(ref(window.userRtdb, `users/${window.currentUser.uid}/playlists/${id}`), {
+          name,
+          segments: [],
+          createdAt: new Date().toISOString()
+        });
+        document.getElementById("playlistName").value = "";
+        closeModal("addPlaylistModal");
+      };
+
+      window.addSegment = async function () {
+        if (!window.currentPlaylist) {
+          alert("Select a playlist first");
+          return;
+        }
+        const type = document.getElementById("segmentType").value;
+        let seg = { type };
+
+        if (type === "song") {
+          if (!window.selectedSong) {
+            alert("Select a song first");
+            return;
+          }
+          seg.songId = window.selectedSong.id;
+          seg.name = window.selectedSong.title;
+        } else if (type === "sermon") {
+          const select = document.getElementById("sermonSelect");
+          const sermonId = select.value;
+          if (!sermonId) {
+            alert("Select a media segment");
+            return;
+          }
+          seg.sermonId = sermonId;
+          seg.name = select.options[select.selectedIndex].text.replace(/\s*\(\d+ items?\)$/, "").trim();
+        }
+
+        const segs = [...(window.currentPlaylist.segments || []), seg];
+        await set(
+          ref(window.userRtdb, `users/${window.currentUser.uid}/playlists/${window.currentPlaylist.id}/segments`),
+          segs
+        );
+        window.currentPlaylist.segments = segs;
+        renderSegments(segs);
+        closeModal("addSegmentModal");
+        window.selectedSong = null;
+        const newEl = document.querySelector(`.segment-item[data-index="${segs.length - 1}"]`);
+        if (newEl) selectSegment(seg, segs.length - 1, newEl);
+      };
+
+      // ── GO LIVE ──
+      function saveWindowPrefs(which, win) {
+        try {
+          localStorage.setItem(`vc_${which}_opened`, "1");
+        } catch(e) {}
+      }
+
+      window.goLive = () => {
+        const fohAlive = window.fohWindow && !window.fohWindow.closed;
+        if (fohAlive) {
+          completeSetup();
+          return;
+        }
+        document.getElementById("goLiveModal").classList.add("active");
+        const bohAlive = window.bohWindow && !window.bohWindow.closed;
+        if (fohAlive) {
+          document.getElementById("fohStatus").textContent = "Already open";
+          document.getElementById("fohStatus").style.color = "#10b981";
+        }
+        if (bohAlive) {
+          document.getElementById("bohStatus").textContent = "Already open";
+          document.getElementById("bohStatus").style.color = "#10b981";
+        }
+        checkSetupComplete();
+      };
+
+      window.openFOH = () => {
+        if (!window.fohWindow || window.fohWindow.closed) {
+          window.fohWindow = window.open("foh.html", "FOH", "width=1920,height=1080");
+          saveWindowPrefs("foh", window.fohWindow);
+          setTimeout(() => {
+            try {
+              window.fohWindow && window.fohWindow.postMessage({ type: "requestFullscreen" }, "*");
+            } catch(e) {}
+          }, 1200);
+        }
+        document.getElementById("fohStatus").textContent = "Opened";
+        document.getElementById("fohStatus").style.color = "#10b981";
+        checkSetupComplete();
+      };
+
+      window.openBOH = () => {
+        if (!window.bohWindow || window.bohWindow.closed) {
+          window.bohWindow = window.open("boh.html", "BOH", "width=1280,height=720");
+          saveWindowPrefs("boh", window.bohWindow);
+          setTimeout(() => {
+            try {
+              window.bohWindow && window.bohWindow.postMessage({ type: "requestFullscreen" }, "*");
+            } catch(e) {}
+          }, 1200);
+        }
+        document.getElementById("bohStatus").textContent = "Opened";
+        document.getElementById("bohStatus").style.color = "#10b981";
+        checkSetupComplete();
+      };
+
+      window.checkSetupComplete = () => {
+        const fohAlive = window.fohWindow && !window.fohWindow.closed;
+        document.getElementById("completeSetupBtn").disabled = !fohAlive;
+      };
+
+      window.completeSetup = () => {
+        window.isLive = true;
+        window._fohBgMode = false;
+        const ind = document.getElementById("liveIndicator");
+        ind.classList.add("active");
+        ind.querySelector("span:last-child").textContent = "Live";
+        document.getElementById("stopBtn").style.display = "block";
+        document.getElementById("fohControls").style.display = "flex";
+        closeModal("goLiveModal");
+        const initMsg = {
+          type: "init",
+          fadeTime: parseInt(document.getElementById("fadeTime").value) || 0,
+          enableSongFade: document.getElementById("enableSongFade").checked,
+          backgroundUrl: window.presentationState.backgroundUrl || null
+        };
+        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.postMessage(initMsg, "*");
+        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(initMsg, "*");
+      };
+
+      window.stopPresentation = () => {
+        window.isLive = false;
+        window._fohBgMode = false;
+        const ind = document.getElementById("liveIndicator");
+        ind.classList.remove("active");
+        ind.querySelector("span:last-child").textContent = "Offline";
+        document.getElementById("stopBtn").style.display = "none";
+        document.getElementById("fohControls").style.display = "none";
+        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.close();
+        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.close();
+        window.fohWindow = null;
+        window.bohWindow = null;
+      };
+    </script>
+  </body>
 </html>
