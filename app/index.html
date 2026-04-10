@@ -716,7 +716,10 @@
             </div>
             <div class="setup-step">
               <div class="setup-step-num">3</div>
-              <div>Optionally configure Cloudinary for image/video uploads in Admin → Settings.</div>
+              <div>Optionally configure Cloudinary for image/video uploads in Admin → Settings. Look at our <a href="https://viewcast.github.io" target="_blank" rel="noopener noreferrer">
+  Setup Guide
+</a>
+ For more info</div>
             </div>
           </div>
           <div class="form-group">
@@ -913,7 +916,7 @@
         </div>
         <div id="sermonSegmentForm" style="display: none">
           <div class="form-group">
-            <label>Select Media</label>
+            <label>Select Media Segment</label>
             <select id="sermonSelect">
               <option value="">Loading…</option>
             </select>
@@ -1382,9 +1385,10 @@
           `<div class="slides-panel" id="slidesPanel" tabindex="0"></div>`;
         renderSlideGrid(song, typography);
         focusSlide(0, false);
+        // Focus the panel so it receives keyboard events, but do NOT attach onkeydown here.
+        // All keyboard navigation is handled by the single document-level listener below.
         const panel = document.getElementById("slidesPanel");
         panel.focus();
-        panel.onkeydown = handleSlideKeyDown;
       };
 
       window.renderSlideGrid = function (song, typography) {
@@ -1428,6 +1432,7 @@
         return `font-family:${t.fontFamily || "inherit"};font-weight:${t.fontWeight || 700};font-size:${fs}px;color:${t.textColor || "#0b0c0f"};text-align:${t.textAlign || "center"};line-height:${(t.lineHeight || 140) / 100}`;
       }
 
+      // focusSlide: moves the highlight/selection to a slide and optionally sends BOH preview
       window.focusSlide = function (fi, scroll = true) {
         const ps = window.presentationState;
         if (fi < 0 || fi >= ps.parts.length) return;
@@ -1444,7 +1449,38 @@
         if (sl) sl.style.color = "#2a5cef";
         document.getElementById("currentSlideInfo").textContent =
           `${item.partLabel} — ${item.slideIndex + 1}/${ps.song.parts[item.partIndex].slides.length}  (${fi + 1}/${ps.parts.length} total)`;
+
+        // Send BOH "next up" preview whenever the focused slide changes
+        sendBOHPreview();
       };
+
+      // sendBOHPreview: tells BOH which slide is currently focused (queued up next)
+      function sendBOHPreview() {
+        if (!window.isLive || !window.bohWindow || window.bohWindow.closed) return;
+        const ps = window.presentationState;
+        if (ps.mode === "song" && ps.parts.length) {
+          const focusedItem = ps.parts[ps.flatIndex];
+          // The sent slide stays as "current" on BOH; focused slide is shown as "next"
+          const bohMsg = {
+            type: "preview",
+            next: { type: "lyrics", text: focusedItem.text },
+            currentIndex: ps.flatIndex + 1,
+            totalSlides: ps.parts.length,
+            songTitle: ps.song ? ps.song.title : ""
+          };
+          window.bohWindow.postMessage(bohMsg, "*");
+        } else if (ps.mode === "sermon" && ps.sermonSlides.length) {
+          const focusedSlide = ps.sermonSlides[ps.sermonIndex];
+          const bohMsg = {
+            type: "preview",
+            next: { type: "sermon", url: focusedSlide.url, mediaType: focusedSlide.type, name: focusedSlide.name },
+            currentIndex: ps.sermonIndex + 1,
+            totalSlides: ps.sermonSlides.length,
+            songTitle: ps.sermon ? ps.sermon.title : ""
+          };
+          window.bohWindow.postMessage(bohMsg, "*");
+        }
+      }
 
       window.sendSlide = function (fi) {
         const ps = window.presentationState;
@@ -1457,7 +1493,6 @@
         window._fohBgMode = false;
         if (!window.isLive) return;
         const item = ps.parts[fi];
-        const nextItem = fi + 1 < ps.parts.length ? ps.parts[fi + 1] : null;
         const fadeTime = parseInt(document.getElementById("fadeTime").value) || 0;
         const enableSongFade = document.getElementById("enableSongFade").checked;
         const fohMsg = {
@@ -1468,10 +1503,12 @@
           enableSongFade,
           backgroundUrl: ps.backgroundUrl || null
         };
+        // BOH "current" = what's on screen now; "next" = what's focused/queued
+        const focusedItem = ps.parts[ps.flatIndex];
         const bohMsg = {
           type: "display",
           content: { type: "lyrics", text: item.text },
-          next: nextItem ? { type: "lyrics", text: nextItem.text } : null,
+          next: { type: "lyrics", text: focusedItem.text },
           currentIndex: fi + 1,
           totalSlides: ps.parts.length,
           songTitle: ps.song.title
@@ -1496,7 +1533,7 @@
         ps.sermonSlides = slides.map((url, i) => ({ url, type: types[i] || "image", name: names[i] || "" }));
 
         if (!ps.sermonSlides.length) {
-          showContentError("This media item has no slides. Add slides in Admin → Media.");
+          showContentError("This media segment has no slides. Add slides in Admin → Media.");
           return;
         }
 
@@ -1548,8 +1585,8 @@
         section.appendChild(grid);
         panel.appendChild(section);
         focusSermonSlide(0, false);
+        // Focus panel but do NOT attach onkeydown — handled by document listener
         panel.focus();
-        panel.onkeydown = handleSlideKeyDown;
       };
 
       window.focusSermonSlide = function (i, scroll = true) {
@@ -1565,6 +1602,9 @@
         const slide = ps.sermonSlides[i];
         document.getElementById("currentSlideInfo").textContent =
           `${ps.sermon.title} · Slide ${i + 1} of ${ps.sermonSlides.length}${slide.name ? " — " + slide.name : ""}`;
+
+        // Send BOH "next up" preview whenever the focused slide changes
+        sendBOHPreview();
       };
 
       window.sendSermonSlide = function (i) {
@@ -1578,7 +1618,6 @@
         window._fohBgMode = false;
         if (!window.isLive) return;
         const slide = ps.sermonSlides[i];
-        const nextSlide = i + 1 < ps.sermonSlides.length ? ps.sermonSlides[i + 1] : null;
         const fadeTime = parseInt(document.getElementById("fadeTime").value) || 0;
 
         const fohMsg = {
@@ -1587,12 +1626,12 @@
           fadeTime,
           backgroundUrl: ps.backgroundUrl || null
         };
+        // BOH "current" = sent slide; "next" = currently focused slide
+        const focusedSlide = ps.sermonSlides[ps.sermonIndex];
         const bohMsg = {
           type: "display",
           content: { type: "sermon", url: slide.url, mediaType: slide.type, name: slide.name },
-          next: nextSlide
-            ? { type: "sermon", url: nextSlide.url, mediaType: nextSlide.type, name: nextSlide.name }
-            : null,
+          next: { type: "sermon", url: focusedSlide.url, mediaType: focusedSlide.type, name: focusedSlide.name },
           currentIndex: i + 1,
           totalSlides: ps.sermonSlides.length,
           songTitle: ps.sermon.title
@@ -1601,39 +1640,13 @@
         if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(bohMsg, "*");
       };
 
-      // ── UNIFIED KEY HANDLER ──
-      window.handleSlideKeyDown = function (e) {
-        const ps = window.presentationState;
-        if (ps.mode === "song") {
-          if (!ps.parts.length) return;
-          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-            e.preventDefault();
-            focusSlide(ps.flatIndex + 1, true);
-          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-            e.preventDefault();
-            focusSlide(ps.flatIndex - 1, true);
-          } else if (e.key === " " || e.key === "Enter") {
-            e.preventDefault();
-            sendSlide(ps.flatIndex);
-          }
-        } else if (ps.mode === "sermon") {
-          if (!ps.sermonSlides.length) return;
-          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-            e.preventDefault();
-            focusSermonSlide(ps.sermonIndex + 1, true);
-          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-            e.preventDefault();
-            focusSermonSlide(ps.sermonIndex - 1, true);
-          } else if (e.key === " " || e.key === "Enter") {
-            e.preventDefault();
-            sendSermonSlide(ps.sermonIndex);
-          }
-        }
-      };
-
+      // ── SINGLE UNIFIED KEYBOARD HANDLER ──
+      // One document-level listener handles ALL keyboard navigation.
+      // The slidesPanel does NOT have its own onkeydown — that was causing double-firing.
       document.addEventListener("keydown", (e) => {
         if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
-        const ps = window.presentationState;
+
+        // Global hotkeys (always active)
         if (e.key.toLowerCase() === "t") {
           fohCommand("toggleBackground");
           return;
@@ -1646,11 +1659,31 @@
           sendBlackout();
           return;
         }
-        const hasContent = (ps.mode === "song" && ps.parts.length) || (ps.mode === "sermon" && ps.sermonSlides.length);
-        if (!hasContent) return;
-        if (["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown", " "].includes(e.key)) {
-          e.preventDefault();
-          handleSlideKeyDown(e);
+
+        const ps = window.presentationState;
+
+        if (ps.mode === "song" && ps.parts.length) {
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            focusSlide(ps.flatIndex + 1, true);
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            focusSlide(ps.flatIndex - 1, true);
+          } else if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            sendSlide(ps.flatIndex);
+          }
+        } else if (ps.mode === "sermon" && ps.sermonSlides.length) {
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            focusSermonSlide(ps.sermonIndex + 1, true);
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            focusSermonSlide(ps.sermonIndex - 1, true);
+          } else if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            sendSermonSlide(ps.sermonIndex);
+          }
         }
       });
 
@@ -1667,7 +1700,6 @@
             } else if (ps.mode === "sermon") {
               sendSermonSlide(ps.sermonIndex);
             } else {
-              // Nothing sent yet, just send blank
               window.fohWindow.postMessage({ type: "display", content: { type: "blank" } }, "*");
             }
           } else {
@@ -1742,16 +1774,16 @@
           const snap = await getDocs(collection(window.userDb, "sermons"));
           if (snap.empty) {
             select.innerHTML = '<option value="">No media yet — add some in Admin → Media</option>';
-            msg.textContent = "Go to Admin → Media to add sermon slides, images, PDFs, or videos.";
+            msg.textContent = "Go to Admin → Media to add media segments with images, PDFs, videos, or PowerPoints.";
             return;
           }
-          select.innerHTML = '<option value="">Choose your media…</option>';
+          select.innerHTML = '<option value="">Choose a media segment…</option>';
           snap.forEach((d) => {
             const opt = document.createElement("option");
             opt.value = d.id;
             const s = d.data();
             const count = s.slides ? s.slides.length : 0;
-            opt.textContent = `${s.title} (${count} slide${count !== 1 ? "s" : ""})`;
+            opt.textContent = `${s.title} (${count} item${count !== 1 ? "s" : ""})`;
             select.appendChild(opt);
           });
         } catch (e) {
@@ -1822,11 +1854,11 @@
           const select = document.getElementById("sermonSelect");
           const sermonId = select.value;
           if (!sermonId) {
-            alert("Select a media item");
+            alert("Select a media segment");
             return;
           }
           seg.sermonId = sermonId;
-          seg.name = select.options[select.selectedIndex].text.replace(/\s*\(\d+ slides?\)$/, "").trim();
+          seg.name = select.options[select.selectedIndex].text.replace(/\s*\(\d+ items?\)$/, "").trim();
         }
 
         const segs = [...(window.currentPlaylist.segments || []), seg];
@@ -1843,7 +1875,6 @@
       };
 
       // ── GO LIVE ──
-      // Remember window positions/sizes in localStorage
       function saveWindowPrefs(which, win) {
         try {
           localStorage.setItem(`vc_${which}_opened`, "1");
@@ -1851,16 +1882,13 @@
       }
 
       window.goLive = () => {
-        // If windows already exist and are open, skip the modal and go live immediately
         const fohAlive = window.fohWindow && !window.fohWindow.closed;
-        const bohAlive = window.bohWindow && !window.bohWindow.closed;
         if (fohAlive) {
-          // Windows already open — just complete setup directly
           completeSetup();
           return;
         }
         document.getElementById("goLiveModal").classList.add("active");
-        // Update status for any already-open windows
+        const bohAlive = window.bohWindow && !window.bohWindow.closed;
         if (fohAlive) {
           document.getElementById("fohStatus").textContent = "Already open";
           document.getElementById("fohStatus").style.color = "#10b981";
@@ -1876,7 +1904,6 @@
         if (!window.fohWindow || window.fohWindow.closed) {
           window.fohWindow = window.open("foh.html", "FOH", "width=1920,height=1080");
           saveWindowPrefs("foh", window.fohWindow);
-          // Request fullscreen after a brief delay for the window to load
           setTimeout(() => {
             try {
               window.fohWindow && window.fohWindow.postMessage({ type: "requestFullscreen" }, "*");
@@ -1935,7 +1962,6 @@
         ind.querySelector("span:last-child").textContent = "Offline";
         document.getElementById("stopBtn").style.display = "none";
         document.getElementById("fohControls").style.display = "none";
-        // Close display windows
         if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.close();
         if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.close();
         window.fohWindow = null;
