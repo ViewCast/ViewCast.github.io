@@ -5,8 +5,6 @@
    <link rel="icon" href=https://viewcast.github.io/images/logo.png>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ViewCast | Screen Control</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
     <style>
       * {
         margin: 0;
@@ -14,9 +12,9 @@
         box-sizing: border-box;
       }
       body {
-        font-family: "DM Sans", sans-serif;
-        background: #f5f3ee;
-        color: #0b0c0f;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f1f5f9;
+        color: #1e2939;
         display: flex;
         height: 100vh;
         overflow: hidden;
@@ -27,7 +25,7 @@
         justify-content: center;
         width: 100%;
         min-height: 100vh;
-        background: #f5f3ee;
+        background: linear-gradient(135deg, #e0e7ef 0%, #f1f5f9 50%, #e0e7ef 100%);
         overflow-y: auto;
         padding: 40px 20px;
       }
@@ -35,25 +33,23 @@
         background: #ffffff;
         padding: 44px 40px;
         border-radius: 16px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         max-width: 440px;
         width: 100%;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
         margin: auto;
       }
       .login-box h1 {
-        font-family: 'DM Serif Display', serif;
-        color: #2a5cef;
+        color: #1d4ed8;
         margin-bottom: 6px;
         font-size: 30px;
-        font-weight: 400;
+        font-weight: 700;
         letter-spacing: -0.5px;
       }
       .login-box p {
-        color: #6b7280;
+        color: #94a3b8;
         margin-bottom: 28px;
         font-size: 14px;
-        font-weight: 300;
       }
       .form-group {
         margin-bottom: 18px;
@@ -63,30 +59,29 @@
         margin-bottom: 7px;
         font-weight: 500;
         font-size: 13px;
-        color: #374151;
+        color: #475569;
       }
       .form-group input,
       .form-group select,
       .form-group textarea {
         width: 100%;
         padding: 10px 14px;
-        border: 1px solid #d1d5db;
+        border: 1px solid #e2e8f0;
         border-radius: 8px;
         font-size: 14px;
-        background: #ffffff;
-        color: #0b0c0f;
+        background: #f8fafc;
+        color: #1e2939;
         transition: border-color 0.2s;
-        font-family: "DM Sans", sans-serif;
       }
       .form-group input:focus,
       .form-group select:focus {
         outline: none;
-        border-color: #2a5cef;
+        border-color: #3b82f6;
       }
       .error-message {
         background: #fef2f2;
-        border: 1px solid #fca5a5;
-        color: #dc2626;
+        border: 1px solid #fecaca;
+        color: #991b1b;
         padding: 11px 14px;
         border-radius: 8px;
         margin-bottom: 14px;
@@ -94,8 +89,8 @@
       }
       .success-message {
         background: #f0fdf4;
-        border: 1px solid #86efac;
-        color: #059669;
+        border: 1px solid #bbf7d0;
+        color: #14532d;
         padding: 11px 14px;
         border-radius: 8px;
         margin-bottom: 14px;
@@ -103,8 +98,8 @@
       }
       .info-box {
         background: #eff6ff;
-        border: 1px solid #93c5fd;
-        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+        color: #1e40af;
         padding: 13px 15px;
         border-radius: 8px;
         margin-bottom: 16px;
@@ -116,6 +111,7 @@
         padding: 1px 6px;
         border-radius: 4px;
         font-size: 12px;
+        color: #1e40af;
       }
       .btn {
         padding: 10px 20px;
@@ -125,22 +121,21 @@
         font-weight: 600;
         transition: all 0.2s;
         font-size: 14px;
-        font-family: "DM Sans", sans-serif;
       }
       .btn-primary {
-        background: #2a5cef;
+        background: #2563eb;
         color: #fff;
       }
       .btn-primary:hover {
         background: #1d4ed8;
       }
       .btn-secondary {
-        background: #f3f4f6;
-        color: #374151;
-        border: 1px solid #d1d5db;
+        background: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
       }
       .btn-secondary:hover {
-        background: #e5e7eb;
+        background: #e2e8f0;
       }
       .btn-danger {
         background: #dc2626;
@@ -165,14 +160,14 @@
       }
       .setup-wizard {
         background: #eff6ff;
-        border: 1px solid #93c5fd;
+        border: 1px solid #bfdbfe;
         padding: 18px;
         border-radius: 10px;
         margin-bottom: 20px;
       }
       .setup-wizard h3 {
         font-size: 14px;
-        color: #1d4ed8;
+        color: #1e40af;
         margin-bottom: 13px;
         font-weight: 600;
       }
@@ -182,11 +177,11 @@
         gap: 10px;
         margin-bottom: 10px;
         font-size: 13px;
-        color: #2563eb;
+        color: #1d4ed8;
         line-height: 1.5;
       }
       .setup-step-num {
-        background: #2a5cef;
+        background: #2563eb;
         color: #fff;
         width: 20px;
         height: 20px;
@@ -205,15 +200,15 @@
         justify-content: center;
         width: 100%;
         height: 100vh;
-        background: #f5f3ee;
+        background: #f1f5f9;
         flex-direction: column;
         gap: 12px;
       }
       .loading-spinner {
         width: 36px;
         height: 36px;
-        border: 3px solid #e5e7eb;
-        border-top-color: #2a5cef;
+        border: 3px solid #e2e8f0;
+        border-top-color: #3b82f6;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
       }
@@ -225,24 +220,23 @@
       .sidebar {
         width: 272px;
         background: #ffffff;
-        border-right: 1px solid #e5e7eb;
+        border-right: 1px solid #e2e8f0;
         display: flex;
         flex-direction: column;
       }
       .sidebar-header {
         padding: 18px 16px;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e2e8f0;
       }
       .sidebar-header h1 {
-        font-family: 'DM Serif Display', serif;
         font-size: 22px;
-        color: #2a5cef;
-        font-weight: 400;
+        color: #1d4ed8;
+        font-weight: 700;
         letter-spacing: -0.5px;
       }
       .user-info {
         font-size: 11px;
-        color: #6b7280;
+        color: #94a3b8;
         margin-top: 3px;
         white-space: nowrap;
         overflow: hidden;
@@ -250,7 +244,7 @@
       }
       .sidebar-section {
         padding: 12px;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e2e8f0;
       }
       .sidebar-section.grow {
         flex: 1;
@@ -263,14 +257,14 @@
         margin-bottom: 10px;
       }
       .section-title {
-        font-weight: 700;
-        font-size: 10px;
-        color: #6b7280;
+        font-weight: 600;
+        font-size: 11px;
+        color: #94a3b8;
         text-transform: uppercase;
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
       }
       .add-btn {
-        background: #2a5cef;
+        background: #2563eb;
         color: #fff;
         border: none;
         width: 22px;
@@ -290,7 +284,7 @@
       .segment-item {
         padding: 9px 10px;
         margin: 4px 0;
-        background: #f9fafb;
+        background: #f8fafc;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.15s;
@@ -302,13 +296,13 @@
       }
       .playlist-item:hover,
       .segment-item:hover {
-        background: #eff6ff;
-        border-color: #60a5fa;
+        background: #f0f7ff;
+        border-color: #3b82f6;
       }
       .playlist-item.active,
       .segment-item.active {
         background: #dbeafe;
-        border-color: #2a5cef;
+        border-color: #3b82f6;
       }
       .playlist-item-info,
       .segment-item-info {
@@ -321,17 +315,17 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: #0b0c0f;
+        color: #1e2939;
       }
       .item-count {
         font-size: 11px;
-        color: #6b7280;
+        color: #94a3b8;
         margin-top: 1px;
       }
       .item-remove-btn {
         background: none;
         border: none;
-        color: #9ca3af;
+        color: #cbd5e1;
         cursor: pointer;
         font-size: 18px;
         padding: 0 3px;
@@ -352,7 +346,7 @@
       }
       .top-bar {
         background: #ffffff;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e2e8f0;
         padding: 12px 18px;
         display: flex;
         justify-content: space-between;
@@ -372,22 +366,20 @@
         flex: 1;
         overflow-y: auto;
         padding: 20px;
-        background: #fafaf9;
+        background: #f8fafc;
       }
       .slides-panel-empty {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100%;
-        color: #9ca3af;
+        color: #cbd5e1;
         flex-direction: column;
         gap: 8px;
       }
       .slides-panel-empty h3 {
-        font-family: 'DM Serif Display', serif;
         font-size: 18px;
-        color: #6b7280;
-        font-weight: 400;
+        color: #94a3b8;
       }
       .part-section {
         margin-bottom: 26px;
@@ -397,10 +389,10 @@
         font-weight: 700;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        color: #6b7280;
+        color: #94a3b8;
         margin-bottom: 8px;
         padding-bottom: 6px;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         display: flex;
         align-items: center;
         gap: 8px;
@@ -410,80 +402,75 @@
         display: inline-block;
         width: 3px;
         height: 12px;
-        background: #2a5cef;
+        background: #3b82f6;
         border-radius: 2px;
       }
       .slides-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 10px;
+        gap: 8px;
       }
       .slide-card {
-        border-radius: 8px;
+        border-radius: 6px;
         aspect-ratio: 16/9;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        border: 2px solid #e5e7eb;
+        border: 2px solid transparent;
         transition: all 0.15s;
         position: relative;
         overflow: hidden;
-        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+        background-color: #e2e8f0;
         background-size: cover;
         background-position: center;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
       }
       .slide-card:hover {
-        border-color: #60a5fa;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(42, 92, 239, 0.15);
+        border-color: #3b82f6;
+        transform: scale(1.02);
       }
       .slide-card.active {
-        border-color: #2a5cef;
-        box-shadow: 0 0 0 3px rgba(42, 92, 239, 0.1);
+        border-color: #2563eb;
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
       }
       .slide-card.sent {
-        border-color: #10b981;
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        border-color: #22c55e;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
       }
       .slide-text {
-        color: #0b0c0f;
+        color: #fff;
         font-size: 10px;
         padding: 6px;
         text-align: center;
         line-height: 1.4;
         pointer-events: none;
         white-space: pre-line;
-        font-weight: 600;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
       }
       .slide-index {
         position: absolute;
-        bottom: 4px;
-        right: 6px;
+        bottom: 3px;
+        right: 5px;
         font-size: 9px;
-        color: #9ca3af;
-        font-weight: 600;
+        color: rgba(0, 0, 0, 0.3);
       }
       .media-card-label {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(0, 0, 0, 0.45);
         font-size: 9px;
-        color: #6b7280;
+        color: rgba(255, 255, 255, 0.85);
         text-align: center;
         padding: 3px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-weight: 500;
-        border-top: 1px solid #e5e7eb;
       }
       .bottom-controls {
         background: #ffffff;
-        border-top: 1px solid #e5e7eb;
+        border-top: 1px solid #e2e8f0;
         padding: 10px 18px;
         display: flex;
         justify-content: space-between;
@@ -497,44 +484,44 @@
       .fade-controls label {
         font-size: 13px;
         font-weight: 500;
-        color: #374151;
+        color: #64748b;
       }
       .fade-controls input[type="number"] {
         width: 75px;
         padding: 5px 9px;
-        border: 1px solid #d1d5db;
+        border: 1px solid #e2e8f0;
         border-radius: 6px;
         font-size: 13px;
-        background: #ffffff;
-        color: #0b0c0f;
+        background: #f8fafc;
+        color: #1e2939;
       }
       .checkbox-control {
         display: flex;
         align-items: center;
         gap: 7px;
         font-size: 13px;
-        color: #374151;
+        color: #64748b;
       }
       .current-slide-info {
         font-size: 12px;
-        color: #6b7280;
+        color: #94a3b8;
       }
       .live-indicator {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         padding: 7px 14px;
-        background: #f3f4f6;
-        border: 1px solid #d1d5db;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
         border-radius: 20px;
         font-weight: 600;
         font-size: 13px;
-        color: #6b7280;
+        color: #64748b;
       }
       .live-indicator.active {
-        background: #ecfdf5;
-        border-color: #86efac;
-        color: #059669;
+        background: #f0fdf4;
+        border-color: #bbf7d0;
+        color: #15803d;
       }
       .live-dot {
         width: 7px;
@@ -543,7 +530,7 @@
         border-radius: 50%;
       }
       .live-indicator.active .live-dot {
-        background: #10b981;
+        background: #22c55e;
         animation: pulse 2s infinite;
       }
       @keyframes pulse {
@@ -557,28 +544,27 @@
       }
       .kbd-hint {
         font-size: 11px;
-        color: #6b7280;
+        color: #94a3b8;
         display: flex;
         gap: 5px;
         align-items: center;
       }
       .kbd {
-        background: #f3f4f6;
-        border: 1px solid #d1d5db;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
         border-radius: 3px;
         padding: 1px 5px;
         font-family: monospace;
         font-size: 10px;
-        color: #374151;
-        font-weight: 600;
+        color: #64748b;
       }
       .blank-btn {
-        background: #f3f4f6;
-        color: #374151;
-        border: 1px solid #d1d5db;
+        background: #f1f5f9;
+        color: #64748b;
+        border: 1px solid #e2e8f0;
       }
       .blank-btn:hover {
-        background: #e5e7eb;
+        background: #e2e8f0;
       }
       .modal {
         display: none;
@@ -587,7 +573,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(0, 0, 0, 0.35);
         z-index: 1000;
         align-items: center;
         justify-content: center;
@@ -603,21 +589,19 @@
         width: 90%;
         max-height: 88vh;
         overflow-y: auto;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
       }
       .modal-header {
         margin-bottom: 18px;
       }
       .modal-header h2 {
-        font-family: 'DM Serif Display', serif;
         font-size: 22px;
         margin-bottom: 6px;
-        color: #0b0c0f;
-        font-weight: 400;
+        color: #1e2939;
       }
       .modal-header p {
-        color: #6b7280;
+        color: #94a3b8;
         font-size: 13px;
       }
       .modal-actions {
@@ -632,19 +616,19 @@
       .search-box input {
         width: 100%;
         padding: 10px 14px;
-        border: 2px solid #d1d5db;
+        border: 2px solid #e2e8f0;
         border-radius: 8px;
         font-size: 14px;
-        background: #ffffff;
-        color: #0b0c0f;
+        background: #f8fafc;
+        color: #1e2939;
       }
       .search-box input:focus {
         outline: none;
-        border-color: #2a5cef;
+        border-color: #3b82f6;
       }
       .song-result {
         padding: 11px 14px;
-        background: #f9fafb;
+        background: #f8fafc;
         margin: 6px 0;
         border-radius: 8px;
         cursor: pointer;
@@ -652,29 +636,29 @@
         transition: all 0.15s;
       }
       .song-result:hover {
-        background: #eff6ff;
-        border-color: #60a5fa;
+        background: #f0f7ff;
+        border-color: #3b82f6;
       }
       .song-result.selected {
         background: #dbeafe;
-        border-color: #2a5cef;
+        border-color: #3b82f6;
       }
       .song-result-title {
         font-weight: 600;
         margin-bottom: 3px;
         font-size: 14px;
-        color: #0b0c0f;
+        color: #1e2939;
       }
       .song-result-meta {
         font-size: 11px;
-        color: #6b7280;
+        color: #94a3b8;
       }
     </style>
   </head>
   <body>
     <div id="loadingScreen" class="loading-screen">
       <div class="loading-spinner"></div>
-      <div style="color: #6b7280; font-size: 13px" id="loadingMsg">Signing in…</div>
+      <div style="color: #64748b; font-size: 13px" id="loadingMsg">Signing in…</div>
     </div>
 
     <div id="loginScreen" class="login-screen" style="display: none">
@@ -697,8 +681,8 @@
               onkeydown="if(event.key==='Enter')loginUser()" />
           </div>
           <button class="btn btn-primary" style="width: 100%" onclick="loginUser()">Login</button>
-          <p style="text-align: center; margin-top: 14px; font-size: 13px; color: #6b7280">
-            No account? <a href="#" onclick="showRegister();return false;" style="color: #2a5cef; text-decoration: none;">Register</a>
+          <p style="text-align: center; margin-top: 14px; font-size: 13px; color: #64748b">
+            No account? <a href="#" onclick="showRegister();return false;" style="color: #60a5fa">Register</a>
           </p>
         </div>
         <div id="registerForm" style="display: none">
@@ -716,10 +700,7 @@
             </div>
             <div class="setup-step">
               <div class="setup-step-num">3</div>
-              <div>Optionally configure Cloudinary for image/video uploads in Admin → Settings. Look at our <a href="https://viewcast.github.io" target="_blank" rel="noopener noreferrer">
-  Setup Guide
-</a>
- For more info</div>
+              <div>Optionally configure Cloudinary for image/video uploads in Admin → Settings.</div>
             </div>
           </div>
           <div class="form-group">
@@ -731,15 +712,15 @@
             ><input type="password" id="registerPassword" placeholder="Choose a password" autocomplete="new-password" />
           </div>
           <button class="btn btn-primary" style="width: 100%" onclick="registerUser()">Create Account</button>
-          <p style="text-align: center; margin-top: 14px; font-size: 13px; color: #6b7280">
-            Have an account? <a href="#" onclick="showLoginForm();return false;" style="color: #2a5cef; text-decoration: none;">Login</a>
+          <p style="text-align: center; margin-top: 14px; font-size: 13px; color: #64748b">
+            Have an account? <a href="#" onclick="showLoginForm();return false;" style="color: #60a5fa">Login</a>
           </p>
         </div>
         <div id="firebaseConfigForm" style="display: none">
           <div class="info-box">
             ✅ Logged in! Enter your Firebase config once — it will be saved to your account and auto-loaded on any
             device.<br /><br />
-            <a href="https://console.firebase.google.com" target="_blank" style="color: #1d4ed8; text-decoration: none;">Firebase Console</a> →
+            <a href="https://console.firebase.google.com" target="_blank" style="color: #93c5fd">Firebase Console</a> →
             your project → ⚙️ <strong>Project Settings</strong> → <strong>Your apps</strong> → web app → SDK config.
           </div>
           <div class="form-group">
@@ -787,7 +768,7 @@
               spellcheck="false" />
           </div>
           <div class="form-group">
-            <label>Database URL <span style="font-weight: 400; color: #6b7280">(needed for playlists)</span></label
+            <label>Database URL <span style="font-weight: 400; color: #64748b">(needed for playlists)</span></label
             ><input
               type="text"
               id="fb_databaseURL"
@@ -799,7 +780,7 @@
           <button class="btn btn-primary" style="width: 100%" onclick="saveUserFirebaseConfig()">
             Save & Connect →
           </button>
-          <p style="margin-top: 10px; font-size: 12px; color: #6b7280; text-align: center">
+          <p style="margin-top: 10px; font-size: 12px; color: #475569; text-align: center">
             Saved to your account — no need to re-enter on other devices.
           </p>
         </div>
@@ -831,7 +812,7 @@
             class="btn btn-secondary"
             style="width: 100%; margin-bottom: 8px"
             onclick="window.location.href='https://viewcast.github.io/app/admin'">
-            Admin
+            Admin Area
           </button>
           <button class="btn btn-secondary" style="width: 100%" onclick="logout()">Logout</button>
         </div>
@@ -843,15 +824,15 @@
             <div class="kbd-hint">
               <span class="kbd">←</span><span class="kbd">→</span> navigate &nbsp;<span class="kbd">Space</span> send
               &nbsp;<span class="kbd">T</span> bg &nbsp;<span class="kbd">L</span> logo &nbsp;<span class="kbd">B</span>
-              black
+              blank
             </div>
             <div class="control-buttons" id="fohControls" style="display: none; gap: 6px">
               <button class="btn blank-btn" onclick="fohCommand('toggleBackground')" title="Toggle FOH background (T)">
                 BG
               </button>
               <button class="btn blank-btn" onclick="fohCommand('toggleLogo')" title="Toggle FOH logo (L)">Logo</button>
-              <button class="btn blank-btn" onclick="sendBlackout()" id="blankBtn" title="Blackout FOH screen (B)">
-                Black
+              <button class="btn blank-btn" onclick="sendBlank()" id="blankBtn" title="Blank FOH screen (B)">
+                Blank
               </button>
             </div>
             <div class="control-buttons">
@@ -863,10 +844,10 @@
           </div>
         </div>
         <div class="content-area" id="contentArea">
-          <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #fafaf9">
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #f1f5f9">
             <div class="slides-panel-empty">
               <h3>Welcome to ViewCast</h3>
-              <p style="color: #9ca3af">Select a playlist and segment to get started</p>
+              <p style="color: #374151">Select a playlist and segment to get started</p>
             </div>
           </div>
         </div>
@@ -912,18 +893,18 @@
           <div class="search-box">
             <input type="text" id="songSearch" placeholder="Search songs…" oninput="searchSongs()" />
           </div>
-          <div id="songResults"><p style="color: #6b7280; font-size: 13px">Start typing to search…</p></div>
+          <div id="songResults"><p style="color: #64748b; font-size: 13px">Start typing to search…</p></div>
         </div>
         <div id="sermonSegmentForm" style="display: none">
           <div class="form-group">
-            <label>Select Media Segment</label>
+            <label>Select Media</label>
             <select id="sermonSelect">
               <option value="">Loading…</option>
             </select>
           </div>
           <div
             id="sermonSelectMsg"
-            style="font-size: 12px; color: #6b7280; margin-top: -10px; margin-bottom: 10px"></div>
+            style="font-size: 12px; color: #64748b; margin-top: -10px; margin-bottom: 10px"></div>
         </div>
         <div class="modal-actions">
           <button class="btn btn-secondary" onclick="closeModal('addSegmentModal')">Cancel</button>
@@ -937,7 +918,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h2>Setup Presentation</h2>
-          <p style="color: #6b7280; font-size: 13px">Open at least the FOH screen before going live</p>
+          <p style="color: #64748b; font-size: 13px">Open at least the FOH screen before going live</p>
         </div>
         <div class="form-group">
           <button class="btn btn-primary" style="width: 100%" onclick="openFOH()">
@@ -949,11 +930,11 @@
             Open BOH Screen (Back of House)
           </button>
         </div>
-        <div id="screenStatus" style="margin: 16px 0; padding: 14px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb">
+        <div id="screenStatus" style="margin: 16px 0; padding: 14px; background: #0f1117; border-radius: 8px">
           <div style="margin-bottom: 6px">
-            <strong>FOH:</strong> <span id="fohStatus" style="color: #dc2626">Not opened</span>
+            <strong>FOH:</strong> <span id="fohStatus" style="color: #ef4444">Not opened</span>
           </div>
-          <div><strong>BOH:</strong> <span id="bohStatus" style="color: #6b7280">Not opened</span></div>
+          <div><strong>BOH:</strong> <span id="bohStatus" style="color: #64748b">Not opened</span></div>
         </div>
         <div class="modal-actions">
           <button class="btn btn-secondary" onclick="closeModal('goLiveModal')">Cancel</button>
@@ -1014,18 +995,18 @@
       window.isLive = false;
       window.selectedSong = null;
 
-      // Track whether FOH is in bg-only mode (for T toggle)
-      window._fohBgMode = false;
-
       window.presentationState = {
-        mode: null,
+        mode: null, // 'song' | 'sermon'
+        // Song
         song: null,
         parts: [],
         flatIndex: 0,
         sentIndex: -1,
+        // Sermon / Media
         sermon: null,
         sermonSlides: [],
         sermonIndex: 0,
+        // Shared
         typography: {},
         backgroundUrl: null
       };
@@ -1060,7 +1041,7 @@
       }
 
       async function persistUserFirebaseConfig(cfg) {
-        localStorage.setItem("viewcast_user_firebase", JSON.stringify(cfg));
+        localStorage.setItem("projectly_user_firebase", JSON.stringify(cfg));
         if (window.currentUser) {
           try {
             await setDoc(
@@ -1075,7 +1056,7 @@
       }
 
       async function resolveUserFirebaseConfig() {
-        const local = localStorage.getItem("viewcast_user_firebase");
+        const local = localStorage.getItem("projectly_user_firebase");
         if (local) {
           try {
             return JSON.parse(local);
@@ -1086,7 +1067,7 @@
           const snap = await getDoc(doc(sharedDb, "user_configs", window.currentUser.uid));
           if (snap.exists() && snap.data().firebaseConfig) {
             const cfg = snap.data().firebaseConfig;
-            localStorage.setItem("viewcast_user_firebase", JSON.stringify(cfg));
+            localStorage.setItem("projectly_user_firebase", JSON.stringify(cfg));
             return cfg;
           }
         } catch (e) {
@@ -1244,7 +1225,7 @@
         list.innerHTML = "";
         const arr = Object.entries(playlists).map(([id, data]) => ({ id, ...data }));
         if (!arr.length) {
-          list.innerHTML = '<div style="padding:8px;color:#6b7280;font-size:12px">No playlists yet</div>';
+          list.innerHTML = '<div style="padding:8px;color:#475569;font-size:12px">No playlists yet</div>';
           return;
         }
         arr.forEach((pl) => {
@@ -1275,7 +1256,7 @@
           window.currentPlaylist = null;
           document.getElementById("segmentsList").innerHTML = "";
           document.getElementById("contentArea").innerHTML =
-            '<div style="flex:1;display:flex;align-items:center;justify-content:center;background:#fafaf9"><div class="slides-panel-empty"><h3>Select a playlist</h3></div></div>';
+            '<div style="flex:1;display:flex;align-items:center;justify-content:center;background:#0a0d14"><div class="slides-panel-empty"><h3>Select a playlist</h3></div></div>';
         }
       };
 
@@ -1290,7 +1271,7 @@
         const list = document.getElementById("segmentsList");
         list.innerHTML = "";
         if (!segments.length) {
-          list.innerHTML = '<div style="padding:8px;color:#6b7280;font-size:12px">No segments yet</div>';
+          list.innerHTML = '<div style="padding:8px;color:#475569;font-size:12px">No segments yet</div>';
           return;
         }
         segments.forEach((seg, i) => {
@@ -1362,7 +1343,7 @@
 
       function showContentError(msg) {
         document.getElementById("contentArea").innerHTML =
-          `<div style="flex:1;display:flex;align-items:center;justify-content:center;background:#fafaf9"><div class="slides-panel-empty"><h3 style="color:#dc2626">Error</h3><p style="color:#9ca3af">${msg}</p></div></div>`;
+          `<div style="flex:1;display:flex;align-items:center;justify-content:center;background:#0a0d14"><div class="slides-panel-empty"><h3 style="color:#f87171">Error</h3><p style="color:#374151">${msg}</p></div></div>`;
       }
 
       // ── SONG INTERFACE ──
@@ -1385,10 +1366,9 @@
           `<div class="slides-panel" id="slidesPanel" tabindex="0"></div>`;
         renderSlideGrid(song, typography);
         focusSlide(0, false);
-        // Focus the panel so it receives keyboard events, but do NOT attach onkeydown here.
-        // All keyboard navigation is handled by the single document-level listener below.
         const panel = document.getElementById("slidesPanel");
         panel.focus();
+        panel.onkeydown = handleSlideKeyDown;
       };
 
       window.renderSlideGrid = function (song, typography) {
@@ -1429,10 +1409,9 @@
 
       function buildTextStyle(t, mini) {
         const fs = mini ? Math.max(9, Math.round((t.fontSize || 64) * 0.14)) : t.fontSize || 64;
-        return `font-family:${t.fontFamily || "inherit"};font-weight:${t.fontWeight || 700};font-size:${fs}px;color:${t.textColor || "#0b0c0f"};text-align:${t.textAlign || "center"};line-height:${(t.lineHeight || 140) / 100}`;
+        return `font-family:${t.fontFamily || "inherit"};font-weight:${t.fontWeight || 700};font-size:${fs}px;color:${t.textColor || "#fff"};text-shadow:${t.textShadow || "1px 1px 3px rgba(0,0,0,.9)"};text-align:${t.textAlign || "center"};line-height:${(t.lineHeight || 140) / 100}`;
       }
 
-      // focusSlide: moves the highlight/selection to a slide and optionally sends BOH preview
       window.focusSlide = function (fi, scroll = true) {
         const ps = window.presentationState;
         if (fi < 0 || fi >= ps.parts.length) return;
@@ -1444,43 +1423,12 @@
           if (scroll) card.scrollIntoView({ block: "nearest", behavior: "smooth" });
         }
         const item = ps.parts[fi];
-        document.querySelectorAll(".part-section-label").forEach((l) => (l.style.color = "#6b7280"));
+        document.querySelectorAll(".part-section-label").forEach((l) => (l.style.color = "#475569"));
         const sl = document.querySelector(`.part-section[data-part-index="${item.partIndex}"] .part-section-label`);
-        if (sl) sl.style.color = "#2a5cef";
+        if (sl) sl.style.color = "#60a5fa";
         document.getElementById("currentSlideInfo").textContent =
           `${item.partLabel} — ${item.slideIndex + 1}/${ps.song.parts[item.partIndex].slides.length}  (${fi + 1}/${ps.parts.length} total)`;
-
-        // Send BOH "next up" preview whenever the focused slide changes
-        sendBOHPreview();
       };
-
-      // sendBOHPreview: tells BOH which slide is currently focused (queued up next)
-      function sendBOHPreview() {
-        if (!window.isLive || !window.bohWindow || window.bohWindow.closed) return;
-        const ps = window.presentationState;
-        if (ps.mode === "song" && ps.parts.length) {
-          const focusedItem = ps.parts[ps.flatIndex];
-          // The sent slide stays as "current" on BOH; focused slide is shown as "next"
-          const bohMsg = {
-            type: "preview",
-            next: { type: "lyrics", text: focusedItem.text },
-            currentIndex: ps.flatIndex + 1,
-            totalSlides: ps.parts.length,
-            songTitle: ps.song ? ps.song.title : ""
-          };
-          window.bohWindow.postMessage(bohMsg, "*");
-        } else if (ps.mode === "sermon" && ps.sermonSlides.length) {
-          const focusedSlide = ps.sermonSlides[ps.sermonIndex];
-          const bohMsg = {
-            type: "preview",
-            next: { type: "sermon", url: focusedSlide.url, mediaType: focusedSlide.type, name: focusedSlide.name },
-            currentIndex: ps.sermonIndex + 1,
-            totalSlides: ps.sermonSlides.length,
-            songTitle: ps.sermon ? ps.sermon.title : ""
-          };
-          window.bohWindow.postMessage(bohMsg, "*");
-        }
-      }
 
       window.sendSlide = function (fi) {
         const ps = window.presentationState;
@@ -1489,10 +1437,9 @@
         document.querySelectorAll(".slide-card").forEach((c) => c.classList.remove("sent"));
         const card = document.querySelector(`.slide-card[data-fi="${fi}"]`);
         if (card) card.classList.add("sent");
-        // Sending a real slide clears bg-mode state
-        window._fohBgMode = false;
         if (!window.isLive) return;
         const item = ps.parts[fi];
+        const nextItem = fi + 1 < ps.parts.length ? ps.parts[fi + 1] : null;
         const fadeTime = parseInt(document.getElementById("fadeTime").value) || 0;
         const enableSongFade = document.getElementById("enableSongFade").checked;
         const fohMsg = {
@@ -1503,12 +1450,10 @@
           enableSongFade,
           backgroundUrl: ps.backgroundUrl || null
         };
-        // BOH "current" = what's on screen now; "next" = what's focused/queued
-        const focusedItem = ps.parts[ps.flatIndex];
         const bohMsg = {
           type: "display",
           content: { type: "lyrics", text: item.text },
-          next: { type: "lyrics", text: focusedItem.text },
+          next: nextItem ? { type: "lyrics", text: nextItem.text } : null,
           currentIndex: fi + 1,
           totalSlides: ps.parts.length,
           songTitle: ps.song.title
@@ -1533,7 +1478,7 @@
         ps.sermonSlides = slides.map((url, i) => ({ url, type: types[i] || "image", name: names[i] || "" }));
 
         if (!ps.sermonSlides.length) {
-          showContentError("This media segment has no slides. Add slides in Admin → Media.");
+          showContentError("This media item has no slides. Add slides in Admin → Media.");
           return;
         }
 
@@ -1562,16 +1507,16 @@
             card.style.backgroundPosition = "center";
             card.innerHTML = `<div class="slide-index">${i + 1}</div>`;
           } else if (slide.type === "video") {
-            card.style.background = "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)";
+            card.style.background = "#0c1f3a";
             card.innerHTML = `<div style="font-size:32px;text-align:center">🎬</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label">${slide.name}</div>` : ""}`;
           } else if (slide.type === "pdf") {
-            card.style.background = "linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)";
-            card.innerHTML = `<div style="font-size:32px;text-align:center;color:#dc2626">📄</div><div style="font-size:9px;color:#dc2626;text-align:center;padding:2px 4px">PDF</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label" style="color:#dc2626">${slide.name}</div>` : ""}`;
+            card.style.background = "#1f0a0a";
+            card.innerHTML = `<div style="font-size:32px;text-align:center;color:#f87171">📄</div><div style="font-size:9px;color:#f87171;text-align:center;padding:2px 4px">PDF</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label" style="color:#f87171">${slide.name}</div>` : ""}`;
           } else if (slide.type === "pptx") {
-            card.style.background = "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)";
-            card.innerHTML = `<div style="font-size:32px;text-align:center;color:#059669">📊</div><div style="font-size:9px;color:#059669;text-align:center;padding:2px 4px">PPTX</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label" style="color:#059669">${slide.name}</div>` : ""}`;
+            card.style.background = "#0a1a0f";
+            card.innerHTML = `<div style="font-size:32px;text-align:center;color:#4ade80">📊</div><div style="font-size:9px;color:#4ade80;text-align:center;padding:2px 4px">PPTX</div><div class="slide-index">${i + 1}</div>${slide.name ? `<div class="media-card-label" style="color:#4ade80">${slide.name}</div>` : ""}`;
           } else {
-            card.style.background = "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)";
+            card.style.background = "#0c1f3a";
             card.innerHTML = `<div style="font-size:32px;text-align:center">🎬</div><div class="slide-index">${i + 1}</div>`;
           }
 
@@ -1585,8 +1530,8 @@
         section.appendChild(grid);
         panel.appendChild(section);
         focusSermonSlide(0, false);
-        // Focus panel but do NOT attach onkeydown — handled by document listener
         panel.focus();
+        panel.onkeydown = handleSlideKeyDown;
       };
 
       window.focusSermonSlide = function (i, scroll = true) {
@@ -1602,9 +1547,6 @@
         const slide = ps.sermonSlides[i];
         document.getElementById("currentSlideInfo").textContent =
           `${ps.sermon.title} · Slide ${i + 1} of ${ps.sermonSlides.length}${slide.name ? " — " + slide.name : ""}`;
-
-        // Send BOH "next up" preview whenever the focused slide changes
-        sendBOHPreview();
       };
 
       window.sendSermonSlide = function (i) {
@@ -1614,24 +1556,24 @@
         document.querySelectorAll(".slide-card").forEach((c) => c.classList.remove("sent"));
         const card = document.querySelector(`.slide-card[data-si="${i}"]`);
         if (card) card.classList.add("sent");
-        // Sending a real slide clears bg-mode state
-        window._fohBgMode = false;
         if (!window.isLive) return;
         const slide = ps.sermonSlides[i];
+        const nextSlide = i + 1 < ps.sermonSlides.length ? ps.sermonSlides[i + 1] : null;
         const fadeTime = parseInt(document.getElementById("fadeTime").value) || 0;
 
+        // FIX: use type:"sermon" so FOH and BOH both recognise the content type
         const fohMsg = {
           type: "display",
           content: { type: "sermon", url: slide.url, mediaType: slide.type },
           fadeTime,
           backgroundUrl: ps.backgroundUrl || null
         };
-        // BOH "current" = sent slide; "next" = currently focused slide
-        const focusedSlide = ps.sermonSlides[ps.sermonIndex];
         const bohMsg = {
           type: "display",
           content: { type: "sermon", url: slide.url, mediaType: slide.type, name: slide.name },
-          next: { type: "sermon", url: focusedSlide.url, mediaType: focusedSlide.type, name: focusedSlide.name },
+          next: nextSlide
+            ? { type: "sermon", url: nextSlide.url, mediaType: nextSlide.type, name: nextSlide.name }
+            : null,
           currentIndex: i + 1,
           totalSlides: ps.sermonSlides.length,
           songTitle: ps.sermon.title
@@ -1640,29 +1582,11 @@
         if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(bohMsg, "*");
       };
 
-      // ── SINGLE UNIFIED KEYBOARD HANDLER ──
-      // One document-level listener handles ALL keyboard navigation.
-      // The slidesPanel does NOT have its own onkeydown — that was causing double-firing.
-      document.addEventListener("keydown", (e) => {
-        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
-
-        // Global hotkeys (always active)
-        if (e.key.toLowerCase() === "t") {
-          fohCommand("toggleBackground");
-          return;
-        }
-        if (e.key.toLowerCase() === "l") {
-          fohCommand("toggleLogo");
-          return;
-        }
-        if (e.key.toLowerCase() === "b") {
-          sendBlackout();
-          return;
-        }
-
+      // ── UNIFIED KEY HANDLER ──
+      window.handleSlideKeyDown = function (e) {
         const ps = window.presentationState;
-
-        if (ps.mode === "song" && ps.parts.length) {
+        if (ps.mode === "song") {
+          if (!ps.parts.length) return;
           if (e.key === "ArrowRight" || e.key === "ArrowDown") {
             e.preventDefault();
             focusSlide(ps.flatIndex + 1, true);
@@ -1673,7 +1597,8 @@
             e.preventDefault();
             sendSlide(ps.flatIndex);
           }
-        } else if (ps.mode === "sermon" && ps.sermonSlides.length) {
+        } else if (ps.mode === "sermon") {
+          if (!ps.sermonSlides.length) return;
           if (e.key === "ArrowRight" || e.key === "ArrowDown") {
             e.preventDefault();
             focusSermonSlide(ps.sermonIndex + 1, true);
@@ -1685,37 +1610,43 @@
             sendSermonSlide(ps.sermonIndex);
           }
         }
-      });
-
-      // T key: toggle between background-only and last sent slide
-      window.fohCommand = function (command) {
-        if (!window.fohWindow || window.fohWindow.closed) return;
-        if (command === "toggleBackground") {
-          if (window._fohBgMode) {
-            // Currently showing bg-only → restore last slide
-            window._fohBgMode = false;
-            const ps = window.presentationState;
-            if (ps.mode === "song" && ps.sentIndex >= 0) {
-              sendSlide(ps.sentIndex);
-            } else if (ps.mode === "sermon") {
-              sendSermonSlide(ps.sermonIndex);
-            } else {
-              window.fohWindow.postMessage({ type: "display", content: { type: "blank" } }, "*");
-            }
-          } else {
-            // Show background only
-            window._fohBgMode = true;
-            window.fohWindow.postMessage({ type: "fohCommand", command: "showBackgroundOnly" }, "*");
-          }
-        } else {
-          window.fohWindow.postMessage({ type: "fohCommand", command }, "*");
-        }
       };
 
-      // B key: hard blackout toggle
-      window.sendBlackout = function () {
+      document.addEventListener("keydown", (e) => {
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
+        const ps = window.presentationState;
+        // FOH controls
+        if (e.key.toLowerCase() === "t") {
+          fohCommand("toggleBackground");
+          return;
+        }
+        if (e.key.toLowerCase() === "l") {
+          fohCommand("toggleLogo");
+          return;
+        }
+        if (e.key.toLowerCase() === "b") {
+          sendBlank();
+          return;
+        }
+        const hasContent = (ps.mode === "song" && ps.parts.length) || (ps.mode === "sermon" && ps.sermonSlides.length);
+        if (!hasContent) return;
+        if (["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown", " "].includes(e.key)) {
+          e.preventDefault();
+          handleSlideKeyDown(e);
+        }
+      });
+
+      window.fohCommand = function (command) {
+        if (!window.fohWindow || window.fohWindow.closed) return;
+        window.fohWindow.postMessage({ type: "fohCommand", command }, "*");
+      };
+
+      window.sendBlank = function () {
         if (!window.isLive) return;
-        window.fohWindow && !window.fohWindow.closed && window.fohWindow.postMessage({ type: "fohCommand", command: "toggleBlack" }, "*");
+        const msg = { type: "display", content: { type: "blank" }, next: null };
+        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.postMessage(msg, "*");
+        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(msg, "*");
+        document.querySelectorAll(".slide-card").forEach((c) => c.classList.remove("sent"));
       };
 
       // ── SONG SEARCH ──
@@ -1723,10 +1654,10 @@
         const term = document.getElementById("songSearch").value.trim().toLowerCase();
         const resultsDiv = document.getElementById("songResults");
         if (!term) {
-          resultsDiv.innerHTML = '<p style="color:#6b7280;font-size:13px">Start typing to search…</p>';
+          resultsDiv.innerHTML = '<p style="color:#64748b;font-size:13px">Start typing to search…</p>';
           return;
         }
-        resultsDiv.innerHTML = '<p style="color:#6b7280;font-size:13px">Searching…</p>';
+        resultsDiv.innerHTML = '<p style="color:#64748b;font-size:13px">Searching…</p>';
         try {
           const snap = await getDocs(collection(window.userDb, "songs"));
           const scored = [];
@@ -1744,7 +1675,7 @@
           });
           scored.sort((a, b) => b.score - a.score);
           if (!scored.length) {
-            resultsDiv.innerHTML = '<p style="color:#6b7280;font-size:13px">No songs found</p>';
+            resultsDiv.innerHTML = '<p style="color:#64748b;font-size:13px">No songs found</p>';
             return;
           }
           resultsDiv.innerHTML = scored
@@ -1754,7 +1685,7 @@
             )
             .join("");
         } catch (e) {
-          resultsDiv.innerHTML = `<p style="color:#dc2626;font-size:13px">Error: ${e.message}</p>`;
+          resultsDiv.innerHTML = `<p style="color:#f87171;font-size:13px">Error: ${e.message}</p>`;
         }
       };
 
@@ -1774,16 +1705,16 @@
           const snap = await getDocs(collection(window.userDb, "sermons"));
           if (snap.empty) {
             select.innerHTML = '<option value="">No media yet — add some in Admin → Media</option>';
-            msg.textContent = "Go to Admin → Media to add media segments with images, PDFs, videos, or PowerPoints.";
+            msg.textContent = "Go to Admin → Media to add sermon slides, images, PDFs, or videos.";
             return;
           }
-          select.innerHTML = '<option value="">Choose a media segment…</option>';
+          select.innerHTML = '<option value="">Choose your media…</option>';
           snap.forEach((d) => {
             const opt = document.createElement("option");
             opt.value = d.id;
             const s = d.data();
             const count = s.slides ? s.slides.length : 0;
-            opt.textContent = `${s.title} (${count} item${count !== 1 ? "s" : ""})`;
+            opt.textContent = `${s.title} (${count} slide${count !== 1 ? "s" : ""})`;
             select.appendChild(opt);
           });
         } catch (e) {
@@ -1803,7 +1734,7 @@
         document.getElementById("addSegmentModal").classList.add("active");
         document.getElementById("songSearch").value = "";
         document.getElementById("songResults").innerHTML =
-          '<p style="color:#6b7280;font-size:13px">Start typing to search…</p>';
+          '<p style="color:#64748b;font-size:13px">Start typing to search…</p>';
         window.selectedSong = null;
         document.getElementById("segmentType").value = "song";
         document.getElementById("songSegmentForm").style.display = "block";
@@ -1854,11 +1785,11 @@
           const select = document.getElementById("sermonSelect");
           const sermonId = select.value;
           if (!sermonId) {
-            alert("Select a media segment");
+            alert("Select a media item");
             return;
           }
           seg.sermonId = sermonId;
-          seg.name = select.options[select.selectedIndex].text.replace(/\s*\(\d+ items?\)$/, "").trim();
+          seg.name = select.options[select.selectedIndex].text.replace(/\s*\(\d+ slides?\)$/, "").trim();
         }
 
         const segs = [...(window.currentPlaylist.segments || []), seg];
@@ -1875,73 +1806,33 @@
       };
 
       // ── GO LIVE ──
-      function saveWindowPrefs(which, win) {
-        try {
-          localStorage.setItem(`vc_${which}_opened`, "1");
-        } catch(e) {}
-      }
-
-      window.goLive = () => {
-        const fohAlive = window.fohWindow && !window.fohWindow.closed;
-        if (fohAlive) {
-          completeSetup();
-          return;
-        }
-        document.getElementById("goLiveModal").classList.add("active");
-        const bohAlive = window.bohWindow && !window.bohWindow.closed;
-        if (fohAlive) {
-          document.getElementById("fohStatus").textContent = "Already open";
-          document.getElementById("fohStatus").style.color = "#10b981";
-        }
-        if (bohAlive) {
-          document.getElementById("bohStatus").textContent = "Already open";
-          document.getElementById("bohStatus").style.color = "#10b981";
-        }
-        checkSetupComplete();
-      };
-
+      window.goLive = () => document.getElementById("goLiveModal").classList.add("active");
       window.openFOH = () => {
         if (!window.fohWindow || window.fohWindow.closed) {
           window.fohWindow = window.open("foh.html", "FOH", "width=1920,height=1080");
-          saveWindowPrefs("foh", window.fohWindow);
-          setTimeout(() => {
-            try {
-              window.fohWindow && window.fohWindow.postMessage({ type: "requestFullscreen" }, "*");
-            } catch(e) {}
-          }, 1200);
+          document.getElementById("fohStatus").textContent = "Opened";
+          document.getElementById("fohStatus").style.color = "#22c55e";
+          checkSetupComplete();
         }
-        document.getElementById("fohStatus").textContent = "Opened";
-        document.getElementById("fohStatus").style.color = "#10b981";
-        checkSetupComplete();
       };
-
       window.openBOH = () => {
         if (!window.bohWindow || window.bohWindow.closed) {
           window.bohWindow = window.open("boh.html", "BOH", "width=1280,height=720");
-          saveWindowPrefs("boh", window.bohWindow);
-          setTimeout(() => {
-            try {
-              window.bohWindow && window.bohWindow.postMessage({ type: "requestFullscreen" }, "*");
-            } catch(e) {}
-          }, 1200);
+          document.getElementById("bohStatus").textContent = "Opened";
+          document.getElementById("bohStatus").style.color = "#22c55e";
+          checkSetupComplete();
         }
-        document.getElementById("bohStatus").textContent = "Opened";
-        document.getElementById("bohStatus").style.color = "#10b981";
-        checkSetupComplete();
       };
-
       window.checkSetupComplete = () => {
-        const fohAlive = window.fohWindow && !window.fohWindow.closed;
-        document.getElementById("completeSetupBtn").disabled = !fohAlive;
+        document.getElementById("completeSetupBtn").disabled = !(window.fohWindow && !window.fohWindow.closed);
       };
-
       window.completeSetup = () => {
         window.isLive = true;
-        window._fohBgMode = false;
         const ind = document.getElementById("liveIndicator");
         ind.classList.add("active");
         ind.querySelector("span:last-child").textContent = "Live";
         document.getElementById("stopBtn").style.display = "block";
+        document.getElementById("blankBtn").style.display = "none"; // blankBtn is now inside fohControls
         document.getElementById("fohControls").style.display = "flex";
         closeModal("goLiveModal");
         const initMsg = {
@@ -1953,19 +1844,16 @@
         if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.postMessage(initMsg, "*");
         if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(initMsg, "*");
       };
-
       window.stopPresentation = () => {
         window.isLive = false;
-        window._fohBgMode = false;
         const ind = document.getElementById("liveIndicator");
         ind.classList.remove("active");
         ind.querySelector("span:last-child").textContent = "Offline";
         document.getElementById("stopBtn").style.display = "none";
         document.getElementById("fohControls").style.display = "none";
-        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.close();
-        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.close();
-        window.fohWindow = null;
-        window.bohWindow = null;
+        const msg = { type: "display", content: { type: "blank" }, next: null };
+        if (window.fohWindow && !window.fohWindow.closed) window.fohWindow.postMessage(msg, "*");
+        if (window.bohWindow && !window.bohWindow.closed) window.bohWindow.postMessage(msg, "*");
       };
     </script>
   </body>
