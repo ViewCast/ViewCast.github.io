@@ -130,32 +130,32 @@
             <nav class="sidebar-nav" id="sidebarNav">
                 <div class="nav-group">
                     <span class="nav-group-label">Getting started</span>
-                    <a class="nav-link active" onclick="scrollToSection('intro')"><span class="dot"></span>Introduction</a>
-                    <a class="nav-link" onclick="scrollToSection('setup')"><span class="dot"></span>Account setup</a>
-                    <a class="nav-link" onclick="scrollToSection('firebase')"><span class="dot"></span>Firebase setup</a>
+                    <a class="nav-link active" href="#intro" onclick="scrollToSection('intro'); return false;"><span class="dot"></span>Introduction</a>
+                    <a class="nav-link" href="#setup" onclick="scrollToSection('setup'); return false;"><span class="dot"></span>Account setup</a>
+                    <a class="nav-link" href="#firebase" onclick="scrollToSection('firebase'); return false;"><span class="dot"></span>Firebase setup</a>
                 </div>
                 <div class="nav-group">
                     <span class="nav-group-label">Your content</span>
-                    <a class="nav-link" onclick="scrollToSection('songs')"><span class="dot"></span>Songs</a>
-                    <a class="nav-link" onclick="scrollToSection('media')"><span class="dot"></span>Media &amp; sermons</a>
-                    <a class="nav-link" onclick="scrollToSection('playlists')"><span class="dot"></span>Playlists</a>
+                    <a class="nav-link" href="#songs" onclick="scrollToSection('songs'); return false;"><span class="dot"></span>Songs</a>
+                    <a class="nav-link" href="#media" onclick="scrollToSection('media'); return false;"><span class="dot"></span>Media &amp; sermons</a>
+                    <a class="nav-link" href="#playlists" onclick="scrollToSection('playlists'); return false;"><span class="dot"></span>Playlists</a>
                 </div>
                 <div class="nav-group">
                     <span class="nav-group-label">Running a service</span>
-                    <a class="nav-link" onclick="scrollToSection('golive')"><span class="dot"></span>Going live</a>
-                    <a class="nav-link" onclick="scrollToSection('screens')"><span class="dot"></span>FOH &amp; BOH screens</a>
-                    <a class="nav-link" onclick="scrollToSection('shortcuts')"><span class="dot"></span>Keyboard shortcuts</a>
-                    <a class="nav-link" onclick="scrollToSection('controls')"><span class="dot"></span>On-screen controls</a>
+                    <a class="nav-link" href="#golive" onclick="scrollToSection('golive'); return false;"><span class="dot"></span>Going live</a>
+                    <a class="nav-link" href="#screens" onclick="scrollToSection('screens'); return false;"><span class="dot"></span>FOH &amp; BOH screens</a>
+                    <a class="nav-link" href="#shortcuts" onclick="scrollToSection('shortcuts'); return false;"><span class="dot"></span>Keyboard shortcuts</a>
+                    <a class="nav-link" href="#controls" onclick="scrollToSection('controls'); return false;"><span class="dot"></span>On-screen controls</a>
                 </div>
                 <div class="nav-group">
                     <span class="nav-group-label">Reference</span>
-                    <a class="nav-link" onclick="scrollToSection('ccli')"><span class="dot"></span>CCLI licenses</a>
-                    <a class="nav-link" onclick="scrollToSection('troubleshoot')"><span class="dot"></span>Troubleshooting</a>
+                    <a class="nav-link" href="#ccli" onclick="scrollToSection('ccli'); return false;"><span class="dot"></span>CCLI licenses</a>
+                    <a class="nav-link" href="#troubleshoot" onclick="scrollToSection('troubleshoot'); return false;"><span class="dot"></span>Troubleshooting</a>
                 </div>
             </nav>
             <div class="sidebar-foot">
-                <a href="tutorial.html">🎓 Interactive Tutorial</a>
-                <a href="index.html">← Back to home</a>
+                <a href="#setup" onclick="scrollToSection('setup'); return false;">Start setup walkthrough</a>
+                <a href="../index.html">&larr; Back to home</a>
                 <a href="https://viewcast.github.io/app">Open the app</a>
             </div>
         </aside>
@@ -185,6 +185,10 @@
             <div class="doc-section" id="setup">
                 <h2>Account setup</h2>
                 <p>You need two things to use ViewCast: a ViewCast account (your login), and a Firebase project (where your data lives).</p>
+                <div class="callout info">
+                    <span class="callout-icon">ℹ️</span>
+                    <div class="callout-body"><strong>New in ViewCast:</strong> first-time accounts now get a one-time quick-start tutorial inside the app, and Starter Mode can keep one browser working if shared cloud sign-in is unavailable during setup.</div>
+                </div>
                 <h3>Creating your account</h3>
                 <div class="steps-list">
                     <div class="step-item"><div class="step-num-badge">1</div><div class="step-content"><h4>Go to the app</h4><p>Visit <a href="https://viewcast.github.io/app" style="color:var(--accent)">viewcast.github.io/app</a>. You'll see the login screen.</p></div></div>
@@ -245,6 +249,7 @@
             <div class="doc-section" id="media">
                 <h2>Media &amp; Sermons</h2>
                 <p>Media items (called "Sermons" in the database) are collections of slides for non-lyric content. Each item can mix different file types in one deck.</p>
+                <p>Each media segment can now store playback rules too: auto-cycle delay, repeat mode, and whether videos should wait until the clip finishes before advancing.</p>
                 <h3>Supported types</h3>
                 <div class="def-list">
                     <div class="def-item"><span class="def-term">🖼 Image</span><span class="def-desc">JPG, PNG, WebP, GIF. Displayed full-screen on the FOH. Good for sermon point slides, announcements, scripture.</span></div>
@@ -297,6 +302,10 @@
                 <p>If your FOH and BOH windows are already open from a previous session, clicking <strong>Go Live</strong> will skip the modal and immediately go live — no need to re-open the windows.</p>
                 <h3>Stopping the presentation</h3>
                 <p>Click <strong>Stop</strong> in the top bar. This closes the FOH and BOH windows and returns you to offline mode.</p>
+                <div class="callout success">
+                    <span class="callout-icon">✅</span>
+                    <div class="callout-body"><strong>Presenter controls are now built in.</strong> Use the operator screen to move between cues, re-send live content, control video playback and timeline position, or start an auto-cycle loop for sermon slides and announcement decks.</div>
+                </div>
                 <div class="callout warn">
                     <span class="callout-icon">⚠️</span>
                     <div class="callout-body"><strong>Keep the control window focused.</strong> Keyboard shortcuts only work when the operator window (or the slides panel) has keyboard focus. Click anywhere in the main slide area to restore focus if shortcuts stop working.</div>
@@ -322,6 +331,7 @@
             <div class="doc-section" id="shortcuts">
                 <h2>Keyboard shortcuts</h2>
                 <p>All shortcuts work when the slides panel has focus. Click anywhere in the main slide area to make sure it's focused.</p>
+                <p>Videos are controlled from the on-screen Presenter Controls area rather than the keyboard. Use those controls for play, pause, restart, looping, and timeline seeking.</p>
                 <div class="shortcut-grid">
                     <div class="shortcut-row"><div class="shortcut-key"><kbd>Space</kbd> or <kbd>Enter</kbd></div><div class="shortcut-desc">Send the focused (highlighted) slide to the FOH screen</div></div>
                     <div class="shortcut-row"><div class="shortcut-key"><kbd>→</kbd> or <kbd>↓</kbd></div><div class="shortcut-desc">Move focus to the next slide</div></div>
@@ -371,6 +381,10 @@
 
             <div class="doc-section" id="troubleshoot">
                 <h2>Troubleshooting</h2>
+                <h3>I see "Firebase: Error (auth/configuration-not-found)."</h3>
+                <p>This means shared cloud sign-in is not fully configured. ViewCast now offers Starter Mode on the login screen so you can keep working on the current device, then return to shared auth later if you want cross-device sign-in.</p>
+                <h3>Videos start small, then jump larger</h3>
+                <p>ViewCast now reserves the full FOH screen before playback starts. If autoplay is blocked by the browser, start the clip once on the FOH screen and continue using the presenter timeline controls from the operator window.</p>
                 <h3>Keyboard shortcuts aren't working</h3>
                 <p>The slides panel needs keyboard focus. Click anywhere in the main slide area (the dark grid). Shortcuts won't work if an input field, dropdown, or modal has focus.</p>
                 <h3>The FOH screen shows nothing</h3>
@@ -441,9 +455,10 @@
             }
             noRes.style.display = "none";
             results.style.display = "block";
+            const queryParam = encodeURIComponent(q);
             results.innerHTML = matches.map(m => {
                 const hi = m.title.replace(new RegExp(`(${escRe(q)})`, "gi"), "<mark>$1</mark>");
-                return `<a class="search-result-item" onclick="goToResult('${m.id}','${q}')">${hi}<span class="sr-section">${m.section}</span></a>`;
+                return `<a class="search-result-item" href="#${m.id}" onclick="goToResult('${m.id}', decodeURIComponent('${queryParam}')); return false;">${hi}<span class="sr-section">${m.section}</span></a>`;
             }).join("");
         }
 
