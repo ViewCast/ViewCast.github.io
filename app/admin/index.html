@@ -2,270 +2,401 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-<link rel="icon" href=https://viewcast.github.io/images/logo_admin.png>
+        <link rel="icon" href="https://viewcast.github.io/images/logo_admin.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ViewCast | Admin</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
         <style>
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
+
             body {
-                font-family: "Segoe UI", system-ui, sans-serif;
-                background: #f1f5f9;
-                color: #1e2939;
+                font-family: "DM Sans", sans-serif;
+                background: #f5f3ee;
+                color: #0b0c0f;
                 min-height: 100vh;
             }
+
+            /* ── LOGIN OVERLAY ── */
+            .admin-login-overlay {
+                position: fixed;
+                inset: 0;
+                background: #f5f3ee;
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .admin-login-box {
+                background: #ffffff;
+                padding: 44px 40px;
+                border-radius: 16px;
+                max-width: 400px;
+                width: 90%;
+                border: 1px solid rgba(0,0,0,0.08);
+                box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            }
+
+            .admin-login-box h2 {
+                font-family: 'DM Serif Display', serif;
+                color: #2a5cef;
+                margin-bottom: 6px;
+                font-size: 28px;
+                font-weight: 400;
+                letter-spacing: -0.5px;
+            }
+
+            .admin-login-box > p {
+                color: #6b7280;
+                margin-bottom: 28px;
+                font-size: 14px;
+                font-weight: 300;
+            }
+
+            /* ── LAYOUT ── */
             .admin-container {
                 max-width: 1300px;
                 margin: 0 auto;
-                padding: 20px;
+                padding: 24px 20px;
             }
+
             .admin-header {
                 background: #ffffff;
                 padding: 24px 28px;
-                border-radius: 12px;
-                margin-bottom: 18px;
-                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+                border-radius: 14px;
+                margin-bottom: 16px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+                border: 1px solid rgba(0,0,0,0.07);
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                border: 1px solid #e2e8f0;
             }
+
             .admin-header h1 {
-                color: #1d4ed8;
+                font-family: 'DM Serif Display', serif;
+                color: #2a5cef;
                 font-size: 28px;
-                font-weight: 700;
+                font-weight: 400;
                 letter-spacing: -0.5px;
             }
+
+            .admin-header p {
+                color: #6b7280;
+                margin-top: 4px;
+                font-size: 13px;
+                font-weight: 300;
+            }
+
+            /* ── TABS ── */
             .tabs {
                 display: flex;
-                gap: 8px;
-                margin-bottom: 18px;
+                gap: 6px;
+                margin-bottom: 16px;
                 flex-wrap: wrap;
             }
+
             .tab {
-                padding: 10px 20px;
+                padding: 9px 18px;
                 background: #ffffff;
-                border: 1px solid #e2e8f0;
+                border: 1px solid rgba(0,0,0,0.08);
                 border-radius: 8px;
                 cursor: pointer;
                 font-weight: 500;
-                transition: all 0.2s;
-                color: #64748b;
+                transition: all 0.15s;
+                color: #6b7280;
                 font-size: 13px;
+                font-family: "DM Sans", sans-serif;
             }
+
             .tab:hover {
-                background: #f8fafc;
-                color: #1e2939;
+                background: #f0f4ff;
+                color: #2a5cef;
+                border-color: #c7d4fb;
             }
+
             .tab.active {
-                background: #2563eb;
+                background: #2a5cef;
                 color: #fff;
-                border-color: #2563eb;
+                border-color: #2a5cef;
             }
+
             .tab-content {
                 display: none;
                 background: #ffffff;
                 padding: 28px;
-                border-radius: 12px;
-                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-                border: 1px solid #e2e8f0;
+                border-radius: 14px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+                border: 1px solid rgba(0,0,0,0.07);
             }
+
             .tab-content.active {
                 display: block;
             }
+
+            .tab-content h2 {
+                font-family: 'DM Serif Display', serif;
+                font-size: 22px;
+                font-weight: 400;
+                margin-bottom: 18px;
+                color: #0b0c0f;
+                letter-spacing: -0.3px;
+            }
+
+            .tab-content h3 {
+                font-size: 16px;
+                font-weight: 600;
+                color: #0b0c0f;
+            }
+
+            /* ── BUTTONS ── */
             .btn {
                 padding: 10px 20px;
                 border: none;
                 border-radius: 8px;
                 cursor: pointer;
                 font-weight: 600;
-                transition: all 0.2s;
+                transition: all 0.15s;
                 font-size: 13px;
+                font-family: "DM Sans", sans-serif;
             }
+
             .btn-primary {
-                background: #2563eb;
+                background: #2a5cef;
                 color: #fff;
             }
+
             .btn-primary:hover {
                 background: #1d4ed8;
             }
+
             .btn-secondary {
-                background: #f1f5f9;
-                color: #475569;
-                border: 1px solid #e2e8f0;
+                background: #f3f4f6;
+                color: #374151;
+                border: 1px solid #d1d5db;
             }
+
             .btn-secondary:hover {
-                background: #e2e8f0;
+                background: #e5e7eb;
             }
+
             .btn-danger {
                 background: #dc2626;
                 color: #fff;
             }
+
             .btn-danger:hover {
                 background: #b91c1c;
             }
+
             .btn-warning {
                 background: #d97706;
                 color: #fff;
             }
+
             .btn-warning:hover {
                 background: #b45309;
             }
+
             .btn-success {
                 background: #059669;
                 color: #fff;
             }
+
             .btn-success:hover {
                 background: #047857;
             }
+
             .btn-sm {
-                padding: 6px 11px;
+                padding: 6px 12px;
                 font-size: 12px;
             }
+
+            /* ── FORMS ── */
             .form-group {
-                margin-bottom: 18px;
+                margin-bottom: 16px;
             }
+
             .form-group label {
                 display: block;
-                margin-bottom: 7px;
+                margin-bottom: 6px;
                 font-weight: 500;
                 font-size: 13px;
-                color: #475569;
+                color: #374151;
             }
+
             .form-group input,
             .form-group select,
             .form-group textarea {
                 width: 100%;
                 padding: 10px 13px;
-                border: 1px solid #e2e8f0;
+                border: 1px solid #d1d5db;
                 border-radius: 8px;
                 font-size: 13px;
-                background: #f8fafc;
-                color: #1e2939;
-                transition: border-color 0.2s;
+                background: #ffffff;
+                color: #0b0c0f;
+                transition: border-color 0.15s;
+                font-family: "DM Sans", sans-serif;
             }
+
             .form-group input:focus,
             .form-group select:focus,
             .form-group textarea:focus {
                 outline: none;
-                border-color: #3b82f6;
+                border-color: #2a5cef;
+                box-shadow: 0 0 0 3px rgba(42, 92, 239, 0.08);
             }
+
             .form-group textarea {
                 min-height: 280px;
                 resize: vertical;
-                font-family: monospace;
-                line-height: 1.6;
+                font-family: "DM Mono", "Fira Mono", monospace;
+                font-size: 12px;
+                line-height: 1.7;
+                background: #fafaf9;
             }
+
             .form-row {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 18px;
+                gap: 16px;
             }
+
+            /* ── MESSAGES ── */
             .error-message {
                 background: #fef2f2;
-                border: 1px solid #fecaca;
-                color: #991b1b;
+                border: 1px solid #fca5a5;
+                color: #dc2626;
                 padding: 11px 14px;
                 border-radius: 8px;
                 margin-bottom: 14px;
                 font-size: 13px;
             }
+
             .success-message {
                 background: #f0fdf4;
-                border: 1px solid #bbf7d0;
-                color: #14532d;
+                border: 1px solid #86efac;
+                color: #059669;
                 padding: 11px 14px;
                 border-radius: 8px;
                 margin-bottom: 14px;
                 font-size: 13px;
             }
+
             .info-box {
                 background: #eff6ff;
-                border: 1px solid #bfdbfe;
-                color: #1e40af;
+                border: 1px solid #93c5fd;
+                color: #1d4ed8;
                 padding: 13px 16px;
                 border-radius: 8px;
                 margin-bottom: 16px;
                 font-size: 13px;
                 line-height: 1.6;
             }
+
+            .info-box pre {
+                background: none;
+                border: none;
+                font-size: 12px;
+                margin-top: 8px;
+                line-height: 1.8;
+                font-family: "DM Mono", "Fira Mono", monospace;
+                color: #2563eb;
+            }
+
             .warning-box {
                 background: #fffbeb;
-                border: 1px solid #fde68a;
+                border: 1px solid #fcd34d;
                 color: #92400e;
                 padding: 13px 16px;
                 border-radius: 8px;
                 margin-bottom: 16px;
                 font-size: 13px;
             }
+
+            /* ── SONG ITEMS ── */
             .song-item {
-                background: #f8fafc;
-                padding: 16px;
-                margin-bottom: 10px;
+                background: #fafaf9;
+                padding: 14px 16px;
+                margin-bottom: 8px;
                 border-radius: 10px;
                 border: 2px solid transparent;
-                transition: all 0.2s;
+                transition: all 0.15s;
             }
+
             .song-item:hover {
-                border-color: #3b82f6;
-                background: #f0f7ff;
+                border-color: #c7d4fb;
+                background: #f0f4ff;
             }
+
             .song-item-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 gap: 12px;
             }
+
             .song-title {
-                font-size: 16px;
+                font-size: 15px;
                 font-weight: 600;
-                margin-bottom: 4px;
-                color: #1e2939;
+                margin-bottom: 3px;
+                color: #0b0c0f;
             }
+
             .song-meta {
                 font-size: 12px;
-                color: #94a3b8;
+                color: #6b7280;
+                font-weight: 400;
             }
+
             .song-actions {
                 display: flex;
-                gap: 8px;
+                gap: 7px;
                 flex-shrink: 0;
             }
+
+            /* ── MEDIA SEGMENT ITEMS ── */
             .sermon-item {
-                background: #f8fafc;
-                padding: 16px;
-                margin-bottom: 10px;
+                background: #fafaf9;
+                padding: 14px 16px;
+                margin-bottom: 8px;
                 border-radius: 10px;
                 border: 2px solid transparent;
-                transition: all 0.2s;
+                transition: all 0.15s;
             }
+
             .sermon-item:hover {
-                border-color: #3b82f6;
-                background: #f0f7ff;
+                border-color: #c7d4fb;
+                background: #f0f4ff;
             }
+
             .sermon-item-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
                 gap: 12px;
             }
+
             .sermon-slides-preview {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 12px;
+                gap: 7px;
+                margin-top: 10px;
             }
+
             .sermon-slide-thumb {
-                width: 100px;
-                height: 56px;
+                width: 96px;
+                height: 54px;
                 object-fit: cover;
                 border-radius: 5px;
-                border: 1px solid #e2e8f0;
-                background: #f1f5f9;
+                border: 1px solid #e5e7eb;
+                background: #f3f4f6;
             }
+
             .sermon-slide-thumb.video-thumb,
             .sermon-slide-thumb.pdf-thumb,
             .sermon-slide-thumb.pptx-thumb,
@@ -273,25 +404,29 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 22px;
-                color: #2563eb;
-                background: #eff6ff;
-                border: 1px solid #bfdbfe;
+                font-size: 20px;
             }
+
+            .sermon-slide-thumb.video-thumb {
+                background: #eff6ff;
+                border-color: #93c5fd;
+            }
+
             .sermon-slide-thumb.pdf-thumb {
                 background: #fef2f2;
-                border-color: #fecaca;
-                color: #dc2626;
+                border-color: #fca5a5;
             }
+
             .sermon-slide-thumb.pptx-thumb {
                 background: #f0fdf4;
-                border-color: #bbf7d0;
-                color: #16a34a;
+                border-color: #86efac;
             }
+
             .slide-remove-btn {
                 position: relative;
                 display: inline-block;
             }
+
             .slide-remove-btn button {
                 position: absolute;
                 top: -5px;
@@ -309,347 +444,414 @@
                 justify-content: center;
                 line-height: 1;
             }
+
+            /* ── BACKGROUNDS ── */
             .background-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-                gap: 12px;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 10px;
                 margin-top: 16px;
             }
+
             .background-item {
                 position: relative;
                 border-radius: 10px;
                 overflow: hidden;
-                border: 3px solid #e2e8f0;
+                border: 2px solid #e5e7eb;
                 cursor: pointer;
-                transition: all 0.2s;
-                background: #f8fafc;
+                transition: all 0.15s;
+                background: #f3f4f6;
             }
+
             .background-item:hover {
-                border-color: #3b82f6;
+                border-color: #2a5cef;
                 transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(42,92,239,0.12);
             }
+
             .background-item.active-bg {
                 border-color: #059669;
-                box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+                box-shadow: 0 0 0 3px rgba(5,150,105,0.15);
             }
+
             .background-item img {
                 width: 100%;
-                height: 140px;
+                height: 130px;
                 object-fit: cover;
                 display: block;
             }
+
             .background-item-actions {
                 padding: 8px;
                 display: flex;
                 gap: 5px;
                 justify-content: center;
-                background: #f1f5f9;
+                background: #f9fafb;
+                border-top: 1px solid #e5e7eb;
             }
+
             .active-bg-badge {
                 position: absolute;
                 top: 6px;
                 left: 6px;
                 background: #059669;
                 color: #fff;
-                font-size: 10px;
+                font-size: 9px;
                 font-weight: 700;
                 padding: 2px 8px;
                 border-radius: 10px;
                 letter-spacing: 0.5px;
             }
+
+            /* ── FILE UPLOAD ── */
             .file-upload {
-                border: 2px dashed #cbd5e1;
-                padding: 28px;
+                border: 2px dashed #d1d5db;
+                padding: 32px;
                 border-radius: 10px;
                 text-align: center;
                 cursor: pointer;
-                transition: all 0.2s;
-                background: #f8fafc;
+                transition: all 0.15s;
+                background: #fafaf9;
             }
+
             .file-upload:hover {
-                border-color: #3b82f6;
+                border-color: #2a5cef;
                 background: #eff6ff;
             }
+
             .file-upload input {
                 display: none;
             }
+
             .upload-icon {
-                font-size: 42px;
-                margin-bottom: 12px;
-                color: #94a3b8;
+                font-size: 38px;
+                margin-bottom: 10px;
+                opacity: 0.6;
             }
+
+            .file-upload p {
+                color: #374151;
+                font-size: 14px;
+            }
+
             .upload-progress {
                 margin-top: 10px;
             }
+
             .progress-bar {
-                height: 6px;
-                background: #e2e8f0;
+                height: 5px;
+                background: #e5e7eb;
                 border-radius: 4px;
                 overflow: hidden;
-                margin-top: 4px;
+                margin-top: 5px;
             }
+
             .progress-fill {
                 height: 100%;
-                background: #2563eb;
+                background: #2a5cef;
                 border-radius: 4px;
                 transition: width 0.3s;
                 width: 0%;
             }
+
+            /* ── TYPOGRAPHY CONTROLS ── */
             .color-picker-row {
                 display: flex;
                 align-items: center;
                 gap: 10px;
             }
+
             .color-picker-row input[type="color"] {
-                width: 44px;
-                height: 34px;
-                border: 1px solid #e2e8f0;
+                width: 40px;
+                height: 32px;
+                border: 1px solid #d1d5db;
                 border-radius: 6px;
                 cursor: pointer;
                 padding: 2px;
-                background: #f8fafc;
+                background: #fff;
             }
+
             .range-row {
                 display: flex;
                 align-items: center;
                 gap: 10px;
             }
+
             .range-row input[type="range"] {
                 flex: 1;
-                accent-color: #3b82f6;
+                accent-color: #2a5cef;
             }
+
             .range-row span {
                 min-width: 42px;
                 text-align: right;
                 font-size: 13px;
-                color: #94a3b8;
+                color: #6b7280;
             }
+
             .preview-parts {
-                background: #f8fafc;
-                border: 1px solid #e2e8f0;
+                background: #f0f4ff;
+                border: 1px solid #c7d4fb;
                 border-radius: 8px;
-                padding: 13px;
-                margin-top: 13px;
+                padding: 12px;
+                margin-top: 12px;
                 display: none;
             }
+
             .preview-parts h4 {
-                font-size: 11px;
-                color: #94a3b8;
+                font-size: 10px;
+                color: #6b7280;
                 margin-bottom: 8px;
                 text-transform: uppercase;
-                letter-spacing: 0.5px;
+                letter-spacing: 1px;
+                font-weight: 700;
             }
+
             .preview-part-tag {
                 display: inline-block;
                 background: #dbeafe;
-                color: #1e40af;
+                color: #2563eb;
                 padding: 3px 10px;
                 border-radius: 10px;
                 font-size: 12px;
                 margin: 3px;
+                font-weight: 500;
             }
+
+            /* ── EDITING BANNER ── */
             .editing-banner {
                 background: #fffbeb;
-                border: 2px solid #fbbf24;
+                border: 2px solid #fcd34d;
                 border-radius: 8px;
                 padding: 11px 15px;
-                margin-bottom: 18px;
+                margin-bottom: 16px;
                 font-size: 13px;
                 color: #92400e;
                 display: none;
                 align-items: center;
                 gap: 10px;
             }
+
             .editing-banner.active {
                 display: flex;
             }
-            .admin-login-overlay {
-                position: fixed;
-                inset: 0;
-                background: #f1f5f9;
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .admin-login-box {
-                background: #ffffff;
-                padding: 40px;
-                border-radius: 16px;
-                max-width: 400px;
-                width: 90%;
-                border: 1px solid #e2e8f0;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            }
-            .admin-login-box h2 {
-                color: #1d4ed8;
-                margin-bottom: 6px;
-                font-size: 24px;
-            }
-            .admin-login-box p {
-                color: #94a3b8;
-                margin-bottom: 24px;
-                font-size: 13px;
-            }
 
-            /* Upload type toggle — 4 buttons */
+            /* ── UPLOAD TYPE TOGGLE ── */
             .upload-type-toggle {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
                 gap: 8px;
-                margin-bottom: 16px;
+                margin-bottom: 14px;
             }
+
             .upload-type-btn {
                 padding: 10px 8px;
-                background: #f8fafc;
-                border: 2px solid #e2e8f0;
+                background: #fafaf9;
+                border: 2px solid #e5e7eb;
                 border-radius: 8px;
-                color: #94a3b8;
+                color: #6b7280;
                 cursor: pointer;
                 font-size: 12px;
                 font-weight: 500;
                 text-align: center;
-                transition: all 0.2s;
-            }
-            .upload-type-btn:hover {
-                border-color: #3b82f6;
-                color: #1e2939;
-            }
-            .upload-type-btn.active {
-                border-color: #2563eb;
-                background: #eff6ff;
-                color: #1d4ed8;
+                transition: all 0.15s;
+                font-family: "DM Sans", sans-serif;
             }
 
-            /* Batch upload progress */
+            .upload-type-btn:hover {
+                border-color: #2a5cef;
+                color: #2a5cef;
+                background: #eff6ff;
+            }
+
+            .upload-type-btn.active {
+                border-color: #2a5cef;
+                background: #eff6ff;
+                color: #2a5cef;
+            }
+
+            /* ── BATCH PROGRESS ── */
             .batch-progress-list {
                 margin-top: 10px;
                 display: none;
             }
+
             .batch-progress-item {
                 display: flex;
                 align-items: center;
                 gap: 10px;
                 padding: 6px 0;
-                border-bottom: 1px solid #f1f5f9;
+                border-bottom: 1px solid #f3f4f6;
                 font-size: 12px;
-                color: #64748b;
+                color: #6b7280;
             }
+
             .batch-progress-item:last-child {
                 border-bottom: none;
             }
+
             .batch-progress-item .bp-name {
                 flex: 1;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+
             .batch-progress-item .bp-bar {
                 width: 80px;
                 height: 4px;
-                background: #e2e8f0;
+                background: #e5e7eb;
                 border-radius: 2px;
                 overflow: hidden;
                 flex-shrink: 0;
             }
+
             .batch-progress-item .bp-fill {
                 height: 100%;
-                background: #2563eb;
+                background: #2a5cef;
                 border-radius: 2px;
                 transition: width 0.2s;
             }
+
             .batch-progress-item .bp-status {
                 min-width: 32px;
                 text-align: right;
                 font-size: 11px;
             }
 
-            /* Cloudinary usage */
+            /* ── CLOUDINARY USAGE ── */
             .cloudinary-usage-card {
-                background: #f8fafc;
-                border: 1px solid #e2e8f0;
+                background: #f9fafb;
+                border: 1px solid #e5e7eb;
                 border-radius: 10px;
                 padding: 18px;
                 margin-bottom: 20px;
             }
+
             .cloudinary-usage-card h4 {
                 font-size: 13px;
                 font-weight: 600;
-                color: #64748b;
+                color: #374151;
                 margin-bottom: 14px;
                 display: flex;
                 align-items: center;
                 gap: 8px;
             }
+
             .usage-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 12px;
+                grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+                gap: 10px;
             }
+
             .usage-stat {
                 background: #ffffff;
                 border-radius: 8px;
                 padding: 12px 14px;
-                border: 1px solid #e2e8f0;
+                border: 1px solid #e5e7eb;
             }
+
             .usage-stat-label {
                 font-size: 11px;
-                color: #94a3b8;
-                margin-bottom: 6px;
+                color: #6b7280;
+                margin-bottom: 5px;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
+                font-weight: 600;
             }
+
             .usage-stat-value {
                 font-size: 18px;
                 font-weight: 700;
-                color: #1e2939;
+                color: #0b0c0f;
                 margin-bottom: 6px;
             }
+
             .usage-stat-bar {
-                height: 5px;
-                background: #e2e8f0;
+                height: 4px;
+                background: #e5e7eb;
                 border-radius: 3px;
                 overflow: hidden;
             }
+
             .usage-stat-bar-fill {
                 height: 100%;
                 border-radius: 3px;
                 transition: width 0.5s;
             }
-            .usage-stat-bar-fill.low {
-                background: #22c55e;
-            }
-            .usage-stat-bar-fill.medium {
-                background: #f59e0b;
-            }
-            .usage-stat-bar-fill.high {
-                background: #ef4444;
-            }
+
+            .usage-stat-bar-fill.low { background: #10b981; }
+            .usage-stat-bar-fill.medium { background: #f59e0b; }
+            .usage-stat-bar-fill.high { background: #ef4444; }
+
             .usage-stat-sub {
                 font-size: 11px;
-                color: #cbd5e1;
+                color: #9ca3af;
                 margin-top: 4px;
             }
+
             .usage-refresh-btn {
                 background: none;
                 border: none;
-                color: #2563eb;
+                color: #2a5cef;
                 cursor: pointer;
                 font-size: 12px;
                 padding: 0;
                 text-decoration: underline;
+                font-family: "DM Sans", sans-serif;
             }
+
             .plan-badge {
                 display: inline-block;
                 background: #dbeafe;
-                color: #1e40af;
+                color: #2563eb;
                 font-size: 11px;
                 font-weight: 600;
                 padding: 2px 10px;
                 border-radius: 10px;
-                margin-left: 8px;
+                margin-left: 4px;
+            }
+
+            hr.divider {
+                margin: 32px 0;
+                border: none;
+                border-top: 1px solid #e5e7eb;
+            }
+
+            /* ── SETTINGS SECTION CARD ── */
+            .settings-card {
+                background: #fafaf9;
+                border: 1px solid #e5e7eb;
+                border-radius: 10px;
+                padding: 18px;
+                margin-bottom: 14px;
+            }
+
+            .settings-card-label {
+                font-size: 11px;
+                font-weight: 700;
+                color: #6b7280;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 14px;
+            }
+
+            /* ── MEDIA TYPE BADGES ── */
+            .media-type-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 10px;
+                font-weight: 600;
+                padding: 2px 8px;
+                border-radius: 10px;
+                margin-left: 6px;
                 vertical-align: middle;
             }
+            .media-type-badge.images { background: #eff6ff; color: #2563eb; }
+            .media-type-badge.video  { background: #eff6ff; color: #2563eb; }
+            .media-type-badge.pdf    { background: #fef2f2; color: #dc2626; }
+            .media-type-badge.pptx   { background: #f0fdf4; color: #059669; }
         </style>
     </head>
     <body>
@@ -661,15 +863,12 @@
                 <div id="adminLoginError" class="error-message" style="display: none"></div>
                 <div class="form-group">
                     <label>Admin Password</label>
-                    <input
-                        type="password"
-                        id="adminLoginInput"
-                        placeholder="Admin password"
+                    <input type="password" id="adminLoginInput" placeholder="Admin password"
                         onkeydown="if(event.key==='Enter')checkAdminLogin()" />
                 </div>
                 <button class="btn btn-primary" style="width: 100%" onclick="checkAdminLogin()">Enter Admin</button>
-                <p style="margin-top: 12px; font-size: 12px; text-align: center; color: #475569">
-                    <a href="https://viewcast.github.io/app/" style="color: #64748b">← Back to Control</a>
+                <p style="margin-top: 14px; font-size: 12px; text-align: center; color: #9ca3af">
+                    <a href="https://viewcast.github.io/app/" style="color: #6b7280; text-decoration: none;">← Back to Control</a>
                 </p>
             </div>
         </div>
@@ -678,7 +877,7 @@
             <div class="admin-header">
                 <div>
                     <h1>ViewCast Admin</h1>
-                    <p style="color: #64748b; margin-top: 4px; font-size: 13px">Manage your presentation content</p>
+                    <p>Manage your presentation content</p>
                 </div>
                 <button class="btn btn-secondary" onclick="window.location.href='https://viewcast.github.io/app/'">← Back to Control</button>
             </div>
@@ -693,35 +892,21 @@
 
             <!-- SONGS TAB -->
             <div id="songsTab" class="tab-content active">
-                <h2 style="margin-bottom: 18px">Manage Songs</h2>
+                <h2>Manage Songs</h2>
                 <div id="songMessage"></div>
                 <div class="editing-banner" id="editingBanner">
                     ✏️ <strong>Edit Mode:</strong> <span id="editingLabel">Editing a song.</span>
-                    <button
-                        class="btn btn-secondary"
-                        style="margin-left: auto; padding: 5px 11px; font-size: 12px"
-                        onclick="cancelEdit()">
-                        Cancel
-                    </button>
+                    <button class="btn btn-secondary" style="margin-left: auto; padding: 5px 11px; font-size: 12px" onclick="cancelEdit()">Cancel</button>
                 </div>
                 <div class="info-box">
                     <strong>Paste lyrics below.</strong> Blank line → next line is a section label.<br />
-                    <pre
-                        style="
-                            font-family: monospace;
-                            font-size: 12px;
-                            background: none;
-                            border: none;
-                            margin-top: 8px;
-                            line-height: 1.8;
-                        ">
+                    <pre>
 Verse 1        ← section label
 Amazing grace  ← slide 1
 How sweet      ← slide 2
                ← blank line
 Chorus         ← new section
-Praise the Lord</pre
-                    >
+Praise the Lord</pre>
                 </div>
                 <div class="form-group">
                     <label>Song Title</label>
@@ -734,17 +919,12 @@ Praise the Lord</pre
                     </div>
                     <div class="form-group">
                         <label>CCLI / License (optional)</label>
-                        <input
-                            type="text"
-                            id="songLicense"
-                            placeholder="e.g., CCLI #1234567"
-                            autocomplete="new-password" />
+                        <input type="text" id="songLicense" placeholder="e.g., CCLI #1234567" autocomplete="new-password" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Lyrics <span style="font-weight: 400; color: #64748b">(sections auto-detected)</span></label>
-                    <textarea
-                        id="lyricsInput"
+                    <label>Lyrics <span style="font-weight: 400; color: #6b7280">(sections auto-detected)</span></label>
+                    <textarea id="lyricsInput"
                         placeholder="Verse 1&#10;Amazing grace how sweet the sound&#10;That saved a wretch like me&#10;&#10;Chorus&#10;Praise the Lord"
                         oninput="previewParsedParts()"></textarea>
                 </div>
@@ -757,27 +937,45 @@ Praise the Lord</pre
                 <div id="songList" style="margin-top: 28px"><h3 style="margin-bottom: 14px">My Songs</h3></div>
             </div>
 
-            <!-- SERMONS TAB -->
+            <!-- MEDIA TAB (formerly Sermons) -->
             <div id="sermonsTab" class="tab-content">
-                <h2 style="margin-bottom: 18px">Media</h2>
+                <h2>Media Segments</h2>
                 <div id="sermonMessage"></div>
                 <div class="info-box">
-                    Create your own segments for your playlists here, add images, PDF's for sermons as well as
-                    powerpoints plus photo's or videos. <br />(Requires Cloudinary API in settings)
+                    <strong>A Media Segment</strong> is a collection of media items that play together as one playlist entry.<br /><br />
+                    You could have a segment with <strong>4 photos + 1 video</strong>, or a segment with a single PDF, PowerPoint, or photo. Mix and match — add as many items as you like before saving.<br /><br />
+                    (Requires Cloudinary API in Settings)
                 </div>
                 <div class="form-group">
-                    <label>Sermon Title</label>
-                    <input
-                        type="text"
-                        id="sermonTitle"
-                        placeholder="e.g., Sunday Morning Message"
-                        autocomplete="new-password" />
+                    <label>Segment Name</label>
+                    <input type="text" id="sermonTitle" placeholder="e.g., Sunday Morning Photos, Sermon Notes, Welcome Slides" autocomplete="new-password" />
+                </div>
+                <div class="form-row" style="margin-bottom: 18px">
+                    <div class="form-group" style="margin-bottom: 0">
+                        <label>Auto-cycle delay (seconds)</label>
+                        <input type="number" id="sermonAutoAdvanceDelay" min="1" max="600" value="8" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 10px">
+                        <label style="margin-bottom: 0">Playback options</label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: 400">
+                            <input type="checkbox" id="sermonAutoAdvanceEnabled" />
+                            Auto-cycle slides on a delay
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: 400">
+                            <input type="checkbox" id="sermonLoopSlides" />
+                            Repeat the segment when it reaches the end
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: 400">
+                            <input type="checkbox" id="sermonAdvanceOnVideoEnd" checked />
+                            Wait for videos to finish before advancing
+                        </label>
+                    </div>
                 </div>
 
-                <!-- 4-way upload type toggle -->
+                <div style="margin-bottom: 10px; font-size: 13px; font-weight: 600; color: #374151">Add media to this segment:</div>
                 <div class="upload-type-toggle">
                     <div class="upload-type-btn active" id="uploadTypeImages" onclick="setUploadType('images')">
-                        🖼️ Images<br /><span style="font-size: 10px; opacity: 0.7">Multiple</span>
+                        🖼️ Photos<br /><span style="font-size: 10px; opacity: 0.7">Multiple at once</span>
                     </div>
                     <div class="upload-type-btn" id="uploadTypePdf" onclick="setUploadType('pdf')">
                         📄 PDF<br /><span style="font-size: 10px; opacity: 0.7">Single file</span>
@@ -786,58 +984,44 @@ Praise the Lord</pre
                         📊 PowerPoint<br /><span style="font-size: 10px; opacity: 0.7">Single file</span>
                     </div>
                     <div class="upload-type-btn" id="uploadTypeMedia" onclick="setUploadType('media')">
-                        🎬 Media<br /><span style="font-size: 10px; opacity: 0.7">Video or photo</span>
+                        🎬 Video<br /><span style="font-size: 10px; opacity: 0.7">Single file</span>
                     </div>
                 </div>
 
                 <div class="file-upload" id="sermonDropZone" onclick="document.getElementById('sermonFile').click()">
                     <div class="upload-icon" id="sermonUploadIcon">🖼️</div>
-                    <p><strong id="sermonUploadLabel">Click to upload images</strong></p>
-                    <p style="color: #64748b; font-size: 13px; margin-top: 5px" id="sermonUploadHint">
-                        PNG, JPG — select multiple at once
-                    </p>
-                    <input
-                        type="file"
-                        id="sermonFile"
-                        accept="image/*"
-                        multiple
-                        onchange="handleSermonSlideUpload(this)" />
+                    <p><strong id="sermonUploadLabel">Click to upload photos</strong></p>
+                    <p style="color: #6b7280; font-size: 13px; margin-top: 5px" id="sermonUploadHint">PNG, JPG — select multiple at once</p>
+                    <input type="file" id="sermonFile" accept="image/*" multiple onchange="handleSermonSlideUpload(this)" />
                 </div>
 
-                <!-- Batch progress list -->
                 <div class="batch-progress-list" id="batchProgressList"></div>
 
-                <!-- Single-file progress (PDF / PPTX / media) -->
                 <div id="sermonUploadProgress" class="upload-progress" style="display: none">
-                    <div style="font-size: 13px; color: #64748b" id="sermonProgressLabel">Uploading…</div>
+                    <div style="font-size: 13px; color: #6b7280" id="sermonProgressLabel">Uploading…</div>
                     <div class="progress-bar"><div class="progress-fill" id="sermonProgressFill"></div></div>
                 </div>
 
                 <div id="pendingSlidesSection" style="display: none; margin-top: 20px">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px">
-                        <h4 style="font-size: 13px; color: #94a3b8">
-                            Slides to save (<span id="pendingCount">0</span>)
-                        </h4>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px">
+                        <h4 style="font-size: 13px; color: #374151; font-weight: 600">Media in this segment (<span id="pendingCount">0</span> items)</h4>
                         <button class="btn btn-danger btn-sm" onclick="clearPendingSlides()">Clear All</button>
                     </div>
                     <div id="pendingSlidesList" class="sermon-slides-preview"></div>
                 </div>
 
                 <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap">
-                    <button class="btn btn-primary" onclick="saveSermon()">Save Sermon</button>
+                    <button class="btn btn-primary" onclick="saveSermon()">Save Segment</button>
                     <button class="btn btn-secondary" onclick="clearSermonForm()">Reset Form</button>
                 </div>
-                <div id="sermonList" style="margin-top: 28px"><h3 style="margin-bottom: 14px">My Sermons</h3></div>
+                <div id="sermonList" style="margin-top: 28px"><h3 style="margin-bottom: 14px">My Media Segments</h3></div>
             </div>
 
             <!-- BACKGROUNDS TAB -->
             <div id="backgroundsTab" class="tab-content">
-                <h2 style="margin-bottom: 18px">Backgrounds & Logos</h2>
+                <h2>Backgrounds & Logos</h2>
                 <div id="backgroundMessage"></div>
-                <div class="info-box">
-                    Upload backgrounds, then click <strong>Set Active</strong> to use one on all slides.
-                </div>
+                <div class="info-box">Upload backgrounds, then click <strong>Set Active</strong> to use one on all slides.</div>
                 <div class="tabs" style="margin-bottom: 18px">
                     <button class="tab active" onclick="switchBackgroundTab('backgrounds',this)">Backgrounds</button>
                     <button class="tab" onclick="switchBackgroundTab('logos',this)">Logos</button>
@@ -846,15 +1030,11 @@ Praise the Lord</pre
                     <div class="file-upload" onclick="document.getElementById('backgroundFile').click()">
                         <div class="upload-icon">🖼️</div>
                         <p><strong>Click to upload background</strong></p>
-                        <p style="color: #64748b; font-size: 13px; margin-top: 5px">JPG, PNG, or MP4 (Max 100MB)</p>
-                        <input
-                            type="file"
-                            id="backgroundFile"
-                            accept="image/*,video/mp4"
-                            onchange="handleBackgroundUpload(this,'background')" />
+                        <p style="color: #6b7280; font-size: 13px; margin-top: 5px">JPG, PNG, or MP4 (Max 100MB)</p>
+                        <input type="file" id="backgroundFile" accept="image/*,video/mp4" onchange="handleBackgroundUpload(this,'background')" />
                     </div>
                     <div id="bgUploadProgress" class="upload-progress" style="display: none">
-                        <div style="font-size: 13px; color: #64748b" id="bgProgressLabel">Uploading…</div>
+                        <div style="font-size: 13px; color: #6b7280" id="bgProgressLabel">Uploading…</div>
                         <div class="progress-bar"><div class="progress-fill" id="bgProgressFill"></div></div>
                     </div>
                     <div class="background-grid" id="backgroundGrid"></div>
@@ -863,12 +1043,8 @@ Praise the Lord</pre
                     <div class="file-upload" onclick="document.getElementById('logoFile').click()">
                         <div class="upload-icon">🎨</div>
                         <p><strong>Click to upload logo</strong></p>
-                        <p style="color: #64748b; font-size: 13px; margin-top: 5px">PNG (transparent recommended)</p>
-                        <input
-                            type="file"
-                            id="logoFile"
-                            accept="image/png,image/svg+xml"
-                            onchange="handleBackgroundUpload(this,'logo')" />
+                        <p style="color: #6b7280; font-size: 13px; margin-top: 5px">PNG (transparent recommended)</p>
+                        <input type="file" id="logoFile" accept="image/png,image/svg+xml" onchange="handleBackgroundUpload(this,'logo')" />
                     </div>
                     <div class="background-grid" id="logoGrid"></div>
                 </div>
@@ -876,7 +1052,7 @@ Praise the Lord</pre
 
             <!-- TYPOGRAPHY TAB -->
             <div id="typographyTab" class="tab-content">
-                <h2 style="margin-bottom: 18px">Typography & Display</h2>
+                <h2>Typography & Display</h2>
                 <div id="typographyMessage"></div>
                 <div class="info-box">These settings apply to your FOH/BOH presentation screens.</div>
                 <div class="form-row">
@@ -908,12 +1084,7 @@ Praise the Lord</pre
                 <div class="form-group">
                     <label>Font Size (px)</label>
                     <div class="range-row">
-                        <input
-                            type="range"
-                            id="fontSize"
-                            min="24"
-                            max="120"
-                            value="64"
+                        <input type="range" id="fontSize" min="24" max="120" value="64"
                             oninput="document.getElementById('fontSizeVal').textContent=this.value+'px'" />
                         <span id="fontSizeVal">64px</span>
                     </div>
@@ -922,7 +1093,7 @@ Praise the Lord</pre
                     <label>Text Color</label>
                     <div class="color-picker-row">
                         <input type="color" id="textColor" value="#ffffff" />
-                        <span style="font-size: 13px; color: #64748b">Default: white</span>
+                        <span style="font-size: 13px; color: #6b7280">Default: white</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -946,42 +1117,15 @@ Praise the Lord</pre
                 <div class="form-group">
                     <label>Line Height</label>
                     <div class="range-row">
-                        <input
-                            type="range"
-                            id="lineHeight"
-                            min="100"
-                            max="250"
-                            value="140"
-                            step="5"
+                        <input type="range" id="lineHeight" min="100" max="250" value="140" step="5"
                             oninput="document.getElementById('lineHeightVal').textContent=(this.value/100).toFixed(2)" />
                         <span id="lineHeightVal">1.40</span>
                     </div>
                 </div>
                 <div style="margin-bottom: 20px">
-                    <label style="font-weight: 500; font-size: 13px; display: block; margin-bottom: 8px; color: #94a3b8"
-                        >Preview</label
-                    >
-                    <div
-                        style="
-                            background: #000;
-                            border-radius: 10px;
-                            padding: 36px;
-                            text-align: center;
-                            min-height: 130px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        ">
-                        <span
-                            id="previewText"
-                            style="
-                                color: #fff;
-                                font-size: 64px;
-                                font-weight: 700;
-                                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-                            "
-                            >Amazing Grace</span
-                        >
+                    <label style="font-weight: 500; font-size: 13px; display: block; margin-bottom: 8px; color: #374151">Preview</label>
+                    <div style="background: #0b0c0f; border-radius: 10px; padding: 36px; text-align: center; min-height: 130px; display: flex; align-items: center; justify-content: center;">
+                        <span id="previewText" style="color: #fff; font-size: 64px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Amazing Grace</span>
                     </div>
                 </div>
                 <button class="btn btn-primary" onclick="saveTypography()">Save Typography</button>
@@ -989,163 +1133,64 @@ Praise the Lord</pre
 
             <!-- SETTINGS TAB -->
             <div id="settingsTab" class="tab-content">
-                <h2 style="margin-bottom: 18px">Settings</h2>
+                <h2>Settings</h2>
                 <div id="settingsMessage"></div>
-                <h3 style="margin-bottom: 13px; font-size: 16px">Admin Password</h3>
+
+                <h3 style="margin-bottom: 12px; font-size: 15px">Admin Password</h3>
                 <div class="info-box">This password gates access to the admin area.</div>
                 <div class="form-group">
                     <label>New Admin Password</label>
-                    <input
-                        type="password"
-                        id="adminPassword"
-                        placeholder="Enter admin password"
-                        autocomplete="new-password" />
+                    <input type="password" id="adminPassword" placeholder="Enter admin password" autocomplete="new-password" />
                 </div>
                 <button class="btn btn-primary" onclick="saveAdminPassword()">Save Admin Password</button>
-                <hr style="margin: 36px 0; border: none; border-top: 1px solid #2d3748" />
-                <h3 style="margin-bottom: 13px; font-size: 16px">Your Firebase Config</h3>
+
+                <hr class="divider" />
+
+                <h3 style="margin-bottom: 12px; font-size: 15px">Your Firebase Config</h3>
                 <div class="info-box">
-                    Changes here are saved to <strong>both your browser and your account</strong> — so any device you
-                    log into will automatically get the latest config.
+                    Changes here are saved to <strong>both your browser and your account</strong> — so any device you log into will automatically get the latest config.
                 </div>
+                <div class="form-group"><label>API Key</label><input type="text" id="fb_apiKey" placeholder="AIzaSy..." autocomplete="off" spellcheck="false" /></div>
+                <div class="form-group"><label>Auth Domain</label><input type="text" id="fb_authDomain" placeholder="your-app.firebaseapp.com" autocomplete="off" spellcheck="false" /></div>
+                <div class="form-group"><label>Project ID</label><input type="text" id="fb_projectId" placeholder="your-app-id" autocomplete="off" spellcheck="false" /></div>
+                <div class="form-group"><label>Storage Bucket</label><input type="text" id="fb_storageBucket" placeholder="your-app.firebasestorage.app" autocomplete="off" spellcheck="false" /></div>
+                <div class="form-group"><label>Messaging Sender ID</label><input type="text" id="fb_messagingSenderId" placeholder="123456789000" autocomplete="off" spellcheck="false" /></div>
+                <div class="form-group"><label>App ID</label><input type="text" id="fb_appId" placeholder="1:123456789000:web:abc123..." autocomplete="off" spellcheck="false" /></div>
                 <div class="form-group">
-                    <label>API Key</label
-                    ><input type="text" id="fb_apiKey" placeholder="AIzaSy..." autocomplete="off" spellcheck="false" />
-                </div>
-                <div class="form-group">
-                    <label>Auth Domain</label
-                    ><input
-                        type="text"
-                        id="fb_authDomain"
-                        placeholder="your-app.firebaseapp.com"
-                        autocomplete="off"
-                        spellcheck="false" />
-                </div>
-                <div class="form-group">
-                    <label>Project ID</label
-                    ><input
-                        type="text"
-                        id="fb_projectId"
-                        placeholder="your-app-id"
-                        autocomplete="off"
-                        spellcheck="false" />
-                </div>
-                <div class="form-group">
-                    <label>Storage Bucket</label
-                    ><input
-                        type="text"
-                        id="fb_storageBucket"
-                        placeholder="your-app.firebasestorage.app"
-                        autocomplete="off"
-                        spellcheck="false" />
-                </div>
-                <div class="form-group">
-                    <label>Messaging Sender ID</label
-                    ><input
-                        type="text"
-                        id="fb_messagingSenderId"
-                        placeholder="123456789000"
-                        autocomplete="off"
-                        spellcheck="false" />
-                </div>
-                <div class="form-group">
-                    <label>App ID</label
-                    ><input
-                        type="text"
-                        id="fb_appId"
-                        placeholder="1:123456789000:web:abc123..."
-                        autocomplete="off"
-                        spellcheck="false" />
-                </div>
-                <div class="form-group">
-                    <label
-                        >Database URL
-                        <span style="font-weight: 400; color: #64748b">(needed for playlists)</span></label
-                    ><input
-                        type="text"
-                        id="fb_databaseURL"
-                        placeholder="https://your-app-default-rtdb.firebaseio.com"
-                        autocomplete="off"
-                        spellcheck="false" />
+                    <label>Database URL <span style="font-weight: 400; color: #6b7280">(needed for playlists)</span></label>
+                    <input type="text" id="fb_databaseURL" placeholder="https://your-app-default-rtdb.firebaseio.com" autocomplete="off" spellcheck="false" />
                 </div>
                 <button class="btn btn-primary" onclick="saveFirebaseConfigFromAdmin()">Update Firebase Config</button>
-                <hr style="margin: 36px 0; border: none; border-top: 1px solid #2d3748" />
-                <h3 style="margin-bottom: 13px; font-size: 16px">Cloudinary Configuration</h3>
+
+                <hr class="divider" />
+
+                <h3 style="margin-bottom: 12px; font-size: 15px">Cloudinary Configuration</h3>
                 <div class="info-box">
-                    Used for backgrounds, logos, and sermon slides. Free at
-                    <a href="https://cloudinary.com" target="_blank" style="color: #60a5fa">cloudinary.com</a
-                    >.<br /><br />
-                    Create an <strong>unsigned upload preset</strong>: Cloudinary → Settings → Upload → Upload presets →
-                    Add preset → Unsigned.<br /><br />
-                    To increase storage/bandwidth, upgrade your Cloudinary plan or add
-                    <strong>multiple Cloudinary accounts</strong> below — uploads will rotate across them automatically.
+                    Used for backgrounds, logos, and media segment uploads. Free at <a href="https://cloudinary.com" target="_blank" style="color: #1d4ed8">cloudinary.com</a>.<br /><br />
+                    Create an <strong>unsigned upload preset</strong>: Cloudinary → Settings → Upload → Upload presets → Add preset → Unsigned.<br /><br />
+                    To increase storage/bandwidth, upgrade your Cloudinary plan or add <strong>multiple Cloudinary accounts</strong> below — uploads will rotate across them automatically.
                 </div>
-                <div
-                    style="
-                        background: #0f1117;
-                        border: 1px solid #2d3748;
-                        border-radius: 10px;
-                        padding: 16px;
-                        margin-bottom: 12px;
-                    ">
-                    <div
-                        style="
-                            font-size: 12px;
-                            font-weight: 600;
-                            color: #64748b;
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                            margin-bottom: 12px;
-                        ">
-                        Primary Account
-                    </div>
-                    <div class="form-group">
-                        <label>Cloud Name</label
-                        ><input
-                            type="text"
-                            id="cloudinaryName"
-                            placeholder="my-cloud-name"
-                            autocomplete="new-password" />
-                    </div>
-                    <div class="form-group">
-                        <label>Upload Preset (unsigned)</label
-                        ><input
-                            type="text"
-                            id="cloudinaryPreset"
-                            placeholder="projectly_preset"
-                            autocomplete="new-password" />
-                    </div>
-                    <div class="form-group">
-                        <label
-                            >API Key
-                            <span style="font-weight: 400; color: #64748b">(needed for usage stats)</span></label
-                        ><input type="text" id="cloudinaryKey" placeholder="Your API key" autocomplete="new-password" />
-                    </div>
-                    <div class="form-group">
-                        <label
-                            >API Secret
-                            <span style="font-weight: 400; color: #64748b">(needed for usage stats)</span></label
-                        ><input
-                            type="password"
-                            id="cloudinarySecret"
-                            placeholder="Your API secret"
-                            autocomplete="new-password" />
-                    </div>
+
+                <div class="settings-card">
+                    <div class="settings-card-label">Primary Account</div>
+                    <div class="form-group"><label>Cloud Name</label><input type="text" id="cloudinaryName" placeholder="my-cloud-name" autocomplete="new-password" /></div>
+                    <div class="form-group"><label>Upload Preset (unsigned)</label><input type="text" id="cloudinaryPreset" placeholder="projectly_preset" autocomplete="new-password" /></div>
+                    <div class="form-group"><label>API Key <span style="font-weight: 400; color: #6b7280">(needed for usage stats)</span></label><input type="text" id="cloudinaryKey" placeholder="Your API key" autocomplete="new-password" /></div>
+                    <div class="form-group"><label>API Secret <span style="font-weight: 400; color: #6b7280">(needed for usage stats)</span></label><input type="password" id="cloudinarySecret" placeholder="Your API secret" autocomplete="new-password" /></div>
                 </div>
+
                 <div id="extraCloudinaryAccounts"></div>
-                <button class="btn btn-secondary" style="margin-bottom: 20px" onclick="addExtraCloudinaryAccount()">
-                    + Add Another Cloudinary Account
-                </button>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px">
+                <button class="btn btn-secondary" style="margin-bottom: 20px" onclick="addExtraCloudinaryAccount()">+ Add Another Cloudinary Account</button>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px">
                     <button class="btn btn-primary" onclick="saveCloudinaryConfig()">Save Cloudinary Config</button>
                     <button class="btn btn-secondary" onclick="testCloudinaryConnection()">Test Connection</button>
                 </div>
+
                 <div class="cloudinary-usage-card" id="cloudinaryUsageCard" style="display: none">
                     <h4>
-                        ☁️ Cloudinary Usage <span id="cloudinaryPlanBadge" class="plan-badge"></span
-                        ><button class="usage-refresh-btn" onclick="loadCloudinaryUsage()" style="margin-left: auto">
-                            ↻ Refresh
-                        </button>
+                        ☁️ Cloudinary Usage <span id="cloudinaryPlanBadge" class="plan-badge"></span>
+                        <button class="usage-refresh-btn" onclick="loadCloudinaryUsage()" style="margin-left: auto">↻ Refresh</button>
                     </h4>
                     <div class="usage-grid" id="cloudinaryUsageGrid"></div>
                     <div id="extraAccountsUsage" style="margin-top: 16px"></div>
@@ -1157,24 +1202,16 @@ Praise the Lord</pre
             import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
             import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
             import {
-                getFirestore,
-                doc,
-                setDoc,
-                getDoc,
-                collection,
-                getDocs,
-                addDoc,
-                updateDoc,
-                deleteDoc
+                getFirestore, doc, setDoc, getDoc, collection, getDocs, addDoc, updateDoc, deleteDoc
             } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
             const sharedConfig = {
-                apiKey: "AIzaSyCga_ur-qA08HV2otci3ivw3PkWm-Uh-OM",
-                authDomain: "notey-4455f.firebaseapp.com",
-                projectId: "notey-4455f",
-                storageBucket: "notey-4455f.firebasestorage.app",
-                messagingSenderId: "554664934050",
-                appId: "1:554664934050:web:5c1f5f673bb32301fa35fb"
+                apiKey: "AIzaSyA4CB3icHbfoSpxiIltjrjPEsIxmRS79lg",
+                authDomain: "viewcast-48393.firebaseapp.com",
+                projectId: "viewcast-48393",
+                storageBucket: "viewcast-48393.firebasestorage.app",
+                messagingSenderId: "172413468463",
+                appId: "1:172413468463:web:5ab5815a457b923b1f2bda"
             };
             const sharedApp = getApps().find((a) => a.name === "shared") || initializeApp(sharedConfig, "shared");
             const sharedAuth = getAuth(sharedApp);
@@ -1188,44 +1225,38 @@ Praise the Lord</pre
             window.currentUploadType = "images";
             window.extraAccounts = [];
 
+            function getLocalSession() {
+                const raw = localStorage.getItem("viewcast_local_session");
+                if (!raw) return null;
+                try { return JSON.parse(raw); } catch (e) { return null; }
+            }
+
             function getUserFirebaseApp() {
-                const raw = localStorage.getItem("projectly_user_firebase");
+                const raw = localStorage.getItem("projectly_user_firebase") || localStorage.getItem("viewcast_user_firebase");
                 if (!raw) return null;
                 try {
                     const cfg = JSON.parse(raw);
                     const existing = getApps().find((a) => a.name === "userapp");
                     return existing || initializeApp(cfg, "userapp");
-                } catch (e) {
-                    return null;
-                }
+                } catch (e) { return null; }
             }
 
             async function persistUserFirebaseConfig(cfg) {
-                localStorage.setItem("projectly_user_firebase", JSON.stringify(cfg));
-                if (window.currentUser) {
+                localStorage.setItem("viewcast_user_firebase", JSON.stringify(cfg));
+                if (window.currentUser && !window.currentUser.isLocalAuth) {
                     try {
-                        await setDoc(
-                            doc(sharedDb, "user_configs", window.currentUser.uid),
-                            { firebaseConfig: cfg, updatedAt: new Date().toISOString() },
-                            { merge: true }
-                        );
-                    } catch (e) {
-                        console.warn("Could not sync Firebase config to cloud:", e);
-                    }
+                        await setDoc(doc(sharedDb, "user_configs", window.currentUser.uid),
+                            { firebaseConfig: cfg, updatedAt: new Date().toISOString() }, { merge: true });
+                    } catch (e) { console.warn("Could not sync Firebase config to cloud:", e); }
                 }
             }
 
             onAuthStateChanged(sharedAuth, (user) => {
-                if (!user) {
-                    window.location.href = "https://viewcast.github.io/app/";
-                    return;
-                }
-                window.currentUser = user;
+                const localSession = getLocalSession();
+                if (!user && !localSession) { window.location.href = "https://viewcast.github.io/app/"; return; }
+                window.currentUser = user || { ...localSession, isLocalAuth: true };
                 const userApp = getUserFirebaseApp();
-                if (!userApp) {
-                    window.location.href = "https://viewcast.github.io/app/";
-                    return;
-                }
+                if (!userApp) { window.location.href = "https://viewcast.github.io/app/"; return; }
                 window.userDb = getFirestore(userApp);
                 document.getElementById("adminLoginInput").focus();
             });
@@ -1235,23 +1266,17 @@ Praise the Lord</pre
                 const errDiv = document.getElementById("adminLoginError");
                 errDiv.style.display = "none";
                 if (!window.currentUser || !window.userDb) {
-                    errDiv.textContent = "Not authenticated.";
-                    errDiv.style.display = "block";
-                    return;
+                    errDiv.textContent = "Not authenticated."; errDiv.style.display = "block"; return;
                 }
                 try {
                     const snap = await getDoc(doc(window.userDb, "users", window.currentUser.uid));
                     const stored = snap.exists() ? snap.data().adminPassword : null;
                     if (!stored || entered === stored) unlockAdmin();
                     else {
-                        errDiv.textContent = "Incorrect admin password.";
-                        errDiv.style.display = "block";
+                        errDiv.textContent = "Incorrect admin password."; errDiv.style.display = "block";
                         document.getElementById("adminLoginInput").value = "";
                     }
-                } catch (e) {
-                    errDiv.textContent = "Error: " + e.message;
-                    errDiv.style.display = "block";
-                }
+                } catch (e) { errDiv.textContent = "Error: " + e.message; errDiv.style.display = "block"; }
             };
 
             function unlockAdmin() {
@@ -1262,34 +1287,19 @@ Praise the Lord</pre
             }
 
             window.loadUserData = function () {
-                loadSongs();
-                loadSermons();
-                loadSettings();
-                loadTypography();
+                loadSongs(); loadSermons(); loadSettings(); loadTypography();
             };
 
-            // ── LYRICS PARSER ──
             window.parseLyrics = function (raw) {
                 const lines = raw.split("\n");
                 const parts = [];
-                let label = null,
-                    slides = [],
-                    expectLabel = true;
-                function flush() {
-                    if (label !== null && slides.length > 0) parts.push({ label, slides: [...slides] });
-                }
+                let label = null, slides = [], expectLabel = true;
+                function flush() { if (label !== null && slides.length > 0) parts.push({ label, slides: [...slides] }); }
                 for (const line of lines) {
                     const t = line.trim();
-                    if (t === "") {
-                        expectLabel = true;
-                        continue;
-                    }
-                    if (expectLabel) {
-                        flush();
-                        label = t;
-                        slides = [];
-                        expectLabel = false;
-                    } else slides.push(t);
+                    if (t === "") { expectLabel = true; continue; }
+                    if (expectLabel) { flush(); label = t; slides = []; expectLabel = false; }
+                    else slides.push(t);
                 }
                 flush();
                 return parts;
@@ -1299,20 +1309,11 @@ Praise the Lord</pre
                 const parts = parseLyrics(document.getElementById("lyricsInput").value);
                 const div = document.getElementById("previewParts");
                 const tags = document.getElementById("previewTagsContainer");
-                if (!parts.length) {
-                    div.style.display = "none";
-                    return;
-                }
+                if (!parts.length) { div.style.display = "none"; return; }
                 div.style.display = "block";
-                tags.innerHTML = parts
-                    .map(
-                        (p) =>
-                            `<span class="preview-part-tag">${p.label} <span style="opacity:.6">(${p.slides.length} slide${p.slides.length !== 1 ? "s" : ""})</span></span>`
-                    )
-                    .join("");
+                tags.innerHTML = parts.map(p => `<span class="preview-part-tag">${p.label} <span style="opacity:.6">(${p.slides.length} slide${p.slides.length !== 1 ? "s" : ""})</span></span>`).join("");
             };
 
-            // ── SONGS ──
             window.saveSong = async function () {
                 const title = document.getElementById("songTitle").value.trim();
                 const author = document.getElementById("songAuthor").value.trim();
@@ -1320,49 +1321,24 @@ Praise the Lord</pre
                 const raw = document.getElementById("lyricsInput").value;
                 const msgDiv = document.getElementById("songMessage");
                 msgDiv.innerHTML = "";
-                if (!title) {
-                    msgDiv.innerHTML = '<div class="error-message">Please enter a song title</div>';
-                    return;
-                }
+                if (!title) { msgDiv.innerHTML = '<div class="error-message">Please enter a song title</div>'; return; }
                 const parts = parseLyrics(raw);
-                if (!parts.length) {
-                    msgDiv.innerHTML = '<div class="error-message">Please add lyrics</div>';
-                    return;
-                }
+                if (!parts.length) { msgDiv.innerHTML = '<div class="error-message">Please add lyrics</div>'; return; }
                 try {
                     const es = window.editState;
                     if (es.isEditing && es.songId) {
-                        await updateDoc(doc(window.userDb, "songs", es.songId), {
-                            title,
-                            author: author || "Unknown",
-                            license: license || null,
-                            parts,
-                            updatedAt: new Date().toISOString()
-                        });
+                        await updateDoc(doc(window.userDb, "songs", es.songId), { title, author: author || "Unknown", license: license || null, parts, updatedAt: new Date().toISOString() });
                         msgDiv.innerHTML = '<div class="success-message">Song updated!</div>';
                     } else {
-                        await addDoc(collection(window.userDb, "songs"), {
-                            title,
-                            author: author || "Unknown",
-                            license: license || null,
-                            parts,
-                            createdBy: window.currentUser.uid,
-                            createdAt: new Date().toISOString(),
-                            updatedAt: new Date().toISOString()
-                        });
+                        await addDoc(collection(window.userDb, "songs"), { title, author: author || "Unknown", license: license || null, parts, createdBy: window.currentUser.uid, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
                         msgDiv.innerHTML = '<div class="success-message">Song saved!</div>';
                     }
-                    clearSongForm();
-                    loadSongs();
-                } catch (e) {
-                    msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`;
-                }
+                    clearSongForm(); loadSongs();
+                } catch (e) { msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`; }
             };
 
             function clearSongForm() {
-                ["songTitle", "songAuthor", "songLicense", "lyricsInput"].forEach(
-                    (id) => (document.getElementById(id).value = "")
-                );
+                ["songTitle", "songAuthor", "songLicense", "lyricsInput"].forEach(id => document.getElementById(id).value = "");
                 document.getElementById("previewParts").style.display = "none";
                 cancelEdit();
             }
@@ -1375,20 +1351,13 @@ Praise the Lord</pre
 
             window.editSong = async function (songId) {
                 const snap = await getDoc(doc(window.userDb, "songs", songId));
-                if (!snap.exists()) {
-                    alert("Song not found");
-                    return;
-                }
+                if (!snap.exists()) { alert("Song not found"); return; }
                 const song = snap.data();
                 document.getElementById("songTitle").value = song.title;
                 document.getElementById("songAuthor").value = song.author || "";
                 document.getElementById("songLicense").value = song.license || "";
                 const rawLines = [];
-                song.parts.forEach((p) => {
-                    rawLines.push(p.label);
-                    p.slides.forEach((s) => rawLines.push(s));
-                    rawLines.push("");
-                });
+                song.parts.forEach(p => { rawLines.push(p.label); p.slides.forEach(s => rawLines.push(s)); rawLines.push(""); });
                 document.getElementById("lyricsInput").value = rawLines.join("\n").trim();
                 previewParsedParts();
                 window.editState = { isEditing: true, songId };
@@ -1408,141 +1377,84 @@ Praise the Lord</pre
                 const list = document.getElementById("songList");
                 try {
                     const snap = await getDocs(collection(window.userDb, "songs"));
-                    if (snap.empty) {
-                        list.innerHTML =
-                            '<h3 style="margin-bottom:14px">My Songs</h3><p style="color:#64748b">No songs yet.</p>';
-                        return;
-                    }
+                    if (snap.empty) { list.innerHTML = '<h3 style="margin-bottom:14px">My Songs</h3><p style="color:#6b7280">No songs yet.</p>'; return; }
                     let html = '<h3 style="margin-bottom:14px">My Songs</h3>';
-                    snap.forEach((d) => {
+                    snap.forEach(d => {
                         const s = d.data();
                         html += `<div class="song-item"><div class="song-item-header"><div><div class="song-title">${s.title}</div><div class="song-meta">${s.author || "Unknown"} · ${s.parts ? s.parts.length : 0} parts</div></div><div class="song-actions"><button class="btn btn-warning btn-sm" onclick="editSong('${d.id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteSong('${d.id}')">Delete</button></div></div></div>`;
                     });
                     list.innerHTML = html;
-                } catch (e) {
-                    list.innerHTML = `<div class="error-message">Error loading songs: ${e.message}</div>`;
-                }
+                } catch (e) { list.innerHTML = `<div class="error-message">Error loading songs: ${e.message}</div>`; }
             };
 
-            // ── SERMONS — upload type ──
             window.setUploadType = function (type) {
                 window.currentUploadType = type;
                 const fi = document.getElementById("sermonFile");
-                ["images", "pdf", "pptx", "media"].forEach((t) =>
-                    document
-                        .getElementById("uploadType" + t.charAt(0).toUpperCase() + t.slice(1))
-                        .classList.toggle("active", t === type)
-                );
+                ["images", "pdf", "pptx", "media"].forEach(t =>
+                    document.getElementById("uploadType" + t.charAt(0).toUpperCase() + t.slice(1)).classList.toggle("active", t === type));
                 switch (type) {
-                    case "images":
-                        fi.accept = "image/*";
-                        fi.multiple = true;
+                    case "images": fi.accept = "image/*"; fi.multiple = true;
                         document.getElementById("sermonUploadIcon").textContent = "🖼️";
-                        document.getElementById("sermonUploadLabel").textContent = "Click to upload images";
-                        document.getElementById("sermonUploadHint").textContent = "PNG, JPG — select multiple at once";
-                        break;
-                    case "pdf":
-                        fi.accept = "application/pdf";
-                        fi.multiple = false;
+                        document.getElementById("sermonUploadLabel").textContent = "Click to upload photos";
+                        document.getElementById("sermonUploadHint").textContent = "PNG, JPG — select multiple at once"; break;
+                    case "pdf": fi.accept = "application/pdf"; fi.multiple = false;
                         document.getElementById("sermonUploadIcon").textContent = "📄";
                         document.getElementById("sermonUploadLabel").textContent = "Click to upload a PDF";
-                        document.getElementById("sermonUploadHint").textContent = "PDF file";
-                        break;
-                    case "pptx":
-                        fi.accept =
-                            ".ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation";
-                        fi.multiple = false;
+                        document.getElementById("sermonUploadHint").textContent = "PDF file"; break;
+                    case "pptx": fi.accept = ".ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"; fi.multiple = false;
                         document.getElementById("sermonUploadIcon").textContent = "📊";
                         document.getElementById("sermonUploadLabel").textContent = "Click to upload a PowerPoint";
-                        document.getElementById("sermonUploadHint").textContent = ".pptx or .ppt file";
-                        break;
-                    case "media":
-                        fi.accept = "image/*,video/mp4,video/webm,video/quicktime";
-                        fi.multiple = false;
+                        document.getElementById("sermonUploadHint").textContent = ".pptx or .ppt file"; break;
+                    case "media": fi.accept = "image/*,video/mp4,video/webm,video/quicktime"; fi.multiple = false;
                         document.getElementById("sermonUploadIcon").textContent = "🎬";
-                        document.getElementById("sermonUploadLabel").textContent = "Click to upload a photo or video";
-                        document.getElementById("sermonUploadHint").textContent = "Single image or MP4/WebM/MOV";
-                        break;
+                        document.getElementById("sermonUploadLabel").textContent = "Click to upload a video";
+                        document.getElementById("sermonUploadHint").textContent = "Single MP4, WebM, or MOV"; break;
                 }
                 fi.value = "";
             };
 
-            // ── SERMONS — handle upload ──
             window.handleSermonSlideUpload = async function (input) {
                 const files = Array.from(input.files);
                 if (!files.length) return;
                 const msgDiv = document.getElementById("sermonMessage");
                 msgDiv.innerHTML = "";
                 const type = window.currentUploadType;
-
                 if (type === "images" && files.length > 1) {
-                    // Batch upload — show per-file progress
                     const batchDiv = document.getElementById("batchProgressList");
                     batchDiv.style.display = "block";
-                    batchDiv.innerHTML = files
-                        .map(
-                            (f, i) =>
-                                `<div class="batch-progress-item" id="bpi_${i}"><span class="bp-name">${f.name}</span><div class="bp-bar"><div class="bp-fill" id="bpf_${i}" style="width:0%"></div></div><span class="bp-status" id="bps_${i}">0%</span></div>`
-                        )
-                        .join("");
-                    let successCount = 0,
-                        failCount = 0;
-                    await Promise.all(
-                        files.map(async (file, i) => {
-                            try {
-                                const result = await uploadToCloudinaryFile(file, "sermons", `bpf_${i}`, `bps_${i}`);
-                                window.pendingSlides.push({ url: result.secure_url, type: "image", name: file.name });
-                                document.getElementById(`bps_${i}`).textContent = "✓";
-                                document.getElementById(`bps_${i}`).style.color = "#4ade80";
-                                successCount++;
-                            } catch (e) {
-                                document.getElementById(`bps_${i}`).textContent = "✗";
-                                document.getElementById(`bps_${i}`).style.color = "#f87171";
-                                failCount++;
-                            }
-                        })
-                    );
+                    batchDiv.innerHTML = files.map((f, i) => `<div class="batch-progress-item" id="bpi_${i}"><span class="bp-name">${f.name}</span><div class="bp-bar"><div class="bp-fill" id="bpf_${i}" style="width:0%"></div></div><span class="bp-status" id="bps_${i}">0%</span></div>`).join("");
+                    let successCount = 0, failCount = 0;
+                    await Promise.all(files.map(async (file, i) => {
+                        try {
+                            const result = await uploadToCloudinaryFile(file, "sermons", `bpf_${i}`, `bps_${i}`);
+                            window.pendingSlides.push({ url: result.secure_url, type: "image", name: file.name });
+                            document.getElementById(`bps_${i}`).textContent = "✓";
+                            document.getElementById(`bps_${i}`).style.color = "#059669";
+                            successCount++;
+                        } catch (e) {
+                            document.getElementById(`bps_${i}`).textContent = "✗";
+                            document.getElementById(`bps_${i}`).style.color = "#dc2626";
+                            failCount++;
+                        }
+                    }));
                     renderPendingSlides();
-                    setTimeout(() => {
-                        batchDiv.style.display = "none";
-                        batchDiv.innerHTML = "";
-                    }, 3000);
-                    msgDiv.innerHTML = `<div class="success-message">${successCount} image${successCount !== 1 ? "s" : ""} uploaded${failCount ? ` (${failCount} failed)` : ""}. Add more or click Save Sermon.</div>`;
+                    setTimeout(() => { batchDiv.style.display = "none"; batchDiv.innerHTML = ""; }, 3000);
+                    msgDiv.innerHTML = `<div class="success-message">${successCount} photo${successCount !== 1 ? "s" : ""} uploaded${failCount ? ` (${failCount} failed)` : ""}. Add more media or click Save Segment.</div>`;
                 } else {
-                    // Single-file upload (including single image drag)
                     const file = files[0];
                     const progressDiv = document.getElementById("sermonUploadProgress");
                     progressDiv.style.display = "block";
                     document.getElementById("sermonProgressFill").style.width = "0%";
                     document.getElementById("sermonProgressLabel").textContent = "Uploading…";
-                    const slideType =
-                        type === "pdf"
-                            ? "pdf"
-                            : type === "pptx"
-                              ? "pptx"
-                              : file.type.startsWith("video")
-                                ? "video"
-                                : "image";
+                    const slideType = type === "pdf" ? "pdf" : type === "pptx" ? "pptx" : file.type.startsWith("video") ? "video" : "image";
                     try {
-                        const result = await uploadToCloudinaryFile(
-                            file,
-                            "sermons",
-                            "sermonProgressFill",
-                            "sermonProgressLabel",
-                            slideType === "pdf" || slideType === "pptx"
-                        );
+                        const result = await uploadToCloudinaryFile(file, "sermons", "sermonProgressFill", "sermonProgressLabel", slideType === "pdf" || slideType === "pptx");
                         progressDiv.style.display = "none";
                         window.pendingSlides.push({ url: result.secure_url, type: slideType, name: file.name });
                         renderPendingSlides();
-                        msgDiv.innerHTML =
-                            '<div class="success-message">Uploaded! Add more or click Save Sermon.</div>';
-                        setTimeout(() => {
-                            if (msgDiv.innerHTML.includes("Uploaded")) msgDiv.innerHTML = "";
-                        }, 3000);
-                    } catch (e) {
-                        progressDiv.style.display = "none";
-                        msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`;
-                    }
+                        msgDiv.innerHTML = '<div class="success-message">Uploaded! Add more media or click Save Segment.</div>';
+                        setTimeout(() => { if (msgDiv.innerHTML.includes("Uploaded")) msgDiv.innerHTML = ""; }, 3000);
+                    } catch (e) { progressDiv.style.display = "none"; msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`; }
                 }
                 input.value = "";
             };
@@ -1551,39 +1463,28 @@ Praise the Lord</pre
                 const section = document.getElementById("pendingSlidesSection");
                 const list = document.getElementById("pendingSlidesList");
                 const count = document.getElementById("pendingCount");
-                if (!window.pendingSlides.length) {
-                    section.style.display = "none";
-                    return;
-                }
+                if (!window.pendingSlides.length) { section.style.display = "none"; return; }
                 section.style.display = "block";
                 count.textContent = window.pendingSlides.length;
-                list.innerHTML = window.pendingSlides
-                    .map((slide, i) => {
-                        let thumb;
-                        if (slide.type === "image")
-                            thumb = `<img class="sermon-slide-thumb" src="${slide.url}" loading="lazy">`;
-                        else if (slide.type === "video")
-                            thumb = `<div class="sermon-slide-thumb video-thumb" title="Video">🎬</div>`;
-                        else if (slide.type === "pdf")
-                            thumb = `<div class="sermon-slide-thumb pdf-thumb" title="${slide.name || "PDF"}">📄</div>`;
-                        else if (slide.type === "pptx")
-                            thumb = `<div class="sermon-slide-thumb pptx-thumb" title="${slide.name || "PowerPoint"}">📊</div>`;
-                        else thumb = `<div class="sermon-slide-thumb media-thumb">🎬</div>`;
-                        return `<div class="slide-remove-btn">${thumb}<button onclick="removePendingSlide(${i})" title="Remove">×</button></div>`;
-                    })
-                    .join("");
+                list.innerHTML = window.pendingSlides.map((slide, i) => {
+                    let thumb;
+                    if (slide.type === "image") thumb = `<img class="sermon-slide-thumb" src="${slide.url}" loading="lazy">`;
+                    else if (slide.type === "video") thumb = `<div class="sermon-slide-thumb video-thumb" title="Video: ${slide.name || ""}">🎬</div>`;
+                    else if (slide.type === "pdf") thumb = `<div class="sermon-slide-thumb pdf-thumb" title="${slide.name || "PDF"}">📄</div>`;
+                    else if (slide.type === "pptx") thumb = `<div class="sermon-slide-thumb pptx-thumb" title="${slide.name || "PowerPoint"}">📊</div>`;
+                    else thumb = `<div class="sermon-slide-thumb video-thumb">🎬</div>`;
+                    return `<div class="slide-remove-btn">${thumb}<button onclick="removePendingSlide(${i})" title="Remove">×</button></div>`;
+                }).join("");
             };
 
-            window.removePendingSlide = function (i) {
-                window.pendingSlides.splice(i, 1);
-                renderPendingSlides();
-            };
-            window.clearPendingSlides = function () {
-                window.pendingSlides = [];
-                renderPendingSlides();
-            };
+            window.removePendingSlide = function (i) { window.pendingSlides.splice(i, 1); renderPendingSlides(); };
+            window.clearPendingSlides = function () { window.pendingSlides = []; renderPendingSlides(); };
             window.clearSermonForm = function () {
                 document.getElementById("sermonTitle").value = "";
+                document.getElementById("sermonAutoAdvanceEnabled").checked = false;
+                document.getElementById("sermonLoopSlides").checked = false;
+                document.getElementById("sermonAdvanceOnVideoEnd").checked = true;
+                document.getElementById("sermonAutoAdvanceDelay").value = 8;
                 window.pendingSlides = [];
                 renderPendingSlides();
                 document.getElementById("sermonMessage").innerHTML = "";
@@ -1593,75 +1494,70 @@ Praise the Lord</pre
 
             window.saveSermon = async function () {
                 const title = document.getElementById("sermonTitle").value.trim();
+                const autoAdvanceEnabled = document.getElementById("sermonAutoAdvanceEnabled").checked;
+                const loopSlides = document.getElementById("sermonLoopSlides").checked;
+                const advanceOnVideoEnd = document.getElementById("sermonAdvanceOnVideoEnd").checked;
+                const autoAdvanceDelay = Math.max(1, parseInt(document.getElementById("sermonAutoAdvanceDelay").value || "8", 10));
                 const msgDiv = document.getElementById("sermonMessage");
-                if (!title) {
-                    msgDiv.innerHTML = '<div class="error-message">Enter a sermon title first.</div>';
-                    return;
-                }
-                if (!window.pendingSlides.length) {
-                    msgDiv.innerHTML = '<div class="error-message">Upload at least one slide first.</div>';
-                    return;
-                }
+                if (!title) { msgDiv.innerHTML = '<div class="error-message">Enter a segment name first.</div>'; return; }
+                if (!window.pendingSlides.length) { msgDiv.innerHTML = '<div class="error-message">Add at least one media item first.</div>'; return; }
                 try {
                     await addDoc(collection(window.userDb, "sermons"), {
                         title,
-                        slides: window.pendingSlides.map((s) => s.url),
-                        slideTypes: window.pendingSlides.map((s) => s.type),
-                        slideNames: window.pendingSlides.map((s) => s.name || ""),
+                        slides: window.pendingSlides.map(s => s.url),
+                        slideTypes: window.pendingSlides.map(s => s.type),
+                        slideNames: window.pendingSlides.map(s => s.name || ""),
+                        autoAdvanceEnabled,
+                        loopSlides,
+                        advanceOnVideoEnd,
+                        autoAdvanceDelay,
                         createdBy: window.currentUser.uid,
                         createdAt: new Date().toISOString()
                     });
-                    msgDiv.innerHTML = '<div class="success-message">Sermon saved!</div>';
-                    clearSermonForm();
-                    loadSermons();
-                } catch (e) {
-                    msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`;
-                }
+                    msgDiv.innerHTML = '<div class="success-message">Media segment saved!</div>';
+                    clearSermonForm(); loadSermons();
+                } catch (e) { msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`; }
             };
 
             window.loadSermons = async function () {
                 const list = document.getElementById("sermonList");
                 try {
                     const snap = await getDocs(collection(window.userDb, "sermons"));
-                    if (snap.empty) {
-                        list.innerHTML =
-                            '<h3 style="margin-bottom:14px">My Sermons</h3><p style="color:#64748b">No sermons yet.</p>';
-                        return;
-                    }
-                    let html = '<h3 style="margin-bottom:14px">My Sermons</h3>';
-                    snap.forEach((d) => {
+                    if (snap.empty) { list.innerHTML = '<h3 style="margin-bottom:14px">My Media Segments</h3><p style="color:#6b7280">No media segments yet.</p>'; return; }
+                    let html = '<h3 style="margin-bottom:14px">My Media Segments</h3>';
+                    snap.forEach(d => {
                         const s = d.data();
                         const st = s.slideTypes || s.slides.map(() => "image");
                         const sn = s.slideNames || s.slides.map(() => "");
-                        const thumbs = (s.slides || [])
-                            .map((url, i) => {
-                                const t = st[i] || "image";
-                                if (t === "image")
-                                    return `<img class="sermon-slide-thumb" src="${url}" loading="lazy">`;
-                                if (t === "video")
-                                    return `<div class="sermon-slide-thumb video-thumb" title="Video">🎬</div>`;
-                                if (t === "pdf")
-                                    return `<div class="sermon-slide-thumb pdf-thumb" title="${sn[i] || "PDF"}">📄</div>`;
-                                if (t === "pptx")
-                                    return `<div class="sermon-slide-thumb pptx-thumb" title="${sn[i] || "PPTX"}">📊</div>`;
-                                return `<div class="sermon-slide-thumb media-thumb">🎬</div>`;
-                            })
-                            .join("");
-                        html += `<div class="sermon-item"><div class="sermon-item-header"><div><div class="song-title">${s.title}</div><div class="song-meta">${s.slides ? s.slides.length : 0} slides · ${new Date(s.createdAt).toLocaleDateString()}</div></div><div class="song-actions"><button class="btn btn-danger btn-sm" onclick="deleteSermon('${d.id}')">Delete</button></div></div>${thumbs ? `<div class="sermon-slides-preview">${thumbs}</div>` : ""}</div>`;
+                        const typeCounts = {};
+                        st.forEach(t => { typeCounts[t] = (typeCounts[t] || 0) + 1; });
+                        const typeIcons = { image: "🖼️", video: "🎬", pdf: "📄", pptx: "📊" };
+                        const typeSummary = Object.entries(typeCounts).map(([t, n]) => `${typeIcons[t] || "📁"} ${n} ${t}${n > 1 ? "s" : ""}`).join(" · ");
+                        const playbackSummary = [
+                            s.autoAdvanceEnabled ? `Auto ${s.autoAdvanceDelay || 8}s` : "Manual",
+                            s.loopSlides ? "Repeats" : null,
+                            s.advanceOnVideoEnd === false ? "Video uses delay" : "Video waits"
+                        ].filter(Boolean).join(" Â· ");
+                        const thumbs = (s.slides || []).map((url, i) => {
+                            const t = st[i] || "image";
+                            if (t === "image") return `<img class="sermon-slide-thumb" src="${url}" loading="lazy">`;
+                            if (t === "video") return `<div class="sermon-slide-thumb video-thumb" title="${sn[i] || "Video"}">🎬</div>`;
+                            if (t === "pdf") return `<div class="sermon-slide-thumb pdf-thumb" title="${sn[i] || "PDF"}">📄</div>`;
+                            if (t === "pptx") return `<div class="sermon-slide-thumb pptx-thumb" title="${sn[i] || "PPTX"}">📊</div>`;
+                            return `<div class="sermon-slide-thumb video-thumb">🎬</div>`;
+                        }).join("");
+                        html += `<div class="sermon-item"><div class="sermon-item-header"><div><div class="song-title">${s.title}</div><div class="song-meta">${typeSummary} · ${new Date(s.createdAt).toLocaleDateString()}</div></div><div class="song-actions"><button class="btn btn-danger btn-sm" onclick="deleteSermon('${d.id}')">Delete</button></div></div>${thumbs ? `<div class="sermon-slides-preview">${thumbs}</div>` : ""}</div>`;
                     });
                     list.innerHTML = html;
-                } catch (e) {
-                    list.innerHTML = `<div class="error-message">Error loading sermons: ${e.message}</div>`;
-                }
+                } catch (e) { list.innerHTML = `<div class="error-message">Error loading media segments: ${e.message}</div>`; }
             };
 
             window.deleteSermon = async function (id) {
-                if (!confirm("Delete this sermon?")) return;
+                if (!confirm("Delete this media segment? This cannot be undone.")) return;
                 await deleteDoc(doc(window.userDb, "sermons", id));
                 loadSermons();
             };
 
-            // ── BACKGROUNDS ──
             window.handleBackgroundUpload = async function (input, type) {
                 const file = input.files[0];
                 if (!file) return;
@@ -1672,12 +1568,7 @@ Praise the Lord</pre
                 document.getElementById("bgProgressFill").style.width = "0%";
                 document.getElementById("bgProgressLabel").textContent = "Starting…";
                 try {
-                    const result = await uploadToCloudinaryFile(
-                        file,
-                        type === "logo" ? "logos" : "backgrounds",
-                        "bgProgressFill",
-                        "bgProgressLabel"
-                    );
+                    const result = await uploadToCloudinaryFile(file, type === "logo" ? "logos" : "backgrounds", "bgProgressFill", "bgProgressLabel");
                     progressDiv.style.display = "none";
                     const userRef = doc(window.userDb, "users", window.currentUser.uid);
                     const snap = await getDoc(userRef);
@@ -1687,31 +1578,23 @@ Praise the Lord</pre
                     await updateDoc(userRef, { [field]: existing });
                     msgDiv.innerHTML = '<div class="success-message">Upload successful!</div>';
                     loadBackgrounds();
-                } catch (e) {
-                    progressDiv.style.display = "none";
-                    msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`;
-                }
+                } catch (e) { progressDiv.style.display = "none"; msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`; }
                 input.value = "";
             };
 
             window.setActiveBackground = async function (url) {
                 try {
                     await updateDoc(doc(window.userDb, "users", window.currentUser.uid), { activeBackground: url });
-                    document.getElementById("backgroundMessage").innerHTML =
-                        '<div class="success-message">Active background set!</div>';
-                    setTimeout(() => (document.getElementById("backgroundMessage").innerHTML = ""), 3000);
+                    document.getElementById("backgroundMessage").innerHTML = '<div class="success-message">Active background set!</div>';
+                    setTimeout(() => document.getElementById("backgroundMessage").innerHTML = "", 3000);
                     loadBackgrounds();
-                } catch (e) {
-                    document.getElementById("backgroundMessage").innerHTML =
-                        `<div class="error-message">${e.message}</div>`;
-                }
+                } catch (e) { document.getElementById("backgroundMessage").innerHTML = `<div class="error-message">${e.message}</div>`; }
             };
 
             window.removeActiveBackground = async function () {
                 await updateDoc(doc(window.userDb, "users", window.currentUser.uid), { activeBackground: null });
-                document.getElementById("backgroundMessage").innerHTML =
-                    '<div class="success-message">Background cleared.</div>';
-                setTimeout(() => (document.getElementById("backgroundMessage").innerHTML = ""), 3000);
+                document.getElementById("backgroundMessage").innerHTML = '<div class="success-message">Background cleared.</div>';
+                setTimeout(() => document.getElementById("backgroundMessage").innerHTML = "", 3000);
                 loadBackgrounds();
             };
 
@@ -1721,19 +1604,16 @@ Praise the Lord</pre
                 const userRef = doc(window.userDb, "users", window.currentUser.uid);
                 const snap = await getDoc(userRef);
                 if (!snap.exists()) return;
-                const arr = (snap.data()[field] || []).filter((u) => u !== url);
+                const arr = (snap.data()[field] || []).filter(u => u !== url);
                 const updates = { [field]: arr };
                 if (snap.data().activeBackground === url) updates.activeBackground = null;
                 await updateDoc(userRef, updates);
-                document.getElementById("backgroundMessage").innerHTML =
-                    '<div class="success-message">Image deleted.</div>';
-                setTimeout(() => (document.getElementById("backgroundMessage").innerHTML = ""), 3000);
+                document.getElementById("backgroundMessage").innerHTML = '<div class="success-message">Image deleted.</div>';
+                setTimeout(() => document.getElementById("backgroundMessage").innerHTML = "", 3000);
                 loadBackgrounds();
             };
 
-            window.deleteLogo = async function (url) {
-                await deleteBackground(url, "logo");
-            };
+            window.deleteLogo = async function (url) { await deleteBackground(url, "logo"); };
 
             async function loadBackgrounds() {
                 const snap = await getDoc(doc(window.userDb, "users", window.currentUser.uid));
@@ -1743,51 +1623,33 @@ Praise the Lord</pre
                 const bgGrid = document.getElementById("backgroundGrid");
                 const logoGrid = document.getElementById("logoGrid");
                 const bgs = d.backgrounds || [];
-                bgGrid.innerHTML = bgs.length
-                    ? bgs
-                          .map((url) => {
-                              const isActive = url === active;
-                              return `<div class="background-item ${isActive ? "active-bg" : ""}">${isActive ? '<div class="active-bg-badge">ACTIVE</div>' : ""}<img src="${url}" loading="lazy"><div class="background-item-actions">${isActive ? `<button class="btn btn-secondary btn-sm" onclick="removeActiveBackground()">Clear Active</button>` : `<button class="btn btn-success btn-sm" onclick="setActiveBackground('${url.replace(/'/g, "\\'")}')">Set Active</button>`}<button class="btn btn-danger btn-sm" onclick="deleteBackground('${url.replace(/'/g, "\\'")}','background')">Delete</button></div></div>`;
-                          })
-                          .join("")
-                    : '<p style="color:#64748b;grid-column:1/-1">No backgrounds yet.</p>';
+                bgGrid.innerHTML = bgs.length ? bgs.map(url => {
+                    const isActive = url === active;
+                    return `<div class="background-item ${isActive ? "active-bg" : ""}">${isActive ? '<div class="active-bg-badge">ACTIVE</div>' : ""}<img src="${url}" loading="lazy"><div class="background-item-actions">${isActive ? `<button class="btn btn-secondary btn-sm" onclick="removeActiveBackground()">Clear Active</button>` : `<button class="btn btn-success btn-sm" onclick="setActiveBackground('${url.replace(/'/g, "\\'")}')">Set Active</button>`}<button class="btn btn-danger btn-sm" onclick="deleteBackground('${url.replace(/'/g, "\\'")}','background')">Delete</button></div></div>`;
+                }).join("") : '<p style="color:#6b7280;grid-column:1/-1">No backgrounds yet.</p>';
                 const logos = d.logos || [];
-                logoGrid.innerHTML = logos.length
-                    ? logos
-                          .map(
-                              (url) =>
-                                  `<div class="background-item"><img src="${url}" loading="lazy"><div class="background-item-actions"><button class="btn btn-danger btn-sm" onclick="deleteLogo('${url.replace(/'/g, "\\'")}')">Delete</button></div></div>`
-                          )
-                          .join("")
-                    : '<p style="color:#64748b;grid-column:1/-1">No logos yet.</p>';
+                logoGrid.innerHTML = logos.length ? logos.map(url =>
+                    `<div class="background-item"><img src="${url}" loading="lazy"><div class="background-item-actions"><button class="btn btn-danger btn-sm" onclick="deleteLogo('${url.replace(/'/g, "\\'")}')">Delete</button></div></div>`
+                ).join("") : '<p style="color:#6b7280;grid-column:1/-1">No logos yet.</p>';
             }
 
-            // ── TYPOGRAPHY ──
             window.loadTypography = async function () {
                 const snap = await getDoc(doc(window.userDb, "users", window.currentUser.uid));
                 if (snap.exists() && snap.data().typography) {
                     const t = snap.data().typography;
                     if (t.fontFamily) document.getElementById("fontFamily").value = t.fontFamily;
                     if (t.fontWeight) document.getElementById("fontWeight").value = t.fontWeight;
-                    if (t.fontSize) {
-                        document.getElementById("fontSize").value = t.fontSize;
-                        document.getElementById("fontSizeVal").textContent = t.fontSize + "px";
-                    }
+                    if (t.fontSize) { document.getElementById("fontSize").value = t.fontSize; document.getElementById("fontSizeVal").textContent = t.fontSize + "px"; }
                     if (t.textColor) document.getElementById("textColor").value = t.textColor;
                     if (t.textShadow) document.getElementById("textShadow").value = t.textShadow;
                     if (t.textAlign) document.getElementById("textAlign").value = t.textAlign;
-                    if (t.lineHeight) {
-                        document.getElementById("lineHeight").value = t.lineHeight;
-                        document.getElementById("lineHeightVal").textContent = (t.lineHeight / 100).toFixed(2);
-                    }
+                    if (t.lineHeight) { document.getElementById("lineHeight").value = t.lineHeight; document.getElementById("lineHeightVal").textContent = (t.lineHeight / 100).toFixed(2); }
                     updateTypographyPreview();
                 }
-                ["fontFamily", "fontWeight", "fontSize", "textColor", "textShadow", "textAlign", "lineHeight"].forEach(
-                    (id) => {
-                        document.getElementById(id).addEventListener("input", updateTypographyPreview);
-                        document.getElementById(id).addEventListener("change", updateTypographyPreview);
-                    }
-                );
+                ["fontFamily", "fontWeight", "fontSize", "textColor", "textShadow", "textAlign", "lineHeight"].forEach(id => {
+                    document.getElementById(id).addEventListener("input", updateTypographyPreview);
+                    document.getElementById(id).addEventListener("change", updateTypographyPreview);
+                });
             };
 
             window.updateTypographyPreview = function () {
@@ -1803,28 +1665,16 @@ Praise the Lord</pre
 
             window.saveTypography = async function () {
                 const msgDiv = document.getElementById("typographyMessage");
-                const typography = {
-                    fontFamily: document.getElementById("fontFamily").value,
-                    fontWeight: document.getElementById("fontWeight").value,
-                    fontSize: parseInt(document.getElementById("fontSize").value),
-                    textColor: document.getElementById("textColor").value,
-                    textShadow: document.getElementById("textShadow").value,
-                    textAlign: document.getElementById("textAlign").value,
-                    lineHeight: parseInt(document.getElementById("lineHeight").value)
-                };
+                const typography = { fontFamily: document.getElementById("fontFamily").value, fontWeight: document.getElementById("fontWeight").value, fontSize: parseInt(document.getElementById("fontSize").value), textColor: document.getElementById("textColor").value, textShadow: document.getElementById("textShadow").value, textAlign: document.getElementById("textAlign").value, lineHeight: parseInt(document.getElementById("lineHeight").value) };
                 try {
                     const r = doc(window.userDb, "users", window.currentUser.uid);
                     const snap = await getDoc(r);
-                    if (snap.exists()) await updateDoc(r, { typography });
-                    else await setDoc(r, { typography });
+                    if (snap.exists()) await updateDoc(r, { typography }); else await setDoc(r, { typography });
                     msgDiv.innerHTML = '<div class="success-message">Typography saved!</div>';
-                    setTimeout(() => (msgDiv.innerHTML = ""), 3000);
-                } catch (e) {
-                    msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`;
-                }
+                    setTimeout(() => msgDiv.innerHTML = "", 3000);
+                } catch (e) { msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`; }
             };
 
-            // ── SETTINGS ──
             window.loadSettings = async function () {
                 const snap = await getDoc(doc(window.userDb, "users", window.currentUser.uid));
                 if (snap.exists()) {
@@ -1835,26 +1685,14 @@ Praise the Lord</pre
                         document.getElementById("cloudinaryKey").value = d.cloudinaryConfig.apiKey || "";
                         document.getElementById("cloudinarySecret").value = d.cloudinaryConfig.apiSecret || "";
                     }
-                    if (d.cloudinaryExtraAccounts) {
-                        window.extraAccounts = d.cloudinaryExtraAccounts || [];
-                        renderExtraAccountFields();
-                    }
+                    if (d.cloudinaryExtraAccounts) { window.extraAccounts = d.cloudinaryExtraAccounts || []; renderExtraAccountFields(); }
                 }
-                const raw = localStorage.getItem("projectly_user_firebase");
+                const raw = localStorage.getItem("viewcast_user_firebase") || localStorage.getItem("projectly_user_firebase");
                 if (raw) {
                     try {
                         const ex = JSON.parse(raw);
-                        [
-                            "apiKey",
-                            "authDomain",
-                            "projectId",
-                            "storageBucket",
-                            "messagingSenderId",
-                            "appId",
-                            "databaseURL"
-                        ].forEach((k) => {
-                            const el = document.getElementById("fb_" + k);
-                            if (el && ex[k]) el.value = ex[k];
+                        ["apiKey", "authDomain", "projectId", "storageBucket", "messagingSenderId", "appId", "databaseURL"].forEach(k => {
+                            const el = document.getElementById("fb_" + k); if (el && ex[k]) el.value = ex[k];
                         });
                     } catch (e) {}
                 }
@@ -1866,37 +1704,18 @@ Praise the Lord</pre
                 try {
                     const r = doc(window.userDb, "users", window.currentUser.uid);
                     const snap = await getDoc(r);
-                    if (snap.exists()) await updateDoc(r, { adminPassword: pw });
-                    else await setDoc(r, { adminPassword: pw });
+                    if (snap.exists()) await updateDoc(r, { adminPassword: pw }); else await setDoc(r, { adminPassword: pw });
                     msgDiv.innerHTML = '<div class="success-message">Admin password saved!</div>';
-                    setTimeout(() => (msgDiv.innerHTML = ""), 3000);
-                } catch (e) {
-                    msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`;
-                }
+                    setTimeout(() => msgDiv.innerHTML = "", 3000);
+                } catch (e) { msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`; }
             };
 
             window.saveFirebaseConfigFromAdmin = async function () {
                 const msgDiv = document.getElementById("settingsMessage");
-                const cfg = {
-                    apiKey: document.getElementById("fb_apiKey").value.trim(),
-                    authDomain: document.getElementById("fb_authDomain").value.trim(),
-                    projectId: document.getElementById("fb_projectId").value.trim(),
-                    storageBucket: document.getElementById("fb_storageBucket").value.trim(),
-                    messagingSenderId: document.getElementById("fb_messagingSenderId").value.trim(),
-                    appId: document.getElementById("fb_appId").value.trim(),
-                    databaseURL: document.getElementById("fb_databaseURL").value.trim()
-                };
-                if (!cfg.apiKey) {
-                    msgDiv.innerHTML = '<div class="error-message">API Key is required.</div>';
-                    return;
-                }
-                if (!cfg.projectId) {
-                    msgDiv.innerHTML = '<div class="error-message">Project ID is required.</div>';
-                    return;
-                }
-                Object.keys(cfg).forEach((k) => {
-                    if (!cfg[k]) delete cfg[k];
-                });
+                const cfg = { apiKey: document.getElementById("fb_apiKey").value.trim(), authDomain: document.getElementById("fb_authDomain").value.trim(), projectId: document.getElementById("fb_projectId").value.trim(), storageBucket: document.getElementById("fb_storageBucket").value.trim(), messagingSenderId: document.getElementById("fb_messagingSenderId").value.trim(), appId: document.getElementById("fb_appId").value.trim(), databaseURL: document.getElementById("fb_databaseURL").value.trim() };
+                if (!cfg.apiKey) { msgDiv.innerHTML = '<div class="error-message">API Key is required.</div>'; return; }
+                if (!cfg.projectId) { msgDiv.innerHTML = '<div class="error-message">Project ID is required.</div>'; return; }
+                Object.keys(cfg).forEach(k => { if (!cfg[k]) delete cfg[k]; });
                 await persistUserFirebaseConfig(cfg);
                 msgDiv.innerHTML = `<div class="success-message">✓ Firebase config saved and synced to your account. Reload to apply.</div>`;
             };
@@ -1907,12 +1726,9 @@ Praise the Lord</pre
                 const apiKey = document.getElementById("cloudinaryKey").value.trim();
                 const apiSecret = document.getElementById("cloudinarySecret").value.trim();
                 const msgDiv = document.getElementById("settingsMessage");
-                if (!cloudName || !uploadPreset) {
-                    msgDiv.innerHTML = '<div class="error-message">Cloud Name and Preset are required.</div>';
-                    return;
-                }
+                if (!cloudName || !uploadPreset) { msgDiv.innerHTML = '<div class="error-message">Cloud Name and Preset are required.</div>'; return; }
                 const extras = [];
-                document.querySelectorAll(".extra-cloudinary-row").forEach((row) => {
+                document.querySelectorAll(".extra-cloudinary-row").forEach(row => {
                     const n = row.querySelector(".extra-cloud-name").value.trim();
                     const p = row.querySelector(".extra-preset").value.trim();
                     const k = row.querySelector(".extra-api-key").value.trim();
@@ -1923,49 +1739,30 @@ Praise the Lord</pre
                 try {
                     const r = doc(window.userDb, "users", window.currentUser.uid);
                     const snap = await getDoc(r);
-                    const data = {
-                        cloudinaryConfig: { cloudName, uploadPreset, apiKey, apiSecret },
-                        cloudinaryExtraAccounts: extras
-                    };
-                    if (snap.exists()) await updateDoc(r, data);
-                    else await setDoc(r, data);
+                    const data = { cloudinaryConfig: { cloudName, uploadPreset, apiKey, apiSecret }, cloudinaryExtraAccounts: extras };
+                    if (snap.exists()) await updateDoc(r, data); else await setDoc(r, data);
                     msgDiv.innerHTML = '<div class="success-message">Cloudinary config saved!</div>';
-                    setTimeout(() => (msgDiv.innerHTML = ""), 3000);
+                    setTimeout(() => msgDiv.innerHTML = "", 3000);
                     loadCloudinaryUsage();
-                } catch (e) {
-                    msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`;
-                }
+                } catch (e) { msgDiv.innerHTML = `<div class="error-message">${e.message}</div>`; }
             };
 
             window.testCloudinaryConnection = async function () {
                 const msgDiv = document.getElementById("settingsMessage");
                 const snap = await getDoc(doc(window.userDb, "users", window.currentUser.uid));
-                if (!snap.exists() || !snap.data().cloudinaryConfig) {
-                    msgDiv.innerHTML = '<div class="error-message">Save Cloudinary config first.</div>';
-                    return;
-                }
+                if (!snap.exists() || !snap.data().cloudinaryConfig) { msgDiv.innerHTML = '<div class="error-message">Save Cloudinary config first.</div>'; return; }
                 const { cloudName, uploadPreset } = snap.data().cloudinaryConfig;
                 msgDiv.innerHTML = '<div class="info-box">Testing…</div>';
                 try {
-                    const blob = await fetch(
-                        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
-                    ).then((r) => r.blob());
+                    const blob = await fetch("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==").then(r => r.blob());
                     const fd = new FormData();
                     fd.append("file", blob, "test.png");
                     fd.append("upload_preset", uploadPreset);
-                    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-                        method: "POST",
-                        body: fd
-                    });
+                    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: "POST", body: fd });
                     const data = await res.json();
-                    if (data.secure_url) {
-                        msgDiv.innerHTML = '<div class="success-message">✓ Cloudinary connection works!</div>';
-                        loadCloudinaryUsage();
-                    } else
-                        msgDiv.innerHTML = `<div class="error-message">Cloudinary error: ${data.error?.message || JSON.stringify(data)}</div>`;
-                } catch (e) {
-                    msgDiv.innerHTML = `<div class="error-message">Connection failed: ${e.message}</div>`;
-                }
+                    if (data.secure_url) { msgDiv.innerHTML = '<div class="success-message">✓ Cloudinary connection works!</div>'; loadCloudinaryUsage(); }
+                    else msgDiv.innerHTML = `<div class="error-message">Cloudinary error: ${data.error?.message || JSON.stringify(data)}</div>`;
+                } catch (e) { msgDiv.innerHTML = `<div class="error-message">Connection failed: ${e.message}</div>`; }
             };
 
             window.loadCloudinaryUsage = async function () {
@@ -1975,14 +1772,8 @@ Praise the Lord</pre
                 const extras = snap.data().cloudinaryExtraAccounts || [];
                 const card = document.getElementById("cloudinaryUsageCard");
                 card.style.display = "block";
-                document.getElementById("cloudinaryUsageGrid").innerHTML =
-                    '<div style="color:#64748b;font-size:13px;grid-column:1/-1">Loading usage data…</div>';
-                await fetchAndRenderUsage(
-                    cfg,
-                    document.getElementById("cloudinaryUsageGrid"),
-                    document.getElementById("cloudinaryPlanBadge"),
-                    true
-                );
+                document.getElementById("cloudinaryUsageGrid").innerHTML = '<div style="color:#6b7280;font-size:13px;grid-column:1/-1">Loading usage data…</div>';
+                await fetchAndRenderUsage(cfg, document.getElementById("cloudinaryUsageGrid"), document.getElementById("cloudinaryPlanBadge"), true);
                 const extraDiv = document.getElementById("extraAccountsUsage");
                 extraDiv.innerHTML = "";
                 for (let i = 0; i < extras.length; i++) {
@@ -1990,8 +1781,7 @@ Praise the Lord</pre
                     const wrapper = document.createElement("div");
                     wrapper.style.marginTop = "16px";
                     const title = document.createElement("div");
-                    title.style.cssText =
-                        "font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px";
+                    title.style.cssText = "font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px";
                     title.textContent = `Account ${i + 2}: ${extras[i].cloudName}`;
                     wrapper.appendChild(title);
                     const grid = document.createElement("div");
@@ -2003,96 +1793,42 @@ Praise the Lord</pre
             };
 
             async function fetchAndRenderUsage(cfg, gridEl, planBadgeEl, isPrimary) {
-                if (!cfg.apiKey || !cfg.apiSecret) {
-                    gridEl.innerHTML =
-                        '<div style="color:#64748b;font-size:12px;grid-column:1/-1">Add API Key & Secret to see usage stats.</div>';
-                    return;
-                }
+                if (!cfg.apiKey || !cfg.apiSecret) { gridEl.innerHTML = '<div style="color:#6b7280;font-size:12px;grid-column:1/-1">Add API Key & Secret to see usage stats.</div>'; return; }
                 try {
                     const credentials = btoa(`${cfg.apiKey}:${cfg.apiSecret}`);
-                    const res = await fetch(`https://api.cloudinary.com/v1_1/${cfg.cloudName}/usage`, {
-                        headers: { Authorization: `Basic ${credentials}` }
-                    });
-                    if (!res.ok) {
-                        gridEl.innerHTML = `<div style="color:#f87171;font-size:12px;grid-column:1/-1">Could not load usage (HTTP ${res.status}). Check your API Key & Secret.</div>`;
-                        return;
-                    }
+                    const res = await fetch(`https://api.cloudinary.com/v1_1/${cfg.cloudName}/usage`, { headers: { Authorization: `Basic ${credentials}` } });
+                    if (!res.ok) { gridEl.innerHTML = `<div style="color:#dc2626;font-size:12px;grid-column:1/-1">Could not load usage (HTTP ${res.status}). Check your API Key & Secret.</div>`; return; }
                     const u = await res.json();
                     if (planBadgeEl) planBadgeEl.textContent = u.plan || "Free";
                     const stats = [
-                        {
-                            label: "Storage",
-                            used: u.storage?.usage,
-                            limit: u.storage?.limit,
-                            unit: "GB",
-                            divisor: 1073741824
-                        },
-                        {
-                            label: "Bandwidth",
-                            used: u.bandwidth?.usage,
-                            limit: u.bandwidth?.limit,
-                            unit: "GB",
-                            divisor: 1073741824
-                        },
-                        {
-                            label: "Transformations",
-                            used: u.transformations?.usage,
-                            limit: u.transformations?.limit,
-                            unit: "",
-                            divisor: 1
-                        },
+                        { label: "Storage", used: u.storage?.usage, limit: u.storage?.limit, unit: "GB", divisor: 1073741824 },
+                        { label: "Bandwidth", used: u.bandwidth?.usage, limit: u.bandwidth?.limit, unit: "GB", divisor: 1073741824 },
+                        { label: "Transformations", used: u.transformations?.usage, limit: u.transformations?.limit, unit: "", divisor: 1 },
                         { label: "Resources", used: u.resources, limit: null, unit: "files", divisor: 1 },
-                        {
-                            label: "Derived Resources",
-                            used: u.derived_resources,
-                            limit: null,
-                            unit: "files",
-                            divisor: 1
-                        }
+                        { label: "Derived Resources", used: u.derived_resources, limit: null, unit: "files", divisor: 1 }
                     ];
-                    gridEl.innerHTML = stats
-                        .map((s) => {
-                            const usedVal = s.used != null ? s.used / s.divisor : null;
-                            const limitVal = s.limit != null ? s.limit / s.divisor : null;
-                            const pct = usedVal != null && limitVal ? (usedVal / limitVal) * 100 : null;
-                            const fillClass = pct == null ? "low" : pct < 60 ? "low" : pct < 85 ? "medium" : "high";
-                            const usedStr =
-                                usedVal != null
-                                    ? s.divisor === 1073741824
-                                        ? usedVal.toFixed(2)
-                                        : Math.round(usedVal).toLocaleString()
-                                    : "—";
-                            const limitStr =
-                                limitVal != null
-                                    ? s.divisor === 1073741824
-                                        ? limitVal.toFixed(2)
-                                        : Math.round(limitVal).toLocaleString()
-                                    : null;
-                            return `<div class="usage-stat"><div class="usage-stat-label">${s.label}</div><div class="usage-stat-value">${usedStr}${s.unit ? " " + s.unit : ""}</div>${limitVal != null ? `<div class="usage-stat-bar"><div class="usage-stat-bar-fill ${fillClass}" style="width:${Math.min(pct, 100).toFixed(1)}%"></div></div><div class="usage-stat-sub">${pct.toFixed(1)}% of ${limitStr} ${s.unit}</div>` : '<div class="usage-stat-sub">No limit / untracked</div>'}</div>`;
-                        })
-                        .join("");
-                } catch (e) {
-                    gridEl.innerHTML = `<div style="color:#f87171;font-size:12px;grid-column:1/-1">Error fetching usage: ${e.message}</div>`;
-                }
+                    gridEl.innerHTML = stats.map(s => {
+                        const usedVal = s.used != null ? s.used / s.divisor : null;
+                        const limitVal = s.limit != null ? s.limit / s.divisor : null;
+                        const pct = usedVal != null && limitVal ? (usedVal / limitVal) * 100 : null;
+                        const fillClass = pct == null ? "low" : pct < 60 ? "low" : pct < 85 ? "medium" : "high";
+                        const usedStr = usedVal != null ? s.divisor === 1073741824 ? usedVal.toFixed(2) : Math.round(usedVal).toLocaleString() : "—";
+                        const limitStr = limitVal != null ? s.divisor === 1073741824 ? limitVal.toFixed(2) : Math.round(limitVal).toLocaleString() : null;
+                        return `<div class="usage-stat"><div class="usage-stat-label">${s.label}</div><div class="usage-stat-value">${usedStr}${s.unit ? " " + s.unit : ""}</div>${limitVal != null ? `<div class="usage-stat-bar"><div class="usage-stat-bar-fill ${fillClass}" style="width:${Math.min(pct, 100).toFixed(1)}%"></div></div><div class="usage-stat-sub">${pct.toFixed(1)}% of ${limitStr} ${s.unit}</div>` : '<div class="usage-stat-sub">No limit / untracked</div>'}</div>`;
+                    }).join("");
+                } catch (e) { gridEl.innerHTML = `<div style="color:#dc2626;font-size:12px;grid-column:1/-1">Error fetching usage: ${e.message}</div>`; }
             }
 
-            window.addExtraCloudinaryAccount = function () {
-                window.extraAccounts.push({ cloudName: "", uploadPreset: "", apiKey: "", apiSecret: "" });
-                renderExtraAccountFields();
-            };
-            window.removeExtraAccount = function (i) {
-                window.extraAccounts.splice(i, 1);
-                renderExtraAccountFields();
-            };
+            window.addExtraCloudinaryAccount = function () { window.extraAccounts.push({ cloudName: "", uploadPreset: "", apiKey: "", apiSecret: "" }); renderExtraAccountFields(); };
+            window.removeExtraAccount = function (i) { window.extraAccounts.splice(i, 1); renderExtraAccountFields(); };
             window.renderExtraAccountFields = function () {
                 const container = document.getElementById("extraCloudinaryAccounts");
                 container.innerHTML = "";
                 window.extraAccounts.forEach((acc, i) => {
-                    container.innerHTML += `<div class="extra-cloudinary-row" style="background:#0f1117;border:1px solid #2d3748;border-radius:10px;padding:16px;margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Account ${i + 2}</div><button class="btn btn-danger btn-sm" onclick="removeExtraAccount(${i})">Remove</button></div><div class="form-group"><label>Cloud Name</label><input type="text" class="extra-cloud-name" value="${acc.cloudName || ""}" placeholder="my-other-cloud"/></div><div class="form-group"><label>Upload Preset</label><input type="text" class="extra-preset" value="${acc.uploadPreset || ""}" placeholder="projectly_preset"/></div><div class="form-group"><label>API Key</label><input type="text" class="extra-api-key" value="${acc.apiKey || ""}" placeholder="API key"/></div><div class="form-group"><label>API Secret</label><input type="password" class="extra-api-secret" value="${acc.apiSecret || ""}" placeholder="API secret"/></div></div>`;
+                    container.innerHTML += `<div class="extra-cloudinary-row settings-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="settings-card-label">Account ${i + 2}</div><button class="btn btn-danger btn-sm" onclick="removeExtraAccount(${i})">Remove</button></div><div class="form-group"><label>Cloud Name</label><input type="text" class="extra-cloud-name" value="${acc.cloudName || ""}" placeholder="my-other-cloud"/></div><div class="form-group"><label>Upload Preset</label><input type="text" class="extra-preset" value="${acc.uploadPreset || ""}" placeholder="projectly_preset"/></div><div class="form-group"><label>API Key</label><input type="text" class="extra-api-key" value="${acc.apiKey || ""}" placeholder="API key"/></div><div class="form-group"><label>API Secret</label><input type="password" class="extra-api-secret" value="${acc.apiSecret || ""}" placeholder="API secret"/></div></div>`;
                 });
             };
 
-            // ── Cloudinary round-robin config ──
             window._uploadRoundRobinIndex = 0;
             async function getCloudinaryConfig() {
                 const snap = await getDoc(doc(window.userDb, "users", window.currentUser.uid));
@@ -2100,14 +1836,12 @@ Praise the Lord</pre
                 const c = snap.data().cloudinaryConfig;
                 if (!c.cloudName || !c.uploadPreset) return null;
                 const extras = snap.data().cloudinaryExtraAccounts || [];
-                const all = [c, ...extras.filter((a) => a.cloudName && a.uploadPreset)];
+                const all = [c, ...extras.filter(a => a.cloudName && a.uploadPreset)];
                 const idx = window._uploadRoundRobinIndex % all.length;
                 window._uploadRoundRobinIndex++;
                 return all[idx];
             }
 
-            // ── Core upload — handles image, video, and raw (PDF/PPTX) ──
-            // fillId/labelId can point to either a single progress bar or a batch status span
             async function uploadToCloudinaryFile(file, folder, fillId, labelId, isRaw = false) {
                 const config = await getCloudinaryConfig();
                 if (!config) throw new Error("Cloudinary not configured. Go to Settings.");
@@ -2118,20 +1852,16 @@ Praise the Lord</pre
                 fd.append("upload_preset", config.uploadPreset);
                 fd.append("folder", `projectly/${folder}`);
                 let rt = "image";
-                if (isRaw) rt = "raw";
-                else if (file.type.startsWith("video")) rt = "video";
+                if (isRaw) rt = "raw"; else if (file.type.startsWith("video")) rt = "video";
                 return new Promise((resolve, reject) => {
                     const xhr = new XMLHttpRequest();
                     xhr.open("POST", `https://api.cloudinary.com/v1_1/${config.cloudName}/${rt}/upload`);
                     xhr.upload.onprogress = (e) => {
                         if (e.lengthComputable) {
                             const p = Math.round((e.loaded / e.total) * 100);
-                            if (fill) {
-                                fill.style.width = p + "%";
-                            }
+                            if (fill) fill.style.width = p + "%";
                             if (label && label.tagName) {
-                                if (label.classList && label.classList.contains("bp-status"))
-                                    label.textContent = p + "%";
+                                if (label.classList && label.classList.contains("bp-status")) label.textContent = p + "%";
                                 else label.textContent = `Uploading… ${p}%`;
                             }
                         }
@@ -2139,25 +1869,20 @@ Praise the Lord</pre
                     xhr.onload = () => {
                         if (xhr.status === 200) {
                             const d = JSON.parse(xhr.responseText);
-                            if (d.secure_url) resolve(d);
-                            else reject(new Error(d.error?.message || "Upload failed"));
+                            if (d.secure_url) resolve(d); else reject(new Error(d.error?.message || "Upload failed"));
                         } else reject(new Error(`HTTP ${xhr.status}`));
                     };
                     xhr.onerror = () => reject(new Error("Network error"));
                     xhr.send(fd);
                 });
             }
-            // Alias for background/logo code that calls uploadToCloudinary
             window.uploadToCloudinary = uploadToCloudinaryFile;
         </script>
 
         <script>
             function switchTab(name, btn) {
-                document.querySelectorAll(".tab-content").forEach((t) => t.classList.remove("active"));
-                document
-                    .querySelector(".admin-container > .tabs")
-                    .querySelectorAll(".tab")
-                    .forEach((b) => b.classList.remove("active"));
+                document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+                document.querySelector(".admin-container > .tabs").querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
                 document.getElementById(name + "Tab").classList.add("active");
                 btn.classList.add("active");
                 if (name === "backgrounds" && window.adminUnlocked) loadBackgroundsOnTab();
@@ -2166,30 +1891,21 @@ Praise the Lord</pre
 
             function loadBackgroundsOnTab() {
                 import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js").then(({ getDoc, doc }) => {
-                    getDoc(doc(window.userDb, "users", window.currentUser.uid)).then((snap) => {
+                    getDoc(doc(window.userDb, "users", window.currentUser.uid)).then(snap => {
                         if (!snap.exists()) return;
                         const d = snap.data();
                         const active = d.activeBackground || null;
                         const bgGrid = document.getElementById("backgroundGrid");
                         const lgGrid = document.getElementById("logoGrid");
                         const bgs = d.backgrounds || [];
-                        bgGrid.innerHTML = bgs.length
-                            ? bgs
-                                  .map((url) => {
-                                      const isActive = url === active;
-                                      return `<div class="background-item ${isActive ? "active-bg" : ""}">${isActive ? '<div class="active-bg-badge">ACTIVE</div>' : ""}<img src="${url}" loading="lazy"><div class="background-item-actions">${isActive ? `<button class="btn btn-secondary btn-sm" onclick="removeActiveBackground()">Clear Active</button>` : `<button class="btn btn-success btn-sm" onclick="setActiveBackground('${url.replace(/'/g, "\\'")}')">Set Active</button>`}<button class="btn btn-danger btn-sm" onclick="deleteBackground('${url.replace(/'/g, "\\'")}','background')">Delete</button></div></div>`;
-                                  })
-                                  .join("")
-                            : '<p style="color:#64748b;grid-column:1/-1">No backgrounds yet.</p>';
+                        bgGrid.innerHTML = bgs.length ? bgs.map(url => {
+                            const isActive = url === active;
+                            return `<div class="background-item ${isActive ? "active-bg" : ""}">${isActive ? '<div class="active-bg-badge">ACTIVE</div>' : ""}<img src="${url}" loading="lazy"><div class="background-item-actions">${isActive ? `<button class="btn btn-secondary btn-sm" onclick="removeActiveBackground()">Clear Active</button>` : `<button class="btn btn-success btn-sm" onclick="setActiveBackground('${url.replace(/'/g, "\\'")}')">Set Active</button>`}<button class="btn btn-danger btn-sm" onclick="deleteBackground('${url.replace(/'/g, "\\'")}','background')">Delete</button></div></div>`;
+                        }).join("") : '<p style="color:#6b7280;grid-column:1/-1">No backgrounds yet.</p>';
                         const logos = d.logos || [];
-                        lgGrid.innerHTML = logos.length
-                            ? logos
-                                  .map(
-                                      (url) =>
-                                          `<div class="background-item"><img src="${url}" loading="lazy"><div class="background-item-actions"><button class="btn btn-danger btn-sm" onclick="deleteLogo('${url.replace(/'/g, "\\'")}')">Delete</button></div></div>`
-                                  )
-                                  .join("")
-                            : '<p style="color:#64748b;grid-column:1/-1">No logos yet.</p>';
+                        lgGrid.innerHTML = logos.length ? logos.map(url =>
+                            `<div class="background-item"><img src="${url}" loading="lazy"><div class="background-item-actions"><button class="btn btn-danger btn-sm" onclick="deleteLogo('${url.replace(/'/g, "\\'")}')">Delete</button></div></div>`
+                        ).join("") : '<p style="color:#6b7280;grid-column:1/-1">No logos yet.</p>';
                     });
                 });
             }
@@ -2197,7 +1913,7 @@ Praise the Lord</pre
             function switchBackgroundTab(name, btn) {
                 document.getElementById("backgroundsSection").style.display = name === "backgrounds" ? "block" : "none";
                 document.getElementById("logosSection").style.display = name === "logos" ? "block" : "none";
-                btn.parentElement.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+                btn.parentElement.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
                 btn.classList.add("active");
             }
         </script>
